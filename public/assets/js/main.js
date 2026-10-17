@@ -1,4 +1,3 @@
-import { createChapterScene, createMap, setupCanting } from './story-scenes.js';
 import { freshProgress, validateProgress, storageKey, readStoredProgress, writeStoredProgress } from './progress-model.js';
 import { setupEngagement } from './engagement.js';
 
@@ -292,7 +291,6 @@ function renderChapter(chapter, index) {
   end.append(status, nextButton);
   const scene = createChapterScene(chapter, story);
   section.append(header, element('p', 'chapter-summary', chapter.summary), scene || figure, prose);
-  if (chapter.id === 'bab-1') section.append(createMap(story));
   if (chapter.reflection) {
     const reflection = element('aside', 'chapter-reflection');
     reflection.append(element('p', 'eyebrow', 'COBA PIKIRKAN'), element('p', '', chapter.reflection));
@@ -436,7 +434,6 @@ function observeChapters() {
       }
     }
   }, { rootMargin: '-10% 0px -60% 0px', threshold: 0 });
-  for (const id of ['beranda', 'cerita', 'peta', 'selanjutnya', 'galeri', 'kuis', 'beraksi', 'sumber']) sceneObserver.observe(document.getElementById(id));
 }
 
 function setupMotion() {
