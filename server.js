@@ -1,24 +1,21 @@
 import { Hono } from 'hono';
 import { serve } from '@hono/node-server';
 import { serveStatic } from '@hono/node-server/serve-static';
-import { getConnInfo } from '@hono/node-server/conninfo';
 import { readFile, writeFile, rename, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve, dirname } from 'node:path';
+import { tmpdir } from 'node:os';
 
 const path = dirname(fileURLToPath(import.meta.url));
 const story = JSON.parse(
   await readFile(resolve(path, 'data/story.json'), 'utf-8'),
 );
-const idBAB = new Set(
-  story.bab.map(function (bab) {
-    return bab.id;
-  }),
-);
-const fileYgMwDibuka = resolve(
-  path,
-  process.env.VISITS_FILE || 'data/visits.json',
-);
+const idBAB = new Set(story.bab.map((bab) => bab.id));
+const diVercel = process.env.VERCEL === '1';
+// di Vercel hitungan ini cuma sementara, bisa hilang saat server diganti
+const fileYgMwDibuka = diVercel
+  ? resolve(tmpdir(), 'jejak-mbako-visits.json')
+  : resolve(path, process.env.VISITS_FILE || 'data/visits.json');
 const limits = new Map();
 const bodyLimit = 1024;
 let queue = Promise.resolve();
@@ -26,7 +23,7 @@ let queue = Promise.resolve();
 export const app = new Hono();
 
 // batasin sumber kode sama akses fitur browser yg ga dipakai
-app.use('*', async function headers(c, next) {
+app.use('*', async (c, next) => {
   c.header(
     'Content-Security-Policy',
     "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; media-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
@@ -44,7 +41,7 @@ app.use('*', async function headers(c, next) {
 });
 
 // maksimal 90 request per IP dalam 1 menit
-app.use('/api/*', async function reqLimit(c, next) {
+app.use('/api/*', async (c, next) => {
   c.header('Cache-Control', 'no-store');
 
   const waktuIki = Date.now();
@@ -54,7 +51,10 @@ app.use('/api/*', async function reqLimit(c, next) {
     }
   }
 
-  const ip = getConnInfo(c).remote.address || 'unknown';
+  // Vercel nyediain IP lewat header, lokal lewat koneksi Node
+  const ip = (diVercel
+    ? c.req.header('x-forwarded-for')?.split(',')[0].trim()
+    : (c.env?.server ?? c.env)?.incoming?.socket?.remoteAddress) || 'unknown';
   let catetan = limits.get(ip);
 
   if (!catetan) {
@@ -97,9 +97,7 @@ app.get('/api/health', (c) => {
 });
 
 // kirim isi cerita utk ditampilin browser
-app.get('/api/story', function (c) {
-  return c.json(story);
-});
+app.get('/api/story', (c) => c.json(story));
 
 // baca kiriman sedikit-sedikit, berhenti kalau ukurannya lewat batas
 async function bacaDataKecil(req) {
@@ -173,7 +171,7 @@ async function addVisit(id) {
 }
 
 // cek asal request dan ID bab, lalu antrekan penyimpanan kunjungannya
-app.post('/api/visit', async function (c) {
+app.post('/api/visit', async (c) => {
   const senderFrom = c.req.header('origin');
   const serverFrom = new URL(c.req.url).origin;
 
@@ -216,10 +214,8 @@ app.post('/api/visit', async function (c) {
     return c.json({ error: 'Pilih ID bab yang tersedia.' }, 400);
   }
 
-  const antreanTulis = queue.then(function () {
-    return addVisit(dataMasuk.chapterId);
-  });
-  queue = antreanTulis.catch(function () {});
+  const antreanTulis = queue.then(() => addVisit(dataMasuk.chapterId));
+  queue = antreanTulis.catch(() => {});
   await antreanTulis;
 
   return c.json({ ok: true }, 201);
@@ -240,12 +236,10 @@ app.get(
 );
 
 // alamat yg ga ada dibalikin ke beranda
-app.notFound(function (c) {
-  return c.redirect('/');
-});
+app.notFound((c) => c.redirect('/'));
 
 // rincian jenis error di terminal, pengguna cukup dapet pesan singkat
-app.onError(function (err, c) {
+app.onError((err, c) => {
   console.error('Permintaan gagal diproses. Jenis:', err.name);
   return c.json(
     { error: 'Server belum dapat memproses permintaan. Silakan coba lagi.' },
@@ -267,9 +261,9 @@ function cekFoto(data, sudahDicek = new Set()) {
   }
 }
 
-// nyalain server kalau file ini dijalankan langsung
+// nyalain server lokal; di Vercel cukup pakai export app
 if (
-  process.argv[1] &&
+  !diVercel && process.argv[1] &&
   resolve(process.argv[1]) === fileURLToPath(import.meta.url)
 ) {
   const port = Number(process.env.PORT || 3000);
@@ -285,7 +279,7 @@ if (
       hostname: process.env.HOST || '127.0.0.1',
       port: port,
     },
-    function (info) {
+    (info) => {
       console.log('Jejak Mbako — fase ' + story.meta.phase);
       console.log('Local: http://localhost:' + info.port);
     },
@@ -296,8 +290,8 @@ if (
 
   // tunggu antrean simpan selesai sebelum server ditutup
   for (const sinyal of ['SIGINT', 'SIGTERM']) {
-    process.on(sinyal, function () {
-      server.close(async function () {
+    process.on(sinyal, () => {
+      server.close(async () => {
         await queue;
         process.exit(0);
       });
