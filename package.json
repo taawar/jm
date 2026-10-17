@@ -5,9 +5,9 @@
   "description": "Cerita interaktif budaya Temanggung, dari daun menuju karya.",
   "type": "module",
   "scripts": {
-    "start": "node s.js",
-    "dev": "node --watch s.js",
-    "check": "node --check s.js && node --check public/assets/js/main.js && node --check public/assets/js/story-scenes.js && node --check public/assets/js/progress-model.js && node --check public/assets/js/engagement.js",
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "check": "node --check server.js && node --check public/assets/js/main.js && node --check public/assets/js/story-scenes.js && node --check public/assets/js/progress-model.js && node --check public/assets/js/engagement.js",
     "test": "node --test",
     "verify:local": "node scripts/verify-local.mjs"
   },

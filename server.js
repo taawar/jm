@@ -7,9 +7,18 @@ import { fileURLToPath } from 'node:url';
 import { resolve, dirname } from 'node:path';
 
 const path = dirname(fileURLToPath(import.meta.url));
-const story = JSON.parse(await readFile(resolve(path, 'data/story.json'), 'utf-8'));
-const idBAB = new Set(story.bab.map((bab) => bab.id));
-const fileYgMwDibuka = resolve(path, process.env.VISITS_FILE || 'data/visits.json');
+const story = JSON.parse(
+  await readFile(resolve(path, 'data/story.json'), 'utf-8'),
+);
+const idBAB = new Set(
+  story.bab.map(function (bab) {
+    return bab.id;
+  }),
+);
+const fileYgMwDibuka = resolve(
+  path,
+  process.env.VISITS_FILE || 'data/visits.json',
+);
 const limits = new Map();
 const bodyLimit = 1024;
 let queue = Promise.resolve();
@@ -17,7 +26,7 @@ let queue = Promise.resolve();
 export const app = new Hono();
 
 // batasin sumber kode sama akses fitur browser yg ga dipakai
-app.use('*', async (c, next) => {
+app.use('*', async function headers(c, next) {
   c.header(
     'Content-Security-Policy',
     "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; media-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
@@ -35,7 +44,7 @@ app.use('*', async (c, next) => {
 });
 
 // maksimal 90 request per IP dalam 1 menit
-app.use('/api/*', async (c, next) => {
+app.use('/api/*', async function reqLimit(c, next) {
   c.header('Cache-Control', 'no-store');
 
   const waktuIki = Date.now();
@@ -79,12 +88,18 @@ app.use('/api/*', async (c, next) => {
 });
 
 // cek server masih bisa merespons
-app.get('/api/health', (c) => c.json({
-  status: 'ok', app: 'Jejak Mbako', phase: story.meta.phase,
-}));
+app.get('/api/health', (c) => {
+  return c.json({
+    status: 'ok',
+    app: 'Jejak Mbako',
+    phase: story.meta.phase,
+  });
+});
 
 // kirim isi cerita utk ditampilin browser
-app.get('/api/story', (c) => c.json(story));
+app.get('/api/story', function (c) {
+  return c.json(story);
+});
 
 // baca kiriman sedikit-sedikit, berhenti kalau ukurannya lewat batas
 async function bacaDataKecil(req) {
@@ -158,7 +173,7 @@ async function addVisit(id) {
 }
 
 // cek asal request dan ID bab, lalu antrekan penyimpanan kunjungannya
-app.post('/api/visit', async (c) => {
+app.post('/api/visit', async function (c) {
   const senderFrom = c.req.header('origin');
   const serverFrom = new URL(c.req.url).origin;
 
@@ -201,23 +216,36 @@ app.post('/api/visit', async (c) => {
     return c.json({ error: 'Pilih ID bab yang tersedia.' }, 400);
   }
 
-  const antreanTulis = queue.then(() => addVisit(dataMasuk.chapterId));
-  queue = antreanTulis.catch(() => {});
+  const antreanTulis = queue.then(function () {
+    return addVisit(dataMasuk.chapterId);
+  });
+  queue = antreanTulis.catch(function () {});
   await antreanTulis;
 
   return c.json({ ok: true }, 201);
 });
 
 // sediain aset sama halaman utama
-app.get('/assets/*', serveStatic({ root: resolve(path, 'public') }));
-app.get('/', serveStatic({ path: resolve(path, 'public/index.html') }));
-app.get('/index.html', serveStatic({ path: resolve(path, 'public/index.html') }));
+app.get(
+  '/assets/*',
+  serveStatic({ root: resolve(path, 'public') }),
+);
+app.get(
+  '/',
+  serveStatic({ path: resolve(path, 'public/index.html') }),
+);
+app.get(
+  '/index.html',
+  serveStatic({ path: resolve(path, 'public/index.html') }),
+);
 
 // alamat yg ga ada dibalikin ke beranda
-app.notFound((c) => c.redirect('/'));
+app.notFound(function (c) {
+  return c.redirect('/');
+});
 
 // rincian jenis error di terminal, pengguna cukup dapet pesan singkat
-app.onError((err, c) => {
+app.onError(function (err, c) {
   console.error('Permintaan gagal diproses. Jenis:', err.name);
   return c.json(
     { error: 'Server belum dapat memproses permintaan. Silakan coba lagi.' },
@@ -257,7 +285,7 @@ if (
       hostname: process.env.HOST || '127.0.0.1',
       port: port,
     },
-    (info) => {
+    function (info) {
       console.log('Jejak Mbako — fase ' + story.meta.phase);
       console.log('Local: http://localhost:' + info.port);
     },
@@ -268,8 +296,8 @@ if (
 
   // tunggu antrean simpan selesai sebelum server ditutup
   for (const sinyal of ['SIGINT', 'SIGTERM']) {
-    process.on(sinyal, () => {
-      server.close(async () => {
+    process.on(sinyal, function () {
+      server.close(async function () {
         await queue;
         process.exit(0);
       });
@@ -277,3 +305,4 @@ if (
     });
   }
 }
+export default app;
