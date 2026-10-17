@@ -231,15 +231,11 @@ body[data-media='kosong'] .chapter-image,
 body[data-media='kosong'] .scene-image,
 body[data-media='kosong'] .scene-marker,
 body[data-media='kosong'] .process-art,
-body[data-media='kosong'] .future-art,
-body[data-media='kosong'] .gallery-visual img {
+body[data-media='kosong'] .future-art{
   visibility: hidden;
 }
 body[data-media='kosong'] .hero-figure figcaption,
 body[data-media='kosong'] .chapter-figure figcaption,
-body[data-media='kosong'] .gallery-badge,
-body[data-media='kosong'] .gallery-credit,
-body[data-media='kosong'] .gallery-note,
 body[data-media='kosong'] .map-scene > .scene-caption,
 body[data-media='kosong'] .motif-scene > .scene-caption {
   display: none;
@@ -247,8 +243,7 @@ body[data-media='kosong'] .motif-scene > .scene-caption {
 body[data-media='kosong'] .landscape-wrap,
 body[data-media='kosong'] .chapter-figure,
 body[data-media='kosong'] .scene-stage,
-body[data-media='kosong'] .process-art,
-body[data-media='kosong'] .gallery-visual {
+body[data-media='kosong'] .process-art{
   background: var(--kabut);
   border: var(--stroke) solid var(--border-dark);
   border-radius: var(--radius);
@@ -2224,16 +2219,15 @@ body[data-theme='nila'] .canting-drop {
 }
 
 :root {
-  --gallery-slide: 76%;
+
   --quiz-symbol: 12rem;
   --quiz-score: 4.5rem;
-  --card-ratio: 1200/760;
+
   --check-size: 24px;
   --quiz-wrong: rgb(168 64 31 / 0.07);
   --quiz-right: rgb(63 90 54 / 0.08);
 }
 .engagement-intro,
-.gallery-section,
 .quiz-section,
 .action-section {
   background: var(--mori);
@@ -2254,105 +2248,8 @@ body[data-theme='nila'] .canting-drop {
 .engagement-intro .text-link {
   margin-top: var(--space-4);
 }
-.gallery-section .intro-heading > p,
 .action-section .intro-heading > p {
   color: var(--tinta-lembut);
-}
-.gallery-track {
-  position: relative;
-  display: flex;
-  gap: var(--space-6);
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: thin;
-  scrollbar-color: var(--soga) var(--border-dark);
-  padding-block: var(--space-1) var(--space-4);
-  cursor: grab;
-  user-select: none;
-  touch-action: pan-x pan-y pinch-zoom;
-}
-.gallery-track:focus-visible {
-  outline: var(--focus) solid var(--nila);
-  outline-offset: var(--focus-offset);
-  border-radius: var(--radius-small);
-}
-.gallery-track.is-dragging {
-  scroll-snap-type: none;
-  scroll-behavior: auto;
-  cursor: grabbing;
-}
-.gallery-track > * {
-  flex: 0 0 var(--gallery-slide);
-  min-width: 0;
-  scroll-snap-align: start;
-}
-.gallery-track::after {
-  content: '';
-  flex: 0 0 calc(100% - var(--gallery-slide) - var(--space-6));
-}
-.gallery-visual {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 16/9;
-  border-radius: var(--radius);
-  border: var(--stroke) solid var(--border-dark);
-  background: var(--nila);
-}
-.gallery-visual img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  pointer-events: none;
-}
-.gallery-badge {
-  position: absolute;
-  top: var(--space-4);
-  left: var(--space-4);
-  background: var(--putih);
-  color: var(--soga);
-  padding: var(--space-1) var(--space-3);
-  border-radius: var(--pill);
-  font-size: var(--text-label);
-  font-weight: 500;
-}
-.gallery-slide figcaption {
-  padding-top: var(--space-6);
-}
-.gallery-slide h3 {
-  font-size: var(--scene-heading);
-  margin-block: var(--space-3);
-}
-.gallery-slide figcaption > p {
-  color: var(--tinta-lembut);
-}
-.gallery-credit {
-  font-size: var(--text-label);
-  margin-top: var(--space-3);
-}
-.gallery-controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-6);
-  margin-top: var(--space-6);
-}
-.gallery-note {
-  font-size: var(--text-label);
-  color: var(--tinta-lembut);
-}
-.gallery-navigation {
-  display: flex;
-  align-items: center;
-  gap: var(--space-5);
-  flex-shrink: 0;
-}
-.gallery-navigation [role='status'] {
-  font-size: var(--text-label);
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  min-width: var(--space-16);
-  text-align: center;
 }
 .round-button {
   display: grid;
@@ -2675,70 +2572,6 @@ body[data-theme='nila'] .canting-drop {
   font-size: var(--text-label);
   color: var(--tinta-lembut);
 }
-.keeper-section {
-  margin-top: var(--space-20);
-  padding-top: var(--space-16);
-  border-top: var(--stroke) solid var(--border-dark);
-  display: grid;
-  grid-template-columns: 4fr 7fr;
-  gap: var(--space-16);
-  align-items: start;
-}
-.keeper-copy > h3 {
-  font-size: var(--text-h2);
-  margin-block: var(--space-4) var(--space-6);
-}
-.keeper-copy > p:not(.eyebrow) {
-  color: var(--tinta-lembut);
-}
-.keeper-copy .text-button {
-  margin-top: var(--space-5);
-}
-.keeper-output {
-  min-width: 0;
-}
-.keeper-output canvas {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-}
-.keeper-output > [role='status'] {
-  font-size: var(--text-label);
-  color: var(--tinta-lembut);
-  margin-block: var(--space-4);
-}
-.card-locked {
-  aspect-ratio: var(--card-ratio);
-  background: var(--nila);
-  color: var(--krem-gelap);
-  border-radius: var(--radius);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: var(--space-8);
-  gap: var(--space-3);
-  border: var(--stroke) solid var(--gold-faint);
-}
-.card-locked img {
-  width: var(--space-12);
-  height: var(--space-12);
-}
-.card-locked .eyebrow {
-  color: var(--emas);
-}
-.card-locked > p:not(.eyebrow) {
-  font-family: var(--font-title);
-  font-size: var(--scene-heading);
-  line-height: 1.3;
-}
-.card-locked > span {
-  font-size: var(--text-label);
-  color: var(--lembut-gelap);
-}
 .journey-engagement {
   border-top: var(--stroke) solid var(--border-dark);
   padding-top: var(--space-4);
@@ -2770,20 +2603,12 @@ body[data-theme='nila'] .canting-drop {
   .mission-list {
     grid-template-columns: 1fr;
   }
-  .keeper-section {
-    grid-template-columns: 1fr;
-    gap: var(--space-8);
-  }
-  .keeper-copy > h3 {
-    margin-bottom: var(--space-4);
-  }
 }
 @media (max-width: 580px) {
   :root {
-    --gallery-slide: 92%;
+
   }
   .engagement-intro,
-  .gallery-section,
   .quiz-section,
   .action-section {
     padding-block: var(--space-16);
@@ -2794,27 +2619,6 @@ body[data-theme='nila'] .canting-drop {
   .quiz-section,
   .action-section {
     padding-top: 0;
-  }
-  .gallery-track {
-    gap: var(--space-4);
-  }
-  .gallery-track::after {
-    flex-basis: calc(100% - var(--gallery-slide) - var(--space-4));
-  }
-  .gallery-controls {
-    align-items: start;
-    flex-direction: column;
-    gap: var(--space-4);
-  }
-  .gallery-navigation {
-    align-self: flex-end;
-  }
-  .gallery-badge {
-    top: var(--space-2);
-    left: var(--space-2);
-  }
-  .gallery-slide h3 {
-    font-size: var(--text-h3);
   }
   .quiz-intro,
   .quiz-content {
@@ -2842,20 +2646,7 @@ body[data-theme='nila'] .canting-drop {
   .idea-list {
     grid-template-columns: 1fr;
   }
-  .ideas-heading,
-  .keeper-section {
+  .ideas-heading{
     margin-top: var(--space-16);
-  }
-  .keeper-section {
-    padding-top: var(--space-10);
-  }
-  .card-locked {
-    aspect-ratio: auto;
-    min-height: var(--space-32);
-    padding: var(--space-6);
-  }
-  .keeper-output .button {
-    width: 100%;
-    justify-content: center;
   }
 }

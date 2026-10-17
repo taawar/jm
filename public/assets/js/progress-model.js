@@ -35,10 +35,6 @@ export function validateProgress(value, story) {
   return clean;
 }
 
-export function cardUnlocked(progress, missions) {
-  return missions.length > 0 && missions.every(function (mission) { return progress.completedMissions.includes(mission.id); });
-}
-
 export function readStoredProgress(story, getStorage = function () { return localStorage; }) {
   let raw;
   try {

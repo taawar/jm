@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile, access } from 'node:fs/promises';
-import { gradeQuiz, validateProgress, freshProgress, cardUnlocked, storageKey, readStoredProgress, writeStoredProgress } from '../public/assets/js/progress-model.js';
+import { gradeQuiz, validateProgress, freshProgress, storageKey, readStoredProgress, writeStoredProgress } from '../public/assets/js/progress-model.js';
 
 const story = JSON.parse(await readFile(new URL('../data/story.json', import.meta.url), 'utf8'));
 const correct = story.kuis.map(function (question) { return { id: question.id, choice: question.answer }; });
@@ -12,7 +12,7 @@ test('hasil dihitung dari jawaban; skor dan status kiriman tidak dipercaya', fun
   assert.equal(clean.quiz.score, 1);
   assert.equal(clean.quiz.completed, false);
   assert.deepEqual(clean.completedMissions, []);
-  assert.equal(cardUnlocked(clean, story.misi), false);
+  assert.equal(clean.completedMissions.length === story.misi.length, false);
 });
 
 test('jawaban rusak, duplikat, atau urutan lama berhenti pada bagian yang valid', function () {
@@ -28,17 +28,17 @@ test('misi kuis selesai setelah semua jawaban, termasuk bila skor nol', function
   const clean = validateProgress({ quiz: { answers: wrong }, completedMissions: ['cerita', 'bagikan'] }, story);
   assert.equal(clean.quiz.score, 0);
   assert.equal(clean.quiz.completed, true);
-  assert.equal(cardUnlocked(clean, story.misi), true);
+  assert.equal(clean.completedMissions.length === story.misi.length, true);
 });
 
-test('mengulang kuis mengunci kartu tanpa menghapus dua misi manual', function () {
+test('mengulang kuis membatalkan misi kuis tanpa menghapus dua misi manual', function () {
   const clean = validateProgress({ completedMissions: ['kuis', 'cerita', 'bagikan'], quiz: null }, story);
   assert.deepEqual(clean.completedMissions, ['cerita', 'bagikan']);
-  assert.equal(cardUnlocked(clean, story.misi), false);
+  assert.equal(clean.completedMissions.length === story.misi.length, false);
   const restored = validateProgress({ ...clean, quiz: { answers: correct } }, story);
-  assert.equal(cardUnlocked(restored, story.misi), true);
+  assert.equal(restored.completedMissions.length === story.misi.length, true);
   const unchecked = validateProgress({ ...restored, completedMissions: ['kuis', 'cerita'] }, story);
-  assert.equal(cardUnlocked(unchecked, story.misi), false);
+  assert.equal(unchecked.completedMissions.length === story.misi.length, false);
 });
 
 test('progres fase 2 dipertahankan, ID asing dibuang, dan input tidak dimutasi', function () {
@@ -53,12 +53,11 @@ test('progres fase 2 dipertahankan, ID asing dibuang, dan input tidak dimutasi',
   for (const malformed of [null, [], 'teks', 42]) assert.deepEqual(validateProgress(malformed, story), freshProgress());
 });
 
-test('round-trip progres lengkap tetap dapat membuka kartu', function () {
+test('round-trip progres lengkap tetap menyimpan semua misi', function () {
   const input = { ...freshProgress(), nickname: '<Ayu & teman>', quiz: { answers: correct }, completedMissions: ['cerita', 'bagikan'] };
   const clean = validateProgress(input, story);
   assert.deepEqual(validateProgress(JSON.parse(JSON.stringify(clean)), story), clean);
-  assert.equal(cardUnlocked(clean, story.misi), true);
-  assert.equal(cardUnlocked(clean, []), false);
+  assert.equal(clean.completedMissions.length === story.misi.length, true);
   assert.equal(validateProgress({ nickname: '🌿'.repeat(30) }, story).nickname, '🌿'.repeat(24));
 });
 

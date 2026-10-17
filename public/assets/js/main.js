@@ -145,8 +145,7 @@ function setupMenu() {
 function setActiveNavigation(id) {
   let section = id;
   if (id.startsWith('bab-') || ['motif', 'proses'].includes(id)) section = 'cerita';
-  if (id === 'selanjutnya') section = 'galeri';
-  if (id === 'kartu') section = 'beraksi';
+  if (id === 'selanjutnya') section = 'kuis';
   for (const link of document.querySelectorAll('#main-nav a')) {
     const active = link.hash === '#' + section;
     link.classList.toggle('nav-current', active);
@@ -435,7 +434,7 @@ function observeChapters() {
       }
     }
   }, { rootMargin: '-10% 0px -60% 0px', threshold: 0 });
-  for (const id of ['beranda', 'cerita', 'selanjutnya', 'galeri', 'kuis', 'beraksi', 'sumber']) {
+  for (const id of ['beranda', 'cerita', 'selanjutnya', 'kuis', 'beraksi', 'sumber']) {
     const bagian = document.getElementById(id);
     if (bagian) sceneObserver.observe(bagian);
   }
@@ -523,11 +522,6 @@ async function loadStory() {
         progress = validateProgress(progress, story);
         saveProgress();
         updateProgressUI();
-      },
-      openNickname: function (trigger) {
-        document.querySelector('#nickname').value = progress.nickname;
-        openDialog('journey-dialog', trigger);
-        document.querySelector('#nickname').focus();
       }
     });
     document.querySelector('#engagement-sections').hidden = false;
