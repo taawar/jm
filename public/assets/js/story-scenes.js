@@ -1,273 +1,227 @@
-// Nama properti data (misalnya title), kelas CSS, dan API browser tetap mengikuti
-// file atau standar yang memakainya. Nama variabel serta fungsi internal memakai bahasa Indonesia.
-
-// Membuat elemen HTML dan mengisi kelas CSS serta teksnya jika diberikan.
-function buatElemen(tag, namaKelas, teks) {
-  const elemen = document.createElement(tag);
-  if (namaKelas) {
-    elemen.className = namaKelas;
-  }
-  if (teks !== undefined) {
-    elemen.textContent = teks;
-  }
-  return elemen;
+function node(tag, className, text) {
+  const item = document.createElement(tag);
+  if (className) item.className = className;
+  if (text !== undefined) item.textContent = text;
+  return item;
 }
 
-// SVG perlu dibuat dengan alamat khusus agar browser mengenalinya sebagai gambar.
-function buatSvg(tag, atribut = {}) {
-  const elemen = document.createElementNS('http://www.w3.org/2000/svg', tag);
-  for (const [namaAtribut, nilai] of Object.entries(atribut)) {
-    elemen.setAttribute(namaAtribut, String(nilai));
-  }
-  return elemen;
+function svgNode(tag, attributes = {}) {
+  const item = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  for (const [key, value] of Object.entries(attributes))
+    item.setAttribute(key, String(value));
+  return item;
 }
 
-// Cari rujukan berdasarkan ID, lalu tampilkan tautan HTTPS yang valid.
-function tambahkanSumber(wadah, daftarId, cerita) {
-  const daftarSumber = buatElemen('div', 'scene-sources');
-  for (const id of daftarId || []) {
-    const sumber = cerita.sumber.find(function (data) {
-      return data.id === id;
+function addSources(container, ids, story) {
+  const sources = node('div', 'scene-sources');
+  for (const id of ids || []) {
+    const source = story.sumber.find(function (item) {
+      return item.id === id;
     });
-    if (!sumber) {
-      continue;
-    }
-    let alamat;
+    if (!source) continue;
+    let url;
     try {
-      alamat = new URL(sumber.url);
+      url = new URL(source.url);
     } catch {
       continue;
     }
-    if (alamat.protocol !== 'https:') {
-      continue;
-    }
-    const tautan = buatElemen('a', '', sumber.publisher.split(' · ').pop() + ' ↗');
-    tautan.href = alamat.href;
-    tautan.target = '_blank';
-    tautan.rel = 'noopener noreferrer';
-    tautan.setAttribute('aria-label', sumber.title + ', buka sumber di tab baru');
-    daftarSumber.append(tautan);
+    if (url.protocol !== 'https:') continue;
+    const link = node('a', '', source.publisher.split(' · ').pop() + ' ↗');
+    link.href = url.href;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.setAttribute('aria-label', source.title + ', buka sumber di tab baru');
+    sources.append(link);
   }
-  if (daftarSumber.childElementCount > 0) {
-    wadah.append(daftarSumber);
-  }
+  if (sources.childElementCount) container.append(sources);
 }
 
-// Membuat pilihan yang bisa dipakai lewat klik maupun tombol panah keyboard.
-function buatTab(daftarData, awalanId, label, pilih) {
-  const wadahTab = buatElemen('div', 'scene-tabs');
-  wadahTab.setAttribute('role', 'tablist');
-  wadahTab.setAttribute('aria-label', label);
-  const daftarTab = [];
-  for (const [indeks, data] of daftarData.entries()) {
-    const tombolTab = buatElemen('button', 'scene-tab');
-    tombolTab.type = 'button';
-    tombolTab.id = awalanId + '-tab-' + data.id;
-    tombolTab.setAttribute('role', 'tab');
-    tombolTab.setAttribute('aria-controls', awalanId + '-panel');
-    const nomor = buatElemen(
+function makeTabs(items, prefix, label, select) {
+  const list = node('div', 'scene-tabs');
+  list.setAttribute('role', 'tablist');
+  list.setAttribute('aria-label', label);
+  const tabs = [];
+  for (const [index, item] of items.entries()) {
+    const tab = node('button', 'scene-tab');
+    tab.type = 'button';
+    tab.id = prefix + '-tab-' + item.id;
+    tab.setAttribute('role', 'tab');
+    tab.setAttribute('aria-controls', prefix + '-panel');
+    const number = node(
       'span',
       'tab-number',
-      String(indeks + 1).padStart(2, '0'),
+      String(index + 1).padStart(2, '0'),
     );
-    nomor.setAttribute('aria-hidden', 'true');
-    tombolTab.append(
-      nomor,
-      buatElemen('span', '', data.shortTitle || data.name || data.label),
+    number.setAttribute('aria-hidden', 'true');
+    tab.append(
+      number,
+      node('span', '', item.shortTitle || item.name || item.label),
     );
-    tombolTab.addEventListener('click', function () {
-      pilih(indeks);
+    tab.addEventListener('click', function () {
+      select(index);
     });
-    tombolTab.addEventListener('keydown', function (kejadian) {
-      let berikutnya = indeks;
-      if (kejadian.key === 'ArrowRight' || kejadian.key === 'ArrowDown') {
-        berikutnya = (indeks + 1) % daftarData.length;
-      } else if (kejadian.key === 'ArrowLeft' || kejadian.key === 'ArrowUp') {
-        berikutnya = (indeks - 1 + daftarData.length) % daftarData.length;
-      } else if (kejadian.key === 'Home') {
-        berikutnya = 0;
-      } else if (kejadian.key === 'End') {
-        berikutnya = daftarData.length - 1;
-      } else {
-        return;
-      }
-      kejadian.preventDefault();
-      pilih(berikutnya);
-      daftarTab[berikutnya].focus({ preventScroll: true });
+    tab.addEventListener('keydown', function (event) {
+      let next = index;
+      if (event.key === 'ArrowRight' || event.key === 'ArrowDown')
+        next = (index + 1) % items.length;
+      else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp')
+        next = (index - 1 + items.length) % items.length;
+      else if (event.key === 'Home') next = 0;
+      else if (event.key === 'End') next = items.length - 1;
+      else return;
+      event.preventDefault();
+      select(next);
+      tabs[next].focus({ preventScroll: true });
     });
-    daftarTab.push(tombolTab);
-    wadahTab.append(tombolTab);
+    tabs.push(tab);
+    list.append(tab);
   }
-  return { wadahTab, daftarTab };
+  return { list, tabs };
 }
 
-// Tandai pilihan aktif. Pilihan lain tetap bisa dijangkau memakai tombol panah.
-function perbaruiTab(daftarTab, indeksTerpilih) {
-  for (const [indeks, tombolTab] of daftarTab.entries()) {
-    const aktif = indeks === indeksTerpilih;
-    tombolTab.setAttribute('aria-selected', String(aktif));
-    if (aktif) {
-      tombolTab.tabIndex = 0;
-    } else {
-      tombolTab.tabIndex = -1;
-    }
+function updateTabs(tabs, selected) {
+  for (const [index, tab] of tabs.entries()) {
+    tab.setAttribute('aria-selected', String(index === selected));
+    tab.tabIndex = index === selected ? 0 : -1;
   }
 }
 
-// Menempatkan tombol pada gambar. Koordinat dibatasi agar tidak keluar gambar.
-function buatPenanda(data, indeks, awalanId, pilih) {
-  const tombol = buatElemen('button', 'scene-marker');
-  tombol.type = 'button';
-  let posisiX = 50;
-  let posisiY = 50;
-  if (Number.isFinite(data.x)) {
-    posisiX = Math.max(5, Math.min(95, data.x));
-  }
-  if (Number.isFinite(data.y)) {
-    posisiY = Math.max(5, Math.min(95, data.y));
-  }
-  tombol.style.left = posisiX + '%';
-  tombol.style.top = posisiY + '%';
-  tombol.setAttribute('aria-label', 'Pilih ' + (data.name || data.label));
-  tombol.setAttribute('aria-controls', awalanId + '-panel');
-  tombol.append(
-    buatElemen('span', 'marker-number', String(indeks + 1).padStart(2, '0')),
+function makeMarker(item, index, prefix, select) {
+  const button = node('button', 'scene-marker');
+  button.type = 'button';
+  const x = Number.isFinite(item.x) ? Math.max(5, Math.min(95, item.x)) : 50;
+  const y = Number.isFinite(item.y) ? Math.max(5, Math.min(95, item.y)) : 50;
+  button.style.left = x + '%';
+  button.style.top = y + '%';
+  button.setAttribute('aria-label', 'Pilih ' + (item.name || item.label));
+  button.setAttribute('aria-controls', prefix + '-panel');
+  button.append(
+    node('span', 'marker-number', String(index + 1).padStart(2, '0')),
   );
-  const label = buatElemen('span', 'marker-name', data.name || data.label);
+  const label = node('span', 'marker-name', item.name || item.label);
   label.setAttribute('aria-hidden', 'true');
-  tombol.append(label);
-  tombol.addEventListener('click', function () {
-    pilih(indeks);
+  button.append(label);
+  button.addEventListener('click', function () {
+    select(index);
   });
-  return tombol;
+  return button;
 }
 
-// Peta dan motif memakai susunan yang sama: gambar, pilihan, lalu penjelasan.
-function buatPenjelajah(pengaturan, cerita) {
-  const bagian = buatElemen('section', 'story-scene ' + pengaturan.namaKelas);
-  bagian.id = pengaturan.id;
-  bagian.setAttribute('aria-labelledby', pengaturan.id + '-title');
-  const judul = buatElemen('h3', '', pengaturan.judul);
-  judul.id = pengaturan.id + '-title';
-  bagian.append(
-    buatElemen('p', 'eyebrow', pengaturan.labelAtas),
-    judul,
-    buatElemen('p', 'scene-intro', pengaturan.deskripsi),
+function makeExplorer(settings, story) {
+  const root = node('section', 'story-scene ' + settings.className);
+  root.id = settings.id;
+  root.setAttribute('aria-labelledby', settings.id + '-title');
+  const heading = node('h3', '', settings.title);
+  heading.id = settings.id + '-title';
+  root.append(
+    node('p', 'eyebrow', settings.eyebrow),
+    heading,
+    node('p', 'scene-intro', settings.description),
   );
-  const wadahGambar = buatElemen('div', 'scene-stage');
-  const gambar = buatElemen('img', 'scene-image');
-  gambar.src = pengaturan.gambar;
-  gambar.width = pengaturan.lebar;
-  gambar.height = pengaturan.tinggi;
-  gambar.alt = pengaturan.teksAlternatif;
-  gambar.loading = 'lazy';
-  gambar.decoding = 'async';
-  wadahGambar.append(gambar);
-  const panel = buatElemen('div', 'scene-panel');
-  panel.id = pengaturan.id + '-panel';
+  const stage = node('div', 'scene-stage');
+  const image = node('img', 'scene-image');
+  image.src = settings.image;
+  image.width = settings.width;
+  image.height = settings.height;
+  image.alt = settings.alt;
+  image.loading = 'lazy';
+  image.decoding = 'async';
+  stage.append(image);
+  const panel = node('div', 'scene-panel');
+  panel.id = settings.id + '-panel';
   panel.setAttribute('role', 'tabpanel');
   panel.tabIndex = 0;
-  const status = buatElemen('p', 'sr-only');
+  const status = node('p', 'sr-only');
   status.setAttribute('role', 'status');
-  const daftarPenanda = [];
-  let navigasi;
-  function pilih(indeks, umumkan = true) {
-    const data = pengaturan.daftarData[indeks];
-    perbaruiTab(navigasi.daftarTab, indeks);
-    for (const [indeksPenanda, penanda] of daftarPenanda.entries()) {
-      penanda.setAttribute('aria-pressed', String(indeksPenanda === indeks));
-    }
-    panel.setAttribute('aria-labelledby', navigasi.daftarTab[indeks].id);
+  const markers = [];
+  let controls;
+  function select(index, announce = true) {
+    const item = settings.items[index];
+    updateTabs(controls.tabs, index);
+    for (const [markerIndex, marker] of markers.entries())
+      marker.setAttribute('aria-pressed', String(markerIndex === index));
+    panel.setAttribute('aria-labelledby', controls.tabs[index].id);
     panel.replaceChildren(
-      buatElemen('p', 'eyebrow', data.category),
-      buatElemen('h4', '', data.title || data.name),
+      node('p', 'eyebrow', item.category),
+      node('h4', '', item.title || item.name),
     );
-    if (data.location) {
-      panel.append(buatElemen('p', 'place-location', data.location));
-    }
-    panel.append(buatElemen('p', 'scene-description', data.text));
-    if (data.note) {
-      panel.append(buatElemen('p', 'verification-note', data.note));
-    }
-    if (data.prompt) {
-      panel.append(buatElemen('p', 'scene-prompt', data.prompt));
-    }
-    tambahkanSumber(panel, data.sourceIds, cerita);
-    if (umumkan) {
+    if (item.location) panel.append(node('p', 'place-location', item.location));
+    panel.append(node('p', 'scene-description', item.text));
+    if (item.note) panel.append(node('p', 'verification-note', item.note));
+    if (item.prompt) panel.append(node('p', 'scene-prompt', item.prompt));
+    addSources(panel, item.sourceIds, story);
+    if (announce)
       status.textContent =
-        (data.name || data.label) +
+        (item.name || item.label) +
         ' dipilih. Ceritanya tersedia di panel setelah daftar pilihan.';
-    }
   }
-  navigasi = buatTab(pengaturan.daftarData, pengaturan.id, pengaturan.labelPilihan, pilih);
-  for (const [indeks, data] of pengaturan.daftarData.entries()) {
-    const penanda = buatPenanda(data, indeks, pengaturan.id, pilih);
-    daftarPenanda.push(penanda);
-    wadahGambar.append(penanda);
+  controls = makeTabs(settings.items, settings.id, settings.tabsLabel, select);
+  for (const [index, item] of settings.items.entries()) {
+    const marker = makeMarker(item, index, settings.id, select);
+    markers.push(marker);
+    stage.append(marker);
   }
-  bagian.append(
-    wadahGambar,
-    buatElemen('p', 'scene-caption', pengaturan.keterangan),
-    navigasi.wadahTab,
+  root.append(
+    stage,
+    node('p', 'scene-caption', settings.caption),
+    controls.list,
     panel,
     status,
   );
-  pilih(0, false);
-  return bagian;
+  select(0, false);
+  return root;
 }
 
-// Nama fungsi export tetap dipakai karena terhubung ke main.js atau pengujian.
-export function createMap(cerita) {
-  return buatPenjelajah(
+export function createMap(story) {
+  return makeExplorer(
     {
       id: 'peta',
-      namaKelas: 'map-scene',
-      labelAtas: 'PETA CERITA / TEMANGGUNG',
-      judul: cerita.peta.title,
-      deskripsi: cerita.peta.description,
-      daftarData: cerita.peta.points,
-      gambar: '/assets/img/story-map.svg',
-      lebar: 760,
-      tinggi: 480,
-      teksAlternatif: 'Peta ilustratif dengan dua gunung, kebun, embung, sungai, dan ruang kota.',
-      keterangan: cerita.peta.caption,
-      labelPilihan: 'Pilih tempat di Temanggung',
+      className: 'map-scene',
+      eyebrow: 'PETA CERITA / TEMANGGUNG',
+      title: story.peta.title,
+      description: story.peta.description,
+      items: story.peta.points,
+      image: '/assets/img/story-map.svg',
+      width: 760,
+      height: 480,
+      alt: 'Peta ilustratif dengan dua gunung, kebun, embung, sungai, dan ruang kota.',
+      caption: story.peta.caption,
+      tabsLabel: 'Pilih tempat di Temanggung',
     },
-    cerita,
+    story,
   );
 }
 
-function buatMotif(cerita) {
-  return buatPenjelajah(
+function createMotif(story) {
+  return makeExplorer(
     {
       id: 'motif',
-      namaKelas: 'motif-scene',
-      labelAtas: 'DEKATI KAINNYA',
-      judul: 'Baca cerita di antara garis.',
-      deskripsi:
+      className: 'motif-scene',
+      eyebrow: 'DEKATI KAINNYA',
+      title: 'Baca cerita di antara garis.',
+      description:
         'Pilih titik pada kain atau gunakan pilihan di bawah. Mulai dari bentuk, ikuti garis, lalu temukan iramanya.',
-      daftarData: cerita.motifHotspot,
-      gambar: '/assets/img/cloth.svg',
-      lebar: 640,
-      tinggi: 560,
-      teksAlternatif: 'Kain ilustrasi original dengan pola daun dan titik berulang berwarna emas di atas nila.',
-      keterangan:
+      items: story.motifHotspot,
+      image: '/assets/img/cloth.svg',
+      width: 640,
+      height: 560,
+      alt: 'Kain ilustrasi original dengan pola daun dan titik berulang berwarna emas di atas nila.',
+      caption:
         'Motif original Jejak Mbako. Bukan reproduksi atau contoh motif resmi Ron Mbako maupun Rigen Mbako.',
-      labelPilihan: 'Pilih unsur motif',
+      tabsLabel: 'Pilih unsur motif',
     },
-    cerita,
+    story,
   );
 }
 
-// Menggambar kain dan alat batik. Angka serta huruf pada atribut d adalah perintah SVG.
-function buatGambarProses() {
-  const gambar = buatSvg('svg', {
+function createProcessArt() {
+  const art = svgNode('svg', {
     viewBox: '0 0 640 400',
     class: 'process-art',
     role: 'img',
   });
-  gambar.append(
-    buatSvg('ellipse', {
+  art.append(
+    svgNode('ellipse', {
       cx: 320,
       cy: 351,
       rx: 233,
@@ -275,8 +229,8 @@ function buatGambarProses() {
       class: 'fabric-shadow',
     }),
   );
-  gambar.append(
-    buatSvg('rect', {
+  art.append(
+    svgNode('rect', {
       x: 95,
       y: 45,
       width: 450,
@@ -285,389 +239,344 @@ function buatGambarProses() {
       class: 'process-fabric',
     }),
   );
-  const garisBantu = buatSvg('path', {
+  const guide = svgNode('path', {
     d: 'M113 62H527V320H113ZM248 62V320M392 62V320M113 190H527',
     class: 'process-guides',
   });
-  gambar.append(garisBantu);
-  const pola = buatSvg('g', { class: 'process-pattern' });
-  for (const posisiX of [132, 275, 418]) {
-    for (const posisiY of [78, 208]) {
-      const daun = buatSvg('g', {
-        transform: 'translate(' + posisiX + ' ' + posisiY + ')',
+  art.append(guide);
+  const pattern = svgNode('g', { class: 'process-pattern' });
+  for (const x of [132, 275, 418]) {
+    for (const y of [78, 208]) {
+      const leaf = svgNode('g', {
+        transform: 'translate(' + x + ' ' + y + ')',
       });
-      daun.append(
-        buatSvg('path', {
+      leaf.append(
+        svgNode('path', {
           d: 'M22 90C-5 54 23 11 89 5 99 53 64 95 22 90ZM13 103 80 17M37 72 24 43M52 50 76 44',
           class: 'process-leaf',
         }),
       );
-      pola.append(daun);
+      pattern.append(leaf);
     }
   }
-  gambar.append(pola);
-  gambar.append(
-    buatSvg('path', {
+  art.append(pattern);
+  art.append(
+    svgNode('path', {
       d: 'M489 58 572 21 581 41 499 78 480 80Z M490 59 499 78',
       class: 'process-pencil',
     }),
   );
-  const canting = buatSvg('g', {
+  const canting = svgNode('g', {
     class: 'process-canting',
     transform: 'translate(455 30) rotate(24)',
   });
   canting.append(
-    buatSvg('path', { d: 'M0 0H19V93H0Z', class: 'tool-handle' }),
-    buatSvg('ellipse', { cx: 10, cy: 108, rx: 31, ry: 23, class: 'tool-bowl' }),
-    buatSvg('path', { d: 'M36 101 73 123 68 135 31 120Z', class: 'tool-bowl' }),
+    svgNode('path', { d: 'M0 0H19V93H0Z', class: 'tool-handle' }),
+    svgNode('ellipse', { cx: 10, cy: 108, rx: 31, ry: 23, class: 'tool-bowl' }),
+    svgNode('path', { d: 'M36 101 73 123 68 135 31 120Z', class: 'tool-bowl' }),
   );
-  gambar.append(canting);
-  gambar.append(
-    buatSvg('path', {
+  art.append(canting);
+  art.append(
+    svgNode('path', {
       d: 'M74 299Q173 283 249 299T420 299T568 299V361H74Z',
       class: 'process-water',
     }),
   );
-  gambar.append(
-    buatSvg('path', {
+  art.append(
+    svgNode('path', {
       d: 'M180 39Q167 26 180 15M319 38Q306 24 319 12M455 39Q442 26 455 15',
       class: 'process-steam',
     }),
   );
-  return gambar;
+  return art;
 }
 
-// Menghubungkan pilihan tahap dengan gambar kain dan penjelasannya.
-function buatProses(cerita) {
-  const bagian = buatElemen('section', 'story-scene process-scene');
-  bagian.id = 'proses';
-  bagian.setAttribute('aria-labelledby', 'process-title');
-  const judul = buatElemen('h3', '', 'Satu kain, banyak ketekunan.');
-  judul.id = 'process-title';
-  bagian.append(
-    buatElemen('p', 'eyebrow', 'IKUTI PERUBAHANNYA'),
-    judul,
-    buatElemen(
+function createProcess(story) {
+  const root = node('section', 'story-scene process-scene');
+  root.id = 'proses';
+  root.setAttribute('aria-labelledby', 'process-title');
+  const title = node('h3', '', 'Satu kain, banyak ketekunan.');
+  title.id = 'process-title';
+  root.append(
+    node('p', 'eyebrow', 'IKUTI PERUBAHANNYA'),
+    title,
+    node(
       'p',
       'scene-intro',
       'Empat tahap ringkas untuk membaca proses membatik. Pilih tahap, lalu amati perubahan kainnya.',
     ),
   );
-  const panel = buatElemen('div', 'process-panel');
+  const panel = node('div', 'process-panel');
   panel.id = 'proses-panel';
   panel.setAttribute('role', 'tabpanel');
   panel.tabIndex = 0;
-  const gambar = buatGambarProses();
-  const penjelasan = buatElemen('div', 'process-copy');
-  const indikator = buatElemen('p', 'process-indicator');
-  indikator.setAttribute('role', 'status');
-  const wadahTombol = buatElemen('div', 'process-navigation');
-  const sebelumnya = buatElemen('button', 'button button-secondary', '← Sebelumnya');
-  const berikutnya = buatElemen('button', 'button button-secondary', 'Berikutnya →');
-  sebelumnya.type = 'button';
-  berikutnya.type = 'button';
-  sebelumnya.setAttribute('aria-label', 'Tahap sebelumnya');
-  berikutnya.setAttribute('aria-label', 'Tahap berikutnya');
-  let indeksTerpilih = 0;
-  let navigasi;
-  function pilih(indeks) {
-    indeksTerpilih = Math.max(0, Math.min(cerita.proses.length - 1, indeks));
-    const tahap = cerita.proses[indeksTerpilih];
-    perbaruiTab(navigasi.daftarTab, indeksTerpilih);
-    panel.setAttribute('aria-labelledby', navigasi.daftarTab[indeksTerpilih].id);
-    gambar.dataset.stage = tahap.id;
-    gambar.setAttribute(
+  const art = createProcessArt();
+  const copy = node('div', 'process-copy');
+  const indicator = node('p', 'process-indicator');
+  indicator.setAttribute('role', 'status');
+  const navigation = node('div', 'process-navigation');
+  const previous = node('button', 'button button-secondary', '← Sebelumnya');
+  const next = node('button', 'button button-secondary', 'Berikutnya →');
+  previous.type = 'button';
+  next.type = 'button';
+  previous.setAttribute('aria-label', 'Tahap sebelumnya');
+  next.setAttribute('aria-label', 'Tahap berikutnya');
+  let selected = 0;
+  let controls;
+  function select(index) {
+    selected = Math.max(0, Math.min(story.proses.length - 1, index));
+    const step = story.proses[selected];
+    updateTabs(controls.tabs, selected);
+    panel.setAttribute('aria-labelledby', controls.tabs[selected].id);
+    art.dataset.stage = step.id;
+    art.setAttribute(
       'aria-label',
-      'Ilustrasi tahap ' + tahap.title + '. ' + tahap.observe,
+      'Ilustrasi tahap ' + step.title + '. ' + step.observe,
     );
-    penjelasan.replaceChildren(
-      buatElemen('h4', '', tahap.title),
-      buatElemen('p', '', tahap.text),
-      buatElemen('p', 'scene-prompt', tahap.observe),
+    copy.replaceChildren(
+      node('h4', '', step.title),
+      node('p', '', step.text),
+      node('p', 'scene-prompt', step.observe),
     );
-    tambahkanSumber(penjelasan, tahap.sourceIds, cerita);
-    indikator.textContent =
+    addSources(copy, step.sourceIds, story);
+    indicator.textContent =
       'Tahap ' +
-      (indeksTerpilih + 1) +
+      (selected + 1) +
       ' dari ' +
-      cerita.proses.length +
+      story.proses.length +
       ' · ' +
-      tahap.shortTitle;
-    sebelumnya.disabled = indeksTerpilih === 0;
-    berikutnya.disabled = indeksTerpilih === cerita.proses.length - 1;
+      step.shortTitle;
+    previous.disabled = selected === 0;
+    next.disabled = selected === story.proses.length - 1;
   }
-  navigasi = buatTab(cerita.proses, 'proses', 'Tahapan membatik', pilih);
-  sebelumnya.addEventListener('click', function () {
-    pilih(indeksTerpilih - 1);
-    if (sebelumnya.disabled) navigasi.daftarTab[indeksTerpilih].focus();
+  controls = makeTabs(story.proses, 'proses', 'Tahapan membatik', select);
+  previous.addEventListener('click', function () {
+    select(selected - 1);
+    if (previous.disabled) controls.tabs[selected].focus();
   });
-  berikutnya.addEventListener('click', function () {
-    pilih(indeksTerpilih + 1);
-    if (berikutnya.disabled) navigasi.daftarTab[indeksTerpilih].focus();
+  next.addEventListener('click', function () {
+    select(selected + 1);
+    if (next.disabled) controls.tabs[selected].focus();
   });
-  panel.append(gambar, penjelasan);
-  wadahTombol.append(sebelumnya, berikutnya);
-  bagian.append(
-    navigasi.wadahTab,
+  panel.append(art, copy);
+  navigation.append(previous, next);
+  root.append(
+    controls.list,
     panel,
-    indikator,
-    wadahTombol,
-    buatElemen(
+    indicator,
+    navigation,
+    node(
       'p',
       'scene-caption',
       'Ilustrasi proses umum, bukan resep produksi. Praktik dan hasil warna setiap perajin dapat berbeda.',
     ),
   );
-  pilih(0);
-  return bagian;
+  select(0);
+  return root;
 }
 
-// Menggambar lima jalur dari lima bab yang bertemu menuju angka 2045.
-function buatMasaDepan(cerita) {
-  const wadah = buatElemen('figure', 'future-scene');
-  const gambarSvg = buatSvg('svg', {
+function createFuture(story) {
+  const figure = node('figure', 'future-scene');
+  const svg = svgNode('svg', {
     viewBox: '0 0 760 440',
     class: 'future-art',
     'aria-hidden': 'true',
     focusable: 'false',
   });
-  gambarSvg.append(
-    buatSvg('circle', { cx: 526, cy: 220, r: 154, class: 'future-orbit' }),
+  svg.append(
+    svgNode('circle', { cx: 526, cy: 220, r: 154, class: 'future-orbit' }),
   );
-  gambarSvg.append(
-    buatSvg('circle', { cx: 526, cy: 220, r: 177, class: 'future-orbit' }),
+  svg.append(
+    svgNode('circle', { cx: 526, cy: 220, r: 177, class: 'future-orbit' }),
   );
-  for (let indeks = 0; indeks < 5; indeks += 1) {
-    const posisiY = 68 + indeks * 76;
-    gambarSvg.append(
-      buatSvg('circle', { cx: 88, cy: posisiY, r: 6, class: 'future-origin' }),
+  for (let index = 0; index < 5; index += 1) {
+    const y = 68 + index * 76;
+    svg.append(
+      svgNode('circle', { cx: 88, cy: y, r: 6, class: 'future-origin' }),
     );
-    const jalur = buatSvg('path', {
-      d: 'M88 ' + posisiY + ' C260 ' + posisiY + ' 237 220 368 220',
+    const path = svgNode('path', {
+      d: 'M88 ' + y + ' C260 ' + y + ' 237 220 368 220',
       class: 'future-thread',
     });
-    gambarSvg.append(jalur);
+    svg.append(path);
   }
-  gambarSvg.append(
-    buatSvg('circle', { cx: 368, cy: 220, r: 7, class: 'future-origin' }),
+  svg.append(
+    svgNode('circle', { cx: 368, cy: 220, r: 7, class: 'future-origin' }),
   );
-  const tahun = buatSvg('text', {
+  const year = svgNode('text', {
     x: 532,
     y: 247,
     'text-anchor': 'middle',
     class: 'future-year',
   });
-  tahun.textContent = '2045';
-  gambarSvg.append(tahun);
-  const daftarJudul = buatElemen('ol', 'future-labels');
-  for (const bab of cerita.bab) {
-    daftarJudul.append(buatElemen('li', '', bab.shortTitle));
-  }
-  wadah.append(
-    gambarSvg,
-    daftarJudul,
-    buatElemen(
+  year.textContent = '2045';
+  svg.append(year);
+  const labels = node('ol', 'future-labels');
+  for (const chapter of story.bab)
+    labels.append(node('li', '', chapter.shortTitle));
+  figure.append(
+    svg,
+    labels,
+    node(
       'figcaption',
       '',
       'Lima bab, satu bekal: berakar pada budaya, bertumbuh lewat karya.',
     ),
   );
-  return wadah;
+  return figure;
 }
 
-export function createChapterScene(bab, cerita) {
-  if (bab.id === 'bab-3') {
-    return buatMotif(cerita);
-  }
-  if (bab.id === 'bab-4') {
-    return buatProses(cerita);
-  }
-  if (bab.id === 'bab-5') {
-    return buatMasaDepan(cerita);
-  }
+export function createChapterScene(chapter, story) {
+  if (chapter.id === 'bab-3') return createMotif(story);
+  if (chapter.id === 'bab-4') return createProcess(story);
+  if (chapter.id === 'bab-5') return createFuture(story);
   return null;
 }
 
-// Hasil 0: belum mulai. Hasil 0.5: setengah jalan. Hasil 1: selesai.
-export function readingFraction(posisi, awal, akhir) {
-  if (!Number.isFinite(posisi) || !Number.isFinite(awal) || !Number.isFinite(akhir)) {
-    return 0;
-  }
-  if (akhir <= awal) {
-    return 0;
-  }
-
-  const kemajuan = (posisi - awal) / (akhir - awal);
-  return Math.max(0, Math.min(1, kemajuan));
+export function readingFraction(position, start, end) {
+  if (![position, start, end].every(Number.isFinite) || end <= start) return 0;
+  return Math.max(0, Math.min(1, (position - start) / (end - start)));
 }
 
-// M berarti pindah, L membuat garis lurus, dan C membuat lengkungan pada SVG.
-function buatJalurCanting(daftarTitik, posisiX, layarRingkas) {
-  let jalur = 'M' + posisiX + ' ' + daftarTitik[0];
-  for (let indeks = 1; indeks < daftarTitik.length; indeks += 1) {
-    const awal = daftarTitik[indeks - 1];
-    const akhir = daftarTitik[indeks];
-    if (layarRingkas) {
-      jalur += ' L' + posisiX + ' ' + akhir;
-    } else {
-      const lengkungan = indeks % 2 === 0 ? 14 : -14;
-      const tengah = (awal + akhir) / 2;
-      jalur +=
+function threadPath(anchors, x, compact) {
+  let path = 'M' + x + ' ' + anchors[0];
+  for (let index = 1; index < anchors.length; index += 1) {
+    const start = anchors[index - 1];
+    const end = anchors[index];
+    if (compact) path += ' L' + x + ' ' + end;
+    else {
+      const swing = index % 2 === 0 ? 14 : -14;
+      const middle = (start + end) / 2;
+      path +=
         ' C' +
-        (posisiX + lengkungan) +
+        (x + swing) +
         ' ' +
-        (tengah - 40) +
+        (middle - 40) +
         ' ' +
-        (posisiX - lengkungan) +
+        (x - swing) +
         ' ' +
-        (tengah + 40) +
+        (middle + 40) +
         ' ' +
-        posisiX +
+        x +
         ' ' +
-        akhir;
+        end;
     }
   }
-  return jalur;
+  return path;
 }
 
-// Mengatur garis canting yang mengikuti posisi baca saat halaman digulir.
 export function setupCanting() {
-  const halaman = document.querySelector('#story-main');
-  const gambarSvg = document.querySelector('#canting-thread');
-  const jalurDasar = document.querySelector('#canting-track');
-  const garisTinta = document.querySelector('#canting-ink');
-  const tetes = document.querySelector('#canting-drop');
-  const bagianMasaDepan = document.querySelector('.future-scene');
-  const daftarGarisMasaDepan = [...document.querySelectorAll('.future-thread')];
-  const kurangiGerak = matchMedia('(prefers-reduced-motion: reduce)');
-  const layarRingkas = matchMedia('(max-width: 800px), (pointer: coarse)');
-  const pengendali = new AbortController();
-  const opsiPendengar = { signal: pengendali.signal };
-  let idFrame = 0;
-  let perluUkur = true;
-  let ukuran;
+  const main = document.querySelector('#story-main');
+  const svg = document.querySelector('#canting-thread');
+  const track = document.querySelector('#canting-track');
+  const ink = document.querySelector('#canting-ink');
+  const drop = document.querySelector('#canting-drop');
+  const future = document.querySelector('.future-scene');
+  const futurePaths = [...document.querySelectorAll('.future-thread')];
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const compact = matchMedia('(max-width: 800px), (pointer: coarse)');
+  const controller = new AbortController();
+  const options = { signal: controller.signal };
+  let frame = 0;
+  let needsMeasure = true;
+  let metrics;
 
-  // Ukur ulang hanya saat tata letak berubah, bukan pada setiap scroll.
-  function ukurHalaman() {
-    const batasHalaman = halaman.getBoundingClientRect();
-    const daftarBab = [...document.querySelectorAll('.chapter')];
-    const babTerakhir = daftarBab[daftarBab.length - 1];
-    if (!babTerakhir) {
-      return;
-    }
-    const batasBeranda = document.querySelector('#beranda').getBoundingClientRect();
-    const daftarTitik = [batasBeranda.top - batasHalaman.top + 100, batasBeranda.bottom - batasHalaman.top];
-    for (const bab of daftarBab) {
-      daftarTitik.push(bab.getBoundingClientRect().top - batasHalaman.top + 40);
-    }
-    daftarTitik.push(babTerakhir.getBoundingClientRect().bottom - batasHalaman.top - 48);
-    let posisiX = Math.max(16, (batasHalaman.width - 1120) / 2 - 32);
-    if (layarRingkas.matches) {
-      posisiX = 7;
-    }
-    const jalur = buatJalurCanting(daftarTitik, posisiX, layarRingkas.matches);
-    gambarSvg.setAttribute('viewBox', '0 0 ' + batasHalaman.width + ' ' + batasHalaman.height);
-    jalurDasar.setAttribute('d', jalur);
-    garisTinta.setAttribute('d', jalur);
-    const panjang = garisTinta.getTotalLength();
-    const posisiAtasHalaman = batasHalaman.top + window.scrollY;
-    const batasMasaDepan = bagianMasaDepan.getBoundingClientRect();
-    ukuran = {
-      awal: posisiAtasHalaman + daftarTitik[0],
-      akhir: posisiAtasHalaman + daftarTitik[daftarTitik.length - 1],
-      panjang: panjang,
-      awalMasaDepan: batasMasaDepan.top + window.scrollY,
-      akhirMasaDepan: batasMasaDepan.bottom + window.scrollY,
-      panjangGarisMasaDepan: daftarGarisMasaDepan.map(function (data) {
-        return data.getTotalLength();
+  function measure() {
+    const base = main.getBoundingClientRect();
+    const chapters = [...document.querySelectorAll('.chapter')];
+    const finalChapter = chapters[chapters.length - 1];
+    if (!finalChapter) return;
+    const hero = document.querySelector('#beranda').getBoundingClientRect();
+    const anchors = [hero.top - base.top + 100, hero.bottom - base.top];
+    for (const chapter of chapters)
+      anchors.push(chapter.getBoundingClientRect().top - base.top + 40);
+    anchors.push(finalChapter.getBoundingClientRect().bottom - base.top - 48);
+    const x = compact.matches ? 7 : Math.max(16, (base.width - 1120) / 2 - 32);
+    const path = threadPath(anchors, x, compact.matches);
+    svg.setAttribute('viewBox', '0 0 ' + base.width + ' ' + base.height);
+    track.setAttribute('d', path);
+    ink.setAttribute('d', path);
+    const length = ink.getTotalLength();
+    const absoluteTop = base.top + window.scrollY;
+    const futureBox = future.getBoundingClientRect();
+    metrics = {
+      start: absoluteTop + anchors[0],
+      end: absoluteTop + anchors[anchors.length - 1],
+      length,
+      futureStart: futureBox.top + window.scrollY,
+      futureEnd: futureBox.bottom + window.scrollY,
+      futureLengths: futurePaths.map(function (item) {
+        return item.getTotalLength();
       }),
     };
-    gambarSvg.dataset.motion = kurangiGerak.matches ? 'reduced' : 'full';
-    gambarSvg.dataset.layout = layarRingkas.matches ? 'compact' : 'desktop';
+    svg.dataset.motion = reduced.matches ? 'reduced' : 'full';
+    svg.dataset.layout = compact.matches ? 'compact' : 'desktop';
   }
 
-  // Tampilkan sebagian garis sesuai kemajuan baca, lalu pindahkan titik ke ujungnya.
-  function gambarGaris() {
-    idFrame = 0;
-    if (perluUkur) {
-      ukurHalaman();
-      perluUkur = false;
+  function draw() {
+    frame = 0;
+    if (needsMeasure) {
+      measure();
+      needsMeasure = false;
     }
-    if (!ukuran) {
-      return;
-    }
-    // Patokan baca berada 65% dari atas layar, bukan tepat pada tepi atasnya.
-    const posisiBaca = window.scrollY + window.innerHeight * 0.65;
-    let kemajuan = 1;
-    if (!kurangiGerak.matches) {
-      kemajuan = readingFraction(posisiBaca, ukuran.awal, ukuran.akhir);
-    }
-    // Offset sepanjang garis menyembunyikannya. Offset 0 menampilkan seluruh garis.
-    garisTinta.setAttribute('stroke-dasharray', String(ukuran.panjang));
-    garisTinta.setAttribute(
+    if (!metrics) return;
+    const readingLine = window.scrollY + window.innerHeight * 0.65;
+    const fraction = reduced.matches
+      ? 1
+      : readingFraction(readingLine, metrics.start, metrics.end);
+    ink.setAttribute('stroke-dasharray', String(metrics.length));
+    ink.setAttribute(
       'stroke-dashoffset',
-      String(ukuran.panjang * (1 - kemajuan)),
+      String(metrics.length * (1 - fraction)),
     );
-    const ujungGaris = garisTinta.getPointAtLength(ukuran.panjang * kemajuan);
-    tetes.setAttribute('cx', String(ujungGaris.x));
-    tetes.setAttribute('cy', String(ujungGaris.y));
-    let kemajuanMasaDepan = 1;
-    if (!kurangiGerak.matches) {
-      kemajuanMasaDepan = readingFraction(posisiBaca, ukuran.awalMasaDepan, ukuran.akhirMasaDepan);
-    }
-    for (const [indeks, jalur] of daftarGarisMasaDepan.entries()) {
-      const panjang = ukuran.panjangGarisMasaDepan[indeks];
-      jalur.setAttribute('stroke-dasharray', String(panjang));
-      jalur.setAttribute(
+    const point = ink.getPointAtLength(metrics.length * fraction);
+    drop.setAttribute('cx', String(point.x));
+    drop.setAttribute('cy', String(point.y));
+    const futureFraction = reduced.matches
+      ? 1
+      : readingFraction(readingLine, metrics.futureStart, metrics.futureEnd);
+    for (const [index, path] of futurePaths.entries()) {
+      const length = metrics.futureLengths[index];
+      path.setAttribute('stroke-dasharray', String(length));
+      path.setAttribute(
         'stroke-dashoffset',
-        String(panjang * (1 - kemajuanMasaDepan)),
+        String(length * (1 - futureFraction)),
       );
     }
   }
 
-  // Banyak kejadian scroll cukup menghasilkan satu pembaruan per frame layar.
-  function jadwalkanGambar() {
-    if (idFrame === 0) {
-      idFrame = requestAnimationFrame(gambarGaris);
-    }
+  function schedule() {
+    if (!frame) frame = requestAnimationFrame(draw);
   }
 
-  // Ukuran layar atau font berubah, jadi posisi jalur perlu dihitung ulang.
-  function tandaiPerluUkur() {
-    perluUkur = true;
-    jadwalkanGambar();
+  function invalidate() {
+    needsMeasure = true;
+    schedule();
   }
 
   window.addEventListener(
     'scroll',
     function () {
-      if (!kurangiGerak.matches) {
-        jadwalkanGambar();
-      }
+      if (!reduced.matches) schedule();
     },
-    { passive: true, signal: pengendali.signal },
+    { passive: true, signal: controller.signal },
   );
-  window.addEventListener('resize', tandaiPerluUkur, opsiPendengar);
-  kurangiGerak.addEventListener('change', tandaiPerluUkur, opsiPendengar);
-  layarRingkas.addEventListener('change', tandaiPerluUkur, opsiPendengar);
-  let pengamatUkuran;
+  window.addEventListener('resize', invalidate, options);
+  reduced.addEventListener('change', invalidate, options);
+  compact.addEventListener('change', invalidate, options);
+  let resizeObserver;
   if ('ResizeObserver' in window) {
-    pengamatUkuran = new ResizeObserver(tandaiPerluUkur);
-    pengamatUkuran.observe(halaman);
+    resizeObserver = new ResizeObserver(invalidate);
+    resizeObserver.observe(main);
   }
-  if (document.fonts) {
+  if (document.fonts)
     document.fonts.ready.then(function () {
-      if (!pengendali.signal.aborted) {
-        tandaiPerluUkur();
-      }
+      if (!controller.signal.aborted) invalidate();
     });
-  }
-  jadwalkanGambar();
+  schedule();
   return function () {
-    pengendali.abort();
-    cancelAnimationFrame(idFrame);
-    if (pengamatUkuran) {
-      pengamatUkuran.disconnect();
-    }
+    controller.abort();
+    cancelAnimationFrame(frame);
+    if (resizeObserver) resizeObserver.disconnect();
   };
 }

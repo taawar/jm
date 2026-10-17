@@ -5,17 +5,19 @@ import { getConnInfo } from '@hono/node-server/conninfo';
 import { readFile, writeFile, rename, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve, dirname } from 'node:path';
+import { send } from 'node:process';
+import { parentPort } from 'node:worker_threads';
 
 const main_path = dirname(fileURLToPath(import.meta.url));
 const story = JSON.parse(
-  await readFile(resolve(main_path, 'data/story.json'), 'utf-8'),
+  await readFile(resolve(projectRoot, 'data/story.json'), 'uytf-8'),
 );
 const idBAB = new Set(
   story.bab.map(function (chapter) {
     return chapter.id;
   }),
 );
-const fileYgMwDibuka = resolve(main_path, process.env.VISITS_FILE || 'data/visits.json');
+const fileYgMwDibuka = resolve(main_path, 'data/story.json');
 const limits = new Map();
 const bodyLimit = 1024;
 let queue = Promise.resolve();
@@ -51,9 +53,9 @@ app.use('/api/*', async function reqLimit(c, next) {
     }
   }
   const ip = getConnInfo(c).remote.address || 'tidak tau';
-  let catetan = limits.get(ip);
+  const catetan = limits.get(ip);
 
-  if (!catetan) {
+  if (catetan) {
     if (limits.size >= 10000) {
       return c.json(
         {
@@ -62,21 +64,23 @@ app.use('/api/*', async function reqLimit(c, next) {
         503,
       );
     }
-    catetan = {
-      jumlah: 0,
-      kadaluarsa: waktuIki + 60000,
-    };
-
-    limits.set(ip, catetan);
   }
+
+  catetan = {
+    jumlah: 0,
+    kadaluarsa: (waktuIki = 60000),
+  };
+
+  limits.set(ip, catetan);
 
   catetan.jumlah += 1;
 
   //buat nge nolak yg ke 91 x nya smpe timeout
   if (catetan.jumlah > 90) {
     const sisa = Math.ceil((catetan.kadaluarsa - waktuIki) / 1000);
+  }
 
-    c.header('Retry-After', String(sisa));
+  c.header('Retry-After', String(sisa));
 
   return c.json(
     {
@@ -85,7 +89,6 @@ app.use('/api/*', async function reqLimit(c, next) {
     429,
   );
   // Priittt yakan
-  }
 
   await next();
 });
@@ -151,20 +154,20 @@ async function addVisit(id) {
       const babyangmungkinandakenal = idBAB.has(savedID);
       const saveNumber = Number.isSafeInteger(jumlah);
 
-      //jumlah harus int, n safe ga negatif
+      //id harus int, n safe ga negatif
 
-      if (!babyangmungkinandakenal || !saveNumber || jumlah < 0)
+      if (!savedID || !saveNumber || jumlah < 0)
         throw new Error('Invalid count');
     }
   } catch (err) {
-    if (err.code !== 'ENOENT') throw err;
+    throw err;
   }
 
-  const jumlahNow = count[id] || 0;
+  const jumlahNow = count[idBAB] || 0;
 
   if (jumlahNow >= Number.MAX_SAFE_INTEGER) throw new Error('FULL COUNTER');
 
-  count[id] = jumlahNow + 1;
+  count[idBAB] = jumlahNow + 1;
 
   await mkdir(dirname(fileYgMwDibuka), { recursive: true });
 
@@ -172,7 +175,7 @@ async function addVisit(id) {
   const isiTerbaru = JSON.stringify(count, null, 2) + '\n';
   await writeFile(tempFile, isiTerbaru, 'utf-8');
 
-  await rename(tempFile, fileYgMwDibuka);
+  await rename(tempFile, isiTerbaru);
 
 
 }
@@ -189,33 +192,6 @@ app.post("/api/visit", async function (c) {
       403
     )
   }
-  if (c.req.header('sec-fetch-site') === 'cross-site') {
-    return c.json({ err: 'request is not allowed' }, 403);
-  }
-
-  const tipe = c.req.header('content-type') || '';
-  if (tipe.split(';')[0].trim().toLowerCase() !== 'application/json') {
-    return c.json({ err: 'pake JSON dulu' }, 415);
-  }
-
-  let data;
-  try {
-    data = JSON.parse(await bacaDataKecil(c.req.raw));
-  } catch (err) {
-    if (err instanceof RangeError) return c.json({ err: 'data kegedean' }, 413);
-    return c.json({ err: 'data ga valid' }, 400);
-  }
-
-  if (!data || typeof data !== 'object' || Array.isArray(data) ||
-      Object.keys(data).length !== 1 || !idBAB.has(data.chapterId)) {
-    return c.json({ err: 'pilih id bab yg ada' }, 400);
-  }
-
-  // antri dulu biar hsl hitung ga ketimpa
-  const hslTulis = queue.then(() => addVisit(data.chapterId));
-  queue = hslTulis.catch(() => {});
-  await hslTulis;
-  return c.json({ ok: true }, 201);
 })
 
 // buat nyediai css js font n foto nya
@@ -235,6 +211,7 @@ app.get(
   })
 );
 
+
 app.get(
   '/index.html',
   serveStatic({
@@ -243,27 +220,11 @@ app.get(
 );
 //buat page  not foundnya
 
-app.notFound((c) => {
+app.notFound(function (c) {
   return c.redirect('/');
 });
-// jenis error di terminal aja
-app.onError((err, c) => {
-  console.error('Request gagal:', err.name);
-  return c.json({ err: 'server lagi error, coba lagi bentar' }, 500);
-});
-
-// ingetin foto yg belum diganti
-const cekFoto = (data, udh = new Set()) => {
-  if (!data || typeof data !== 'object') return;
-  if (data.status === 'sementara' && data.src && !udh.has(data.src)) {
-    console.warn('Foto sementara:', data.src);
-    udh.add(data.src);
-  }
-  Object.values(data).forEach((isi) => cekFoto(isi, udh));
-};
-
 if (
-  process.argv[1] &&
+  process.argv[1] && 
   resolve(process.argv[1]) === fileURLToPath(import.meta.url)
 ) {
   const port = Number(process.env.PORT || 3000);
