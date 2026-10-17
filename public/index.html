@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#17203A" />
+    <meta
+      name="description"
+      content="Jelajahi cerita budaya Temanggung dan Batik Mbako. Dari daun jadi karya, dari pemuda menuju 2045."
+    />
+    <title>Jejak Mbako — Dari daun jadi karya</title>
+    <link rel="icon" href="/assets/img/mark.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="/assets/fonts/fraunces-600.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/assets/fonts/plus-jakarta-sans-400.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <script src="/assets/js/main.js" type="module"></script>
+  </head>
+  <body data-theme="nila" data-media="kosong">
+    <a class="skip-link" href="#cerita">Lewati ke cerita</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a
+          class="brand"
+          href="#beranda"
+          aria-label="Jejak Mbako, kembali ke beranda"
+          ><span
+            >jejak<span class="brand-emphasis">mbako</span
+            > </span
+          ></a
+        >
+        <nav class="main-nav" aria-label="Navigasi utama" id="main-nav">
+          <a href="#cerita" class="nav-current">Cerita</a
+          ><a href="#peta">Peta</a><a href="#galeri">Galeri</a
+          ><a href="#kuis">Kuis</a
+          ><a href="#beraksi">Beraksi <span aria-hidden="true">↗</span></a>
+        </nav>
+        <div class="header-actions">
+          <button
+            class="help-button"
+            type="button"
+            id="help-open"
+            aria-label="Cara menjelajah"
+          >
+            <span class="help-symbol" aria-hidden="true">?</span
+            ><span>Cara menjelajah</span></button
+          ><button
+            class="menu-button"
+            type="button"
+            id="menu-toggle"
+            aria-expanded="false"
+            aria-controls="main-nav"
+            aria-label="Buka menu"
+          >
+            <span></span><span></span>
+          </button>
+        </div>
+      </div>
+      <progress
+        class="mobile-progress"
+        id="mobile-progress"
+        value="0"
+        max="5"
+        aria-label="Progres bab selesai"
+      ></progress>
+    </header>
+
+    <main id="story-main">
+      <svg
+        class="canting-thread"
+        id="canting-thread"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <path class="canting-track" id="canting-track"></path>
+        <path class="canting-ink" id="canting-ink"></path>
+        <circle class="canting-drop" id="canting-drop" r="4"></circle>
+      </svg>
+      <section
+        class="hero"
+        id="beranda"
+        aria-labelledby="hero-title"
+        data-theme="nila"
+      >
+        <div class="hero-inner page-width">
+          <div class="hero-copy">
+            <p class="eyebrow hero-eyebrow">
+              <span class="small-star" aria-hidden="true">✧</span>
+              <span id="hero-eyebrow">TEMANGGUNG, JAWA TENGAH</span>
+            </p>
+            <h1 id="hero-title">
+              Jejak <span>Mbako</span>
+            </h1>
+            <p class="hero-subtitle" id="hero-subtitle">
+              Setiap daun punya cerita.
+            </p>
+            <p class="hero-description" id="hero-description">
+              Dari lereng dua gunung, sehelai daun menjadi karya. Kenali cerita
+              Batik Mbako dan temukan peranmu untuk masa depan budaya lokal.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#bab-1" id="start-story"
+                >Mulai cerita <span aria-hidden="true">↗</span></a
+              ><span class="hero-note"
+                >5 bab.<br />Satu cerita yang tumbuh.</span
+              >
+            </div>
+            <a class="scroll-cue" href="#cerita"
+              ><span class="scroll-icon" aria-hidden="true">↓</span> Gulir untuk
+              menjelajah</a
+            >
+          </div>
+          <figure class="hero-figure">
+            <div class="landscape-wrap" id="hero-art">
+              <img
+                class="hero-landscape"
+                id="hero-image"
+                src="/assets/img/landscape.svg"
+                width="920"
+                height="740"
+                alt="Ilustrasi dua gunung, matahari, dan kebun berundak di Temanggung"
+                fetchpriority="high"
+              />
+              <div id="hero-hotspots" class="hero-hotspots"></div>
+              <span class="art-coordinate" aria-hidden="true"
+                >TANAH · MANUSIA · KARYA</span
+              >
+            </div>
+            <figcaption id="hero-caption">
+              <span class="caption-line"></span> Ilustrasi original. Sebuah
+              tafsir atas tanah Temanggung.
+            </figcaption>
+          </figure>
+        </div>
+        <div class="hero-bottom page-width">
+          <span>Sebuah perjalanan budaya untuk generasi berikutnya.</span
+          ><span
+            >BERAKAR LOKAL <span aria-hidden="true">↗</span> BERTUMBUH MENUJU
+            2045</span
+          >
+        </div>
+      </section>
+
+      <section class="journey-intro" id="cerita" aria-labelledby="intro-title">
+        <div class="page-width">
+          <div class="intro-heading">
+            <div>
+              <p class="eyebrow">KENALI. MAINKAN. BERAKSI.</p>
+              <h2 id="intro-title">Cerita besar, bermula dari yang dekat.</h2>
+            </div>
+            <p>
+              Ikuti jejaknya. Dari tanah yang menghidupi,<br
+                class="desktop-break"
+              />
+              hingga karya yang membawa arti.
+            </p>
+          </div>
+          <nav
+            class="chapter-overview"
+            id="chapter-overview"
+            aria-label="Pilih bab cerita"
+          ></nav>
+        </div>
+      </section>
+
+      <div class="story-layout page-width" id="story-layout">
+        <aside class="chapter-sidebar" aria-label="Panduan perjalanan">
+          <p class="eyebrow">JEJAK CERITAMU</p>
+          <nav
+            id="chapter-rail"
+            class="chapter-rail"
+            aria-label="Navigasi lima bab"
+          ></nav>
+          <p class="rail-note">
+            Baca pelan-pelan.<br />Setiap jejak punya arti.
+          </p>
+        </aside>
+        <div id="chapters" class="chapters" aria-busy="true">
+          <div class="load-state" id="load-state">
+            <p id="load-message" role="status">Menyiapkan perjalananmu…</p>
+            <button
+              class="button button-secondary"
+              id="retry-story"
+              type="button"
+              hidden
+            >
+              Coba lagi
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="engagement-sections" hidden>
+        <section
+          class="engagement-intro"
+          id="selanjutnya"
+          aria-labelledby="next-title"
+          data-theme="mori"
+        >
+          <div class="page-width">
+            <p class="eyebrow">KENALI → MAINKAN → BERAKSI</p>
+            <h2 id="next-title">Sekarang, tinggalkan jejakmu.</h2>
+            <p>
+              Ceritanya sudah kamu kenal. Lihat kembali, uji pemahamanmu, lalu
+              bawa satu langkah kecil ke dunia nyata.
+            </p>
+            <a class="text-link" href="#kuis"
+              >Mulai dari kuis <span aria-hidden="true">↗</span></a
+            >
+          </div>
+        </section>
+
+        <section
+          class="gallery-section"
+          id="galeri"
+          aria-labelledby="gallery-title"
+          data-theme="mori"
+        >
+          <div class="page-width">
+            <div class="intro-heading">
+              <div>
+                <p class="eyebrow">RUANG KARYA / AMATI LEBIH DEKAT</p>
+                <h2 id="gallery-title">Simpan dalam ingatan.</h2>
+              </div>
+            </div>
+            <div
+              class="gallery-track"
+              id="gallery-track"
+              tabindex="0"
+              role="region"
+              aria-roledescription="karusel"
+              aria-label="Galeri cerita Temanggung"
+              aria-describedby="gallery-instruction"
+            ></div>
+            <div class="gallery-controls">
+              <p class="gallery-note">
+                Ilustrasi original, sebuah tafsir atas cerita.
+              </p>
+              <div class="gallery-navigation">
+                <button
+                  class="round-button"
+                  id="gallery-previous"
+                  type="button"
+                  aria-label="Gambar sebelumnya"
+                  aria-controls="gallery-track"
+                >
+                  ←</button
+                ><span
+                  id="gallery-position"
+                  role="status"
+                  aria-label="Posisi galeri"
+                  >01 / 06</span
+                ><button
+                  class="round-button"
+                  id="gallery-next"
+                  type="button"
+                  aria-label="Gambar berikutnya"
+                  aria-controls="gallery-track"
+                >
+                  →
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="quiz-section"
+          id="kuis"
+          aria-labelledby="quiz-title"
+          data-theme="mori"
+        >
+          <div class="page-width quiz-layout">
+            <div class="quiz-intro">
+              <p class="eyebrow">MAINKAN / UJI CERITAMU</p>
+              <h2 id="quiz-title">Apa yang kamu bawa dari perjalanan ini?</h2>
+              <p>
+                Tanpa batas waktu. Pilih jawaban, kenali penjelasannya, dan
+                temukan bekal baru untuk langkahmu.
+              </p>
+              <span class="quiz-decoration" aria-hidden="true">?</span>
+            </div>
+            <div class="quiz-content" id="quiz-content"></div>
+          </div>
+        </section>
+
+        <section
+          class="action-section"
+          id="beraksi"
+          aria-labelledby="action-title"
+          data-theme="mori"
+        >
+          <div class="page-width">
+            <div class="intro-heading">
+              <div>
+                <p class="eyebrow">BERAKSI / MULAI DARI YANG DEKAT</p>
+                <h2 id="action-title">
+                  Tiga langkah kecil.<br />Cerita yang terus hidup.
+                </h2>
+              </div>
+              <p>
+                Tandai misi setelah kamu melakukannya. Tidak perlu mengirim
+                bukti atau data pribadi; jejak ini untuk dirimu sendiri.
+              </p>
+            </div>
+            <div class="mission-heading">
+              <p id="mission-count" role="status">0 dari 3 misi selesai</p>
+              <progress
+                id="mission-progress"
+                max="3"
+                value="0"
+                aria-label="Progres misi"
+              ></progress>
+            </div>
+            <ol class="mission-list" id="mission-list"></ol>
+            <div class="ideas-heading">
+              <p class="eyebrow">IDE USAHA KREATIF 2045</p>
+              <h3>Budaya menjadi bekal berkarya.</h3>
+              <p>
+                Kesiapan pemuda tumbuh lewat keterampilan. Buka satu gagasan,
+                pilih bekal yang ingin kamu latih, lalu coba langkah pertamanya.
+              </p>
+            </div>
+            <div class="idea-list" id="idea-list"></div>
+            <p class="ideas-note">
+              Gagasan awal untuk dieksplorasi bersama pelaku lokal. Kebutuhan,
+              biaya, izin, dan kelayakannya perlu diuji.
+            </p>
+            <section
+              class="keeper-section"
+              id="kartu"
+              aria-labelledby="keeper-title"
+            >
+              <div class="keeper-copy">
+                <p class="eyebrow">BAWA PULANG JEJAKMU</p>
+                <h3 id="keeper-title">Penjaga Cerita Lokal.</h3>
+                <p>
+                  Setelah semua misi selesai, simpan kartu sebagai pengingat:
+                  budaya bisa terus tumbuh lewat tindakanmu.
+                </p>
+                <button class="text-button" id="card-name" type="button">
+                  Atur nama panggilan ↗
+                </button>
+                <p class="field-note">
+                  Nama opsional. Tanpa nama, kartu memakai “Penjelajah”.
+                </p>
+              </div>
+              <div class="keeper-output">
+                <div class="card-locked" id="card-locked">
+                  <img
+                    src="/assets/img/mark.svg"
+                    width="64"
+                    height="64"
+                    alt=""
+                  />
+                  <p class="eyebrow">JEJAK MBAKO</p>
+                  <p>Kartu menunggu<br />jejak kecilmu.</p>
+                  <span>Terbuka setelah semua misi selesai</span>
+                </div>
+                <canvas
+                  id="keeper-canvas"
+                  width="1200"
+                  height="760"
+                  role="img"
+                  aria-label="Kartu Penjaga Cerita Lokal"
+                  hidden
+                  >Kartu kenang-kenangan perjalanan belajar Jejak Mbako.</canvas
+                >
+                <p id="card-status" role="status">
+                  Selesaikan semua misi untuk membuka kartu.
+                </p>
+                <a
+                  class="button button-primary"
+                  id="card-download"
+                  download="penjaga-cerita-lokal.png"
+                  hidden
+                  >Unduh kartu PNG <span aria-hidden="true">↓</span></a
+                ><button
+                  class="button button-secondary"
+                  id="card-retry"
+                  type="button"
+                  hidden
+                >
+                  Siapkan ulang kartu
+                </button>
+              </div>
+            </section>
+          </div>
+        </section>
+      </div>
+
+      <section
+        class="sources-section"
+        id="sumber"
+        aria-labelledby="sources-title"
+      >
+        <div class="page-width sources-inner">
+          <div>
+            <p class="eyebrow">CERITA YANG BISA DITELUSURI</p>
+            <h2 id="sources-title">Berpijak pada sumber.</h2>
+            <p>
+              Kenali asal informasi dan kredit karya yang menemani perjalananmu.
+            </p>
+          </div>
+          <details class="sources-details">
+            <summary>
+              Sumber & kredit <span aria-hidden="true">＋</span>
+            </summary>
+            <div id="source-list"></div>
+            <p class="asset-credit">
+              Ilustrasi dan motif daun: karya original Jejak Mbako, bukan
+              reproduksi motif resmi Batik Mbako. Font Fraunces dan Plus Jakarta
+              Sans disimpan lokal dengan lisensi SIL OFL.
+            </p>
+          </details>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="page-width footer-top">
+        <a class="brand" href="#beranda"
+          ><img src="/assets/img/mark.svg" width="40" height="40" alt="" /><span
+            >jejak<span class="brand-emphasis">mbako</span
+            ><span class="brand-dot">.</span></span
+          ></a
+        >
+        <p>Dari daun jadi karya,<br />dari pemuda menuju 2045.</p>
+        <a class="back-top" href="#beranda"
+          >Kembali ke atas <span aria-hidden="true">↑</span></a
+        >
+      </div>
+      <div class="page-width footer-bottom">
+        <p>
+          Konten ini tentang budaya dan ekonomi kreatif, tidak mengajak merokok.
+        </p>
+        <span>TEMANGGUNG · 2026</span>
+      </div>
+    </footer>
+
+    <button
+      class="journey-pill"
+      id="journey-open"
+      type="button"
+      aria-haspopup="dialog"
+    >
+      <span class="journey-icon" aria-hidden="true">↗</span
+      ><span
+        ><strong>Perjalananmu</strong
+        ><span id="journey-count">0 dari 5 bab · 0 misi</span></span
+      ><span class="journey-dots" id="journey-dots" aria-hidden="true"
+        ><i></i><i></i><i></i><i></i><i></i
+      ></span>
+    </button>
+    <div class="toast" id="toast" role="status" hidden></div>
+
+    <dialog id="help-dialog" aria-labelledby="help-title">
+      <div class="dialog-top">
+        <p class="eyebrow">SELAMAT DATANG, PENJELAJAH</p>
+        <button
+          class="close-button"
+          type="button"
+          data-close
+          aria-label="Tutup bantuan"
+        >
+          ×
+        </button>
+      </div>
+      <h2 id="help-title">Satu cerita, tiga langkah.</h2>
+      <ol class="help-steps">
+        <li>
+          <strong>Kenali ceritanya</strong>
+          <p>
+            Gulir atau pilih bab. Buka titik pada peta dan kain, lalu ikuti
+            empat tahap membatik. Gunakan Tab untuk berpindah kontrol dan tombol
+            panah untuk memilih dalam daftar.
+          </p>
+        </li>
+        <li>
+          <strong>Simpan jejakmu</strong>
+          <p>
+            Tekan tombol lanjut di akhir bab untuk menandainya selesai. Buka
+            Perjalananmu untuk melanjutkan.
+          </p>
+        </li>
+        <li>
+          <strong>Mainkan dan beraksi</strong>
+          <p>
+            Geser galeri, jawab kuis, lalu selesaikan tiga misi. Kartu Penjaga
+            Cerita Lokal bisa diunduh setelah semua misi selesai.
+          </p>
+        </li>
+      </ol>
+      <p class="privacy-note">
+        Nama panggilan dan progres disimpan hanya di browser ini. Server hanya
+        mencatat jumlah kunjungan bab anonim.
+      </p>
+      <button class="button button-primary" type="button" data-close>
+        Siap menjelajah <span aria-hidden="true">↗</span>
+      </button>
+    </dialog>
+
+    <dialog id="journey-dialog" aria-labelledby="journey-title">
+      <div class="dialog-top">
+        <p class="eyebrow">SATU LANGKAH SETIAP HARI</p>
+        <button
+          class="close-button"
+          type="button"
+          data-close
+          aria-label="Tutup perjalanan"
+        >
+          ×
+        </button>
+      </div>
+      <h2 id="journey-title">Jejak kecilmu berarti.</h2>
+      <p class="dialog-description" id="journey-summary">
+        Mulai cerita dan tinggalkan jejak pertamamu.
+      </p>
+      <form id="nickname-form">
+        <label for="nickname">Nama panggilan <span>(opsional)</span></label>
+        <div class="nickname-field">
+          <input
+            id="nickname"
+            name="nickname"
+            maxlength="24"
+            autocomplete="off"
+            placeholder="Kamu ingin dipanggil siapa?"
+            aria-describedby="nickname-note"
+          /><button class="button button-primary" type="submit">Simpan</button>
+        </div>
+        <p id="nickname-note" class="field-note">
+          Tersimpan di perangkat ini, tidak dikirim ke server.
+        </p>
+      </form>
+      <ol id="journey-chapters" class="journey-chapters"></ol>
+      <div class="journey-engagement">
+        <p id="journey-quiz-status">Kuis belum dimulai</p>
+        <a class="text-link" href="#kuis" data-journey-link>Lanjutkan kuis ↗</a
+        ><a class="text-link" href="#beraksi" data-journey-link
+          >Lihat misi & kartu ↗</a
+        >
+      </div>
+      <p class="privacy-note" id="storage-note">
+        Nama, kuis, dan progres misi tersimpan hanya di browser ini.
+      </p>
+      <button class="text-button" id="reset-open" type="button">
+        Mulai ulang perjalanan
+      </button>
+      <div id="reset-confirm" class="reset-confirm" hidden>
+        <p>
+          Hapus nama panggilan dan seluruh progres Jejak Mbako di browser ini?
+        </p>
+        <button class="button button-secondary" id="reset-cancel" type="button">
+          Batal</button
+        ><button
+          class="button button-primary"
+          id="reset-confirm-button"
+          type="button"
+        >
+          Ya, mulai ulang
+        </button>
+      </div>
+    </dialog>
+
+    <dialog id="hotspot-dialog" aria-labelledby="hotspot-title">
+      <div class="dialog-top">
+        <p class="eyebrow">SEBUAH JEJAK TEMANGGUNG</p>
+        <button
+          class="close-button"
+          type="button"
+          data-close
+          aria-label="Tutup cerita singkat"
+        >
+          ×
+        </button>
+      </div>
+      <h2 id="hotspot-title"></h2>
+      <p id="hotspot-text" class="dialog-description"></p>
+      <a class="text-link" href="#bab-1" id="hotspot-continue"
+        >Kenali lewat cerita <span aria-hidden="true">↗</span></a
+      >
+    </dialog>
+    <noscript
+      ><div class="noscript-note">
+        Aktifkan JavaScript untuk memuat bab dan menyimpan progres. Jejak Mbako
+        tidak memerlukan koneksi internet setelah server lokal dijalankan.
+      </div></noscript
+    >
+  </body>
+</html>

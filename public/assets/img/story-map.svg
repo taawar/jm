@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" fill="none">
+  <rect width="760" height="480" rx="12" fill="#E6EBDD"/>
+  <defs><pattern id="field" width="22" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(-16)"><path d="M0 5H22" stroke="#3F5A36" stroke-opacity=".12"/></pattern></defs>
+  <path d="M47 197Q170 122 266 158T487 152Q671 102 718 225L691 409Q560 457 376 406T42 396Z" fill="#D1DBC6"/>
+  <path d="M35 276Q224 198 373 239T729 233L706 395Q556 443 376 393T52 378Z" fill="url(#field)"/>
+  <path d="M70 168 170 56 272 174Z" fill="#9BAFA3"/><path d="m170 56-34 57 31-14 20 18 16-20Z" fill="#F7F2E8"/>
+  <path d="M252 142 324 57 403 148Z" fill="#B0BFAE"/><path d="m324 57-24 44 24-15 24 19Z" fill="#F7F2E8"/>
+  <path d="M408 119C326 189 458 210 405 273S353 346 442 461" stroke="#E8ECF3" stroke-width="17"/>
+  <path d="M408 119C326 189 458 210 405 273S353 346 442 461" stroke="#728F9A" stroke-width="2"/>
+  <path d="M150 235Q247 201 310 293T526 295L648 369M308 293 461 187" stroke="#FFFDF8" stroke-width="14"/>
+  <path d="M150 235Q247 201 310 293T526 295L648 369M308 293 461 187" stroke="#A79C80" stroke-width="2" stroke-dasharray="5 8"/>
+  <ellipse cx="260" cy="314" rx="63" ry="26" fill="#9BB4BA"/><ellipse cx="260" cy="314" rx="45" ry="14" stroke="#E8ECF3" stroke-width="2"/>
+  <g fill="#C3B499" stroke="#7C4224" stroke-opacity=".2"><rect x="522" y="223" width="37" height="27" rx="3"/><rect x="568" y="217" width="38" height="31" rx="3"/><rect x="526" y="263" width="31" height="20" rx="3"/><rect x="568" y="261" width="28" height="29" rx="3"/><rect x="614" y="254" width="34" height="20" rx="3"/></g>
+  <g fill="#6F8665"><path d="m100 329 10-30 10 30Zm26 14 12-41 12 41Zm496-200 13-39 13 39Zm27 16 11-30 11 30Z"/><circle cx="484" cy="380" r="9"/><circle cx="506" cy="392" r="7"/></g>
+  <g stroke="#7C4224" stroke-opacity=".22"><path d="M23 25h42M23 25v42M695 25h42v42M23 413v42h42M695 455h42v-42"/></g>
+</svg>

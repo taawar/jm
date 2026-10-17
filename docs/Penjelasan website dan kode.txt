@@ -1,0 +1,71 @@
+ISI WEBSITENYA APA SAJA?
+
+Halaman awal memperkenalkan Jejak Mbako dan mengajak pengunjung mulai membaca. Ada menu untuk pindah bagian dan bantuan singkat kalau pengguna bingung.
+
+Cerita utamanya dibagi menjadi lima bab:
+
+1. Di Antara Dua Gunung: mengenalkan Temanggung dan tempat-tempat dalam ceritanya.
+2. Daun yang Menghidupi: membahas hasil bumi dan orang-orang yang bekerja di baliknya.
+3. Lahirnya Batik Mbako: menunjukkan bagaimana tanaman sekitar bisa menginspirasi karya.
+4. Dari Daun ke Kain: mengenalkan pola, penggunaan lilin batik, pewarnaan, dan pelepasan lilin atau melorod.
+5. Giliran Pemuda: mengajak pengguna memikirkan peran yang bisa mereka ambil.
+
+Ada enam pilihan tempat pada bagian peta. Pengguna memilih nama tempat untuk membaca ceritanya. Peta ini ilustrasi untuk membantu bercerita, belum memakai Google Maps dan tidak dipakai menentukan arah perjalanan.
+
+Di pembahasan motif, pengguna bisa memilih bentuk daun, tulang daun, dan pengulangan. Tujuannya mengenalkan cara melihat unsur desain. Ada juga empat pilihan tahap membatik untuk mengenal prosesnya.
+
+Galeri berisi enam bagian yang bisa digeser. Saat ini gambar di website, termasuk ilustrasi peta dan galeri, sengaja disembunyikan sambil menunggu penggantian visual. Teks dan pilihan informasinya masih ada.
+
+Kuis berisi tiga soal tentang Temanggung, Batik Mbako, dan kesiapan pemuda. Setelah menjawab, pengguna mendapat penjelasan. Kuis bisa diulang.
+
+Bagian Beraksi punya tiga misi. Menyelesaikan seluruh soal kuis dicatat otomatis, tidak harus nilainya sempurna. Mendengarkan cerita lokal dan membagikan fakta dicentang sendiri setelah dilakukan; website belum memeriksa bukti kegiatannya.
+
+Ada enam ide kreatif: merchandise dengan motif original, konten budaya, wisata edukasi, eksplorasi pewarna alami, dokumentasi perajin, dan desain kemasan. Setiap ide punya contoh keterampilan dan langkah awal. Ini masih inspirasi kegiatan, belum layanan jual beli atau usaha yang dijalankan website.
+
+Kartu Penjaga Cerita Lokal terbuka setelah tiga misi selesai dan bisa diunduh sebagai gambar. Kartu itu kenang-kenangan, bukan sertifikat keahlian.
+
+Panel Perjalananmu menyimpan posisi dan progres pengguna. Bab baru ditandai selesai setelah tombol lanjut ditekan. Bagian Sumber & kredit menunjukkan asal informasi dan catatan yang masih perlu diperiksa.
+
+
+KODENYA BEKERJA GIMANA?
+
+Bayangkan website ini seperti sebuah tempat pameran. Ada susunan ruang, tampilan, tombol yang bisa dipakai, dan petugas yang menyediakan isinya.
+
+HTML mengatur susunan halaman: judul, bagian cerita, tombol, dan tempat kuis. File utamanya bernama index.html.
+
+CSS mengatur tampilannya: warna, ukuran tulisan, jarak, serta susunan agar menyesuaikan layar laptop atau HP.
+
+JavaScript membuat interaksinya berjalan. Misalnya ketika tombol diklik, soal berganti, progres bertambah, atau kartu disiapkan untuk diunduh.
+
+JavaScript-nya dibagi menjadi empat bagian supaya lebih mudah dirawat:
+
+- main.js mengurus awal pemuatan website, menampilkan bab, menu, bantuan, dan progres perjalanan.
+- story-scenes.js mengurus interaksi di dalam cerita, seperti pilihan tempat, unsur motif, tahapan batik, dan gerak garis canting.
+- engagement.js mengurus galeri, kuis, misi, ide kreatif, dan pembuatan kartu.
+- progress-model.js memeriksa data progres dan jawaban agar yang dipakai aplikasi sesuai dengan isi cerita yang tersedia.
+
+Isi cerita banyak disimpan di story.json. Anggap saja ini buku bahan website: teks bab, pilihan jawaban, misi, dan ide disimpan di sana. Kalau hanya mengganti isi yang bentuknya sudah didukung, biasanya cukup mengubah data tersebut. Fitur baru tetap bisa membutuhkan perubahan kode.
+
+Server dijalankan dengan Node.js dan dibantu Hono. Tugasnya memberikan halaman, gambar, dan data cerita ketika diminta browser. Pengaturannya ada di server.js.
+
+Saat kamu membuka website, browser meminta halaman ke server, lalu mengambil cerita. JavaScript menampilkan isinya dan membuat tombolnya bekerja. Jalur permintaan data itu disebut API. Salah satu contohnya /api/story, tempat browser meminta isi cerita.
+
+Nama panggilan, jawaban kuis, dan progres disimpan di tempat penyimpanan kecil milik browser, namanya localStorage. Data itu tidak dikirim ke server. Karena itu, progres tidak otomatis ikut pindah ke perangkat lain dan bisa hilang jika data browser dihapus.
+
+Server menyimpan hitungan kunjungan tiap bab dalam visits.json. Angka ini bukan jumlah orang yang berbeda, karena satu orang bisa berkunjung lagi. Server juga membatasi permintaan dan memeriksa data yang masuk supaya tidak menerima sembarang input.
+
+Kartu dibuat langsung di browser menggunakan canvas. Anggap canvas seperti kertas digital: kode menggambar tulisan dan bentuk di sana, lalu hasilnya disimpan sebagai PNG.
+
+Aset utama tersedia lokal. Setelah kebutuhan aplikasi terpasang, fungsi utamanya dirancang bisa berjalan tanpa internet selama server lokal tetap menyala. Untuk membuka tautan sumber di situs luar, internet tetap diperlukan.
+
+
+KALAU JURI MINTA PENJELASAN TEKNIS SINGKAT
+
+“HTML menyusun halaman, CSS mengatur tampilan, dan JavaScript menjalankan interaksinya. Node.js dan Hono menyediakan halaman serta data cerita. Isi banyak disimpan dalam satu file agar mudah diperbarui. Progres pengguna tersimpan di browser, sedangkan server hanya menyimpan hitungan kunjungan bab. Kartu dibuat di browser lalu diunduh sebagai gambar.”
+
+
+HUBUNGANNYA DENGAN TEMA, PALING GAMPANG DIINGAT
+
+Kenal potensi daerah → tertarik belajar → mencoba keterampilan → mulai berkarya.
+
+Contohnya, pengguna membaca cerita perajin, lalu ingin membuat video singkat. Dari situ ia belajar bertanya, meminta izin, memeriksa informasi, dan menyusun cerita. Kebiasaan dan keterampilan seperti itu menjadi bekal pemuda untuk berkarya. Website memberi langkah awal; hasilnya masih perlu dilihat lewat penggunaan dan kegiatan nyata.

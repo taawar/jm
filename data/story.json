@@ -1,0 +1,654 @@
+{
+  "meta": {
+    "title": "Jejak Mbako",
+    "version": "0.4.0",
+    "phase": 4,
+    "language": "id",
+    "tagline": "Dari daun jadi karya, dari pemuda menuju 2045.",
+    "description": "Sebuah perjalanan mengenal tanah, manusia, dan kreativitas Temanggung.",
+    "notice": "Konten ini tentang budaya dan ekonomi kreatif, tidak mengajak merokok.",
+    "reviewedAt": "2026-10-13",
+    "verificationNotes": [
+      "Nama inisiator Iman Nugroho [PERLU DIVERIFIKASI].",
+      "Angka lebih dari 30 motif dan 5 paten merupakan keterangan dalam abstrak penelitian, bukan inventaris terkini; status hukum saat ini [PERLU DIVERIFIKASI].",
+      "Motif Ron Mbako dan Rigen Mbako dijelaskan berdasarkan penelitian UNY dan ISLAH. Praktik pewarnaan tiap perajin, alamat kunjungan sentra, dan status paten terkini [PERLU DIVERIFIKASI]."
+    ]
+  },
+  "hero": {
+    "eyebrow": "TEMANGGUNG, JAWA TENGAH",
+    "title": "Jejak Mbako",
+    "subtitle": "Setiap daun punya cerita.",
+    "description": "Dari lereng dua gunung, sehelai daun menjadi karya. Kenali cerita Batik Mbako dan temukan peranmu untuk masa depan budaya lokal.",
+    "cta": "Mulai cerita",
+    "photo": {
+      "src": "/assets/img/dua-gunung.jpg",
+      "alt": "Dua gunung berdampingan dengan pantulan di permukaan air",
+      "kredit": "Belum tersedia. Gunakan foto pribadi atau foto berlisensi yang telah diverifikasi.",
+      "status": "sementara"
+    },
+    "illustration": "/assets/img/landscape.svg",
+    "hotspots": [
+      {
+        "id": "gunung",
+        "label": "Dua gunung",
+        "title": "Di antara Sumbing & Sindoro",
+        "text": "Dua gunung menjadi bagian dari bentang alam dan identitas Temanggung. Ilustrasi ini bersifat artistik, bukan gambaran geografis yang akurat.",
+        "sourceIds": [
+          "pemkab-lambang"
+        ]
+      },
+      {
+        "id": "kebun",
+        "label": "Lereng & kebun",
+        "title": "Tanah yang menghidupi",
+        "text": "Kopi dan tembakau adalah bagian dari lanskap pertanian Temanggung. Di balik hasil bumi, ada pengetahuan dan kerja para petani.",
+        "sourceIds": [
+          "pemkab-posong"
+        ]
+      },
+      {
+        "id": "kota",
+        "label": "Ruang bertemu",
+        "title": "Cerita tumbuh bersama",
+        "text": "Perjalanan ini mengajakmu melihat hubungan antara tanah, manusia, dan karya. Ikuti lima bab untuk mulai mengenal Temanggung.",
+        "sourceIds": []
+      }
+    ]
+  },
+  "bab": [
+    {
+      "id": "bab-1",
+      "number": 1,
+      "title": "Di Antara Dua Gunung",
+      "shortTitle": "Tanah & cerita",
+      "theme": "kabut",
+      "eyebrow": "MENGENAL AKAR",
+      "summary": "Sebelum mengenal sehelai kain, mari mengenal tanah tempat ceritanya bermula.",
+      "paragraphs": [
+        "Bayangkan memulai perjalanan dengan memandang dua gunung. Sumbing dan Sindoro bukan hanya bagian dari bentang alam Temanggung; keduanya juga hadir pada lambang daerahnya.",
+        "Di kawasan Posong, lanskap gunung bertemu perkebunan kopi dan tembakau. Di Alun-alun Temanggung, ruang publik menyimpan sisi lain kehidupan kota. Alam dan ruang bersama memberi banyak pintu masuk untuk mengenal suatu daerah.",
+        "Pilih titik pada peta cerita di bawah. Setiap tempat mengajakmu melihat satu sisi Temanggung: tanah, air, ingatan, atau karya. Susunan titik dibuat untuk bercerita, bukan untuk menentukan arah perjalanan."
+      ],
+      "lesson": "Mengenal tempat asal adalah langkah pertama untuk menemukan potensi yang bisa kamu kembangkan.",
+      "sourceIds": [
+        "pemkab-lambang",
+        "pemkab-posong",
+        "pemkab-alun"
+      ],
+      "illustration": "/assets/img/landscape.svg",
+      "visualTitle": "Tanah di antara dua gunung",
+      "visualCaption": "Ilustrasi original bentang alam Temanggung.",
+      "photo": {
+        "src": "/assets/img/alun-alun.jpg",
+        "alt": "Alun-alun Temanggung dilihat dari atas",
+        "kredit": "Belum tersedia; foto dokumentasi asli diperlukan.",
+        "status": "sementara"
+      },
+      "nextLabel": "Lanjut ke Bab 2"
+    },
+    {
+      "id": "bab-2",
+      "number": 2,
+      "title": "Daun yang Menghidupi",
+      "shortTitle": "Tanah & tangan",
+      "theme": "lereng",
+      "eyebrow": "MENGHARGAI MANUSIA",
+      "summary": "Di balik setiap daun, ada tangan yang merawat dan pengetahuan yang tumbuh.",
+      "paragraphs": [
+        "Di Temanggung, kopi dan tembakau merupakan bagian dari kehidupan pertanian. Penelitian tentang Batik Mbako juga menyebut kopi, vanili, tembakau, dan aren sebagai hasil bumi daerah ini.",
+        "Sehelai daun bisa kita lihat sebagai hasil panen. Namun, bentuknya juga dapat diamati: garis tulang, lengkung tepi, dan susunan pada batang. Dari pengamatan sederhana itulah gagasan desain dapat dimulai.",
+        "Bayangkan kamu mendengarkan seorang petani menceritakan pekerjaannya. Apa yang ingin kamu tanyakan: keterampilan yang dipelajari, perubahan yang dirasakan, atau harapan untuk generasi berikutnya? Cerita nyata sebaiknya datang dari orang yang mengalaminya.",
+        "Dalam perjalanan ini, tembakau dibahas sebagai bagian dari kerja, budaya, dan kreativitas masyarakat. Kita bergerak dari mengenal bahan menuju menghargai manusia di baliknya."
+      ],
+      "lesson": "Kreativitas tumbuh saat kamu mau mengamati, mendengarkan, dan menghargai kerja orang lain.",
+      "sourceIds": [
+        "pemkab-posong",
+        "telkom-motif"
+      ],
+      "illustration": "/assets/img/leaf-study.svg",
+      "visualTitle": "Berawal dari sehelai daun",
+      "visualCaption": "Studi bentuk daun original untuk Jejak Mbako.",
+      "nextLabel": "Lanjut ke Bab 3",
+      "reflection": "Pilih satu tumbuhan di sekitarmu. Bentuk atau cerita apa yang bisa menjadi awal sebuah karya original?"
+    },
+    {
+      "id": "bab-3",
+      "number": 3,
+      "title": "Lahirnya Batik Mbako",
+      "shortTitle": "Daun jadi karya",
+      "theme": "mori",
+      "eyebrow": "MENEMUKAN KREATIVITAS",
+      "summary": "Bentuk yang akrab di kebun menemukan kehidupan baru di atas kain.",
+      "paragraphs": [
+        "Penelitian Qarina Masudya Falabiba di Telkom University mencatat awal Batik Mbako sejak 2009: seorang petani mengangkat tanaman tembakau menjadi inspirasi motif. Hal yang akrab di kebun menemukan bentuk baru di atas kain.",
+        "Abstrak penelitian tersebut menyebut lebih dari 30 motif dan lima yang mendapat hak paten. Ini adalah catatan dalam penelitian, bukan inventaris terbaru. Jumlah motif dan status hukum terkini [PERLU DIVERIFIKASI].",
+        "Penelitian UNY menghubungkan Ron Mbako dengan stilisasi tanaman tembakau, serta Rigen Mbako dengan aktivitas pertanian. Artikel ISLAH menjelaskan ron sebagai daun dan rigen sebagai tempat penjemuran dari anyaman bambu.",
+        "Kain interaktif di atas adalah komposisi daun yang dibuat khusus untuk Jejak Mbako. Gunakan titik-titiknya untuk membaca unsur desain, lalu bedakan ilustrasi pembelajaran ini dari motif milik perajin."
+      ],
+      "lesson": "Coba lihat hal yang biasa di sekitarmu sebagai awal dari gagasan yang baru.",
+      "sourceIds": [
+        "telkom-motif",
+        "uny-motif",
+        "islah-motif"
+      ],
+      "illustration": "/assets/img/cloth.svg",
+      "visualTitle": "Dari alam, menjadi ragam",
+      "visualCaption": "Komposisi daun original; bukan motif resmi Batik Mbako.",
+      "photo": {
+        "src": "/assets/img/batik-daun-cokelat.jpg",
+        "alt": "Kain batik bermotif daun bernuansa cokelat dan emas",
+        "kredit": "Belum tersedia; asal motif dan hak penggunaan perlu diperiksa.",
+        "status": "sementara"
+      },
+      "nextLabel": "Lanjut ke Bab 4"
+    },
+    {
+      "id": "bab-4",
+      "number": 4,
+      "title": "Dari Daun ke Kain",
+      "shortTitle": "Proses & ketekunan",
+      "theme": "daun",
+      "eyebrow": "MENGHARGAI PROSES",
+      "summary": "Sebuah gagasan perlu keterampilan dan ketekunan untuk menjadi karya.",
+      "paragraphs": [
+        "Gagasan bentuk perlu melewati proses. Pada batik, malam atau lilin batik membatasi bagian kain yang terkena warna. Canting dipakai untuk menggambar dengan malam, sedangkan cap membantu menerapkan pola dengan alat cap.",
+        "Daun tembakau juga pernah diteliti sebagai sumber pewarna tekstil. Penelitian Flosyandini dan rekan-rekan pada kain katun dengan fiksator tunjung menghasilkan warna cokelat. Hasil eksperimen itu tidak berarti semua Batik Mbako memakai bahan atau resep yang sama.",
+        "Jelajahi empat tahap ringkas di atas. Ini pengantar proses, bukan resep produksi: persiapan kain, pencelupan, dan pengikatan warna dapat melibatkan langkah tambahan. Praktik rinci pada tiap perajin perlu ditanyakan langsung."
+      ],
+      "lesson": "Ide yang baik perlu dilatih, diuji, dan dikerjakan dengan tekun.",
+      "sourceIds": [
+        "bbkb-proses",
+        "bbkb-lorod",
+        "unesa-pewarna"
+      ],
+      "illustration": "/assets/img/canting.svg",
+      "visualTitle": "Pelan, telaten, menjadi",
+      "visualCaption": "Ilustrasi original canting dan alur malam.",
+      "photo": {
+        "src": "/assets/img/pembatik.jpg",
+        "alt": "Pembatik menorehkan malam dengan canting di atas kain putih",
+        "kredit": "Belum tersedia; gunakan dokumentasi berizin.",
+        "status": "sementara"
+      },
+      "nextLabel": "Lanjut ke Bab 5"
+    },
+    {
+      "id": "bab-5",
+      "number": 5,
+      "title": "Giliran Pemuda",
+      "shortTitle": "Cerita berikutnya",
+      "theme": "nila",
+      "eyebrow": "MEMBAWA CERITA KE DEPAN",
+      "summary": "Warisan bukan hanya sesuatu yang dijaga. Ia juga bisa menjadi awal karya berikutnya.",
+      "paragraphs": [
+        "Lima jejak bertemu di sini: mengenal tanah, menghargai kerja, menemukan ide, melatih keterampilan, lalu memilih peran. Kisah daun yang menjadi karya menunjukkan bahwa nilai baru bisa dimulai dari hal yang dekat.",
+        "Bappenas menekankan kualitas dan daya saing sumber daya manusia dalam menghadapi bonus demografi. Kesempatan dari banyaknya penduduk usia produktif perlu disertai kesiapan untuk belajar dan berkarya.",
+        "Menuju 2045, saat Indonesia berusia 100 tahun, kamu bisa mengambil langkah kecil: mendokumentasikan cerita dengan izin, belajar dari perajin, membuat motif original, atau membantu karya lokal dikenal dengan informasi yang jujur.",
+        "Cerita ini tidak selesai ketika halaman berakhir. Bawa satu pertanyaan kepada orang di sekitarmu. Dengarkan jawabannya, catat sumbernya, lalu pikirkan karya yang bisa kamu tumbuhkan dari sana."
+      ],
+      "lesson": "Budaya lokal bisa menjadi bekal berkarya. Cerita berikutnya dapat dimulai dari kamu.",
+      "sourceIds": [
+        "bappenas-pemuda"
+      ],
+      "illustration": "/assets/img/future.svg",
+      "visualTitle": "Berakar hari ini. Bertumbuh esok.",
+      "visualCaption": "Gagasan kreatif untuk menyongsong Indonesia Emas 2045.",
+      "nextLabel": "Selesaikan perjalanan",
+      "reflection": "Peran mana yang ingin kamu coba: pendengar cerita, pembuat karya, atau penghubung budaya dengan teman sebaya?"
+    }
+  ],
+  "peta": {
+    "status": "aktif",
+    "title": "Satu tanah, banyak cerita.",
+    "description": "Pilih titik atau nama tempat. Kenali hubungan antara alam, ingatan, dan karya.",
+    "caption": "Ilustrasi, bukan peta akurat. Posisi, jarak, dan arah titik tidak untuk navigasi.",
+    "points": [
+      {
+        "id": "alun-alun",
+        "name": "Alun-alun Temanggung",
+        "x": 74,
+        "y": 48,
+        "category": "RUANG BERSAMA",
+        "location": "Kota Temanggung",
+        "text": "Alun-alun Temanggung merupakan ruang publik. Tempat seperti ini dapat menjadi awal untuk mendengarkan ingatan warga tentang kotanya.",
+        "prompt": "Coba tanyakan: kegiatan apa yang paling diingat keluargamu di alun-alun?",
+        "sourceIds": [
+          "pemkab-alun"
+        ]
+      },
+      {
+        "id": "posong",
+        "name": "Posong",
+        "x": 21,
+        "y": 46,
+        "category": "LERENG & KEBUN",
+        "location": "Tlahab, Kecamatan Kledung",
+        "text": "Sumber Pemkab menempatkan Posong di Desa Tlahab. Dari kawasan ini, cerita tentang Sumbing, Sindoro, serta kebun kopi dan tembakau bertemu.",
+        "prompt": "Amati bagaimana lanskap dapat menginspirasi warna dan bentuk sebuah karya.",
+        "sourceIds": [
+          "pemkab-posong"
+        ]
+      },
+      {
+        "id": "embung",
+        "name": "Embung Kledung",
+        "x": 35,
+        "y": 66,
+        "category": "AIR & KEHIDUPAN",
+        "location": "Desa Kledung, Kecamatan Kledung",
+        "text": "Media Center Temanggung menjelaskan embung ini sebagai waduk kecil yang dibangun untuk membantu menghadapi kesulitan air saat kemarau dan mengembangkan wisata.",
+        "prompt": "Dari tempat ini, pikirkan hubungan antara sumber air, pertanian, dan kehidupan warga.",
+        "sourceIds": [
+          "pemkab-embung"
+        ]
+      },
+      {
+        "id": "pringapus",
+        "name": "Candi Pringapus",
+        "x": 59,
+        "y": 31,
+        "category": "JEJAK SEJARAH",
+        "location": "Kecamatan Ngadirejo",
+        "text": "Bapperida Temanggung menyebut Pringapus sebagai peninggalan candi Hindu di Kecamatan Ngadirejo. Relief dan bangunannya mengajak kita membaca jejak budaya masa lalu.",
+        "note": "Penanggalan dan rincian sejarah Mataram Kuno [PERLU DIVERIFIKASI].",
+        "prompt": "Saat mempelajari peninggalan sejarah, pisahkan keterangan bersumber dari cerita yang belum teruji.",
+        "sourceIds": [
+          "pemkab-pringapus"
+        ]
+      },
+      {
+        "id": "tuk-budoyo",
+        "name": "Tuk Budoyo",
+        "x": 58,
+        "y": 81,
+        "category": "MATA AIR",
+        "location": "Losari, Kecamatan Tlogomulyo",
+        "text": "Situs Kecamatan Tlogomulyo mencantumkan Tuk Budaya Losari, yang juga disebut Tuk Budoyo, sebagai wisata mata air dari lereng Sumbing.",
+        "prompt": "Nama tempat bisa menyimpan cerita. Tanyakan kepada warga setempat dan catat siapa yang menjelaskannya.",
+        "sourceIds": [
+          "pemkab-tuk"
+        ]
+      },
+      {
+        "id": "batik",
+        "name": "Sentra Batik Mbako",
+        "x": 84,
+        "y": 75,
+        "category": "RUANG BERKARYA",
+        "location": "Titik cerita perajin",
+        "text": "Penelitian UNY mengkaji batik di CV. Pesona Tembakau, Manding, Temanggung. Aktivitas petani dan bentuk tanaman menjadi bahan pengembangan motif.",
+        "note": "Titik ini bukan alamat kunjungan. Lokasi sentra dan akses kunjungan terkini [PERLU DIVERIFIKASI].",
+        "prompt": "Sebelum mendokumentasikan karya atau proses, mintalah izin dan cantumkan nama pembuatnya.",
+        "sourceIds": [
+          "uny-motif"
+        ]
+      }
+    ]
+  },
+  "motifHotspot": [
+    {
+      "id": "daun",
+      "label": "Bentuk daun",
+      "x": 31,
+      "y": 38,
+      "category": "01 / AMATI BENTUK",
+      "title": "Alam menjadi titik berangkat.",
+      "text": "Daun pada ilustrasi ini disederhanakan menjadi bidang yang melengkung. Cara menyederhanakan bentuk disebut stilisasi. Penelitian UNY mencatat stilisasi tanaman tembakau pada motif Ron Mbako; bentuk di layar tetap merupakan rancangan original situs ini.",
+      "prompt": "Coba bayangkan bentuk daun yang sama dengan garis lebih bulat atau lebih tegas.",
+      "sourceIds": [
+        "uny-motif"
+      ]
+    },
+    {
+      "id": "urat",
+      "label": "Tulang daun",
+      "x": 59,
+      "y": 50,
+      "category": "02 / IKUTI GARIS",
+      "title": "Satu garis memberi arah.",
+      "text": "Garis tengah dan cabangnya membantu mata mengikuti bentuk daun. Pada ilustrasi original ini, garis menjadi unsur desain; kami tidak memberinya makna adat atau filosofi yang tidak bersumber.",
+      "prompt": "Perhatikan: bagaimana kesan daun berubah jika garisnya diperkecil?",
+      "sourceIds": []
+    },
+    {
+      "id": "irama",
+      "label": "Pengulangan",
+      "x": 72,
+      "y": 75,
+      "category": "03 / TEMUKAN IRAMA",
+      "title": "Bentuk berulang menjadi komposisi.",
+      "text": "Daun dan titik disusun berulang agar membentuk irama pada kain ilustrasi. Ini contoh pilihan desain, bukan salinan pola resmi. Dalam riset motif, Rigen Mbako berhubungan dengan aktivitas pertanian; rigen adalah alat penjemuran dari anyaman bambu.",
+      "prompt": "Kamu dapat mulai merancang dengan mengulang satu bentuk original, lalu mengubah arah dan jaraknya.",
+      "sourceIds": [
+        "uny-motif",
+        "islah-motif"
+      ]
+    }
+  ],
+  "proses": [
+    {
+      "id": "pola",
+      "title": "Menyusun pola",
+      "shortTitle": "Pola",
+      "text": "Gagasan bentuk disusun, lalu dipindahkan ke kain. Pada tahap ini pembatik merencanakan letak motif dan bagian yang akan diberi warna.",
+      "observe": "Garis putus-putus menunjukkan rancangan, belum goresan malam.",
+      "sourceIds": [
+        "bbkb-proses"
+      ]
+    },
+    {
+      "id": "malam",
+      "title": "Mencanting atau mengecap",
+      "shortTitle": "Malam",
+      "text": "Malam, yaitu lilin batik, diterapkan dengan canting atau cap. Bagian yang tertutup malam menjadi perintang agar warna tidak masuk ke sana.",
+      "observe": "Garis emas menandai bagian ilustrasi yang dilindungi malam.",
+      "sourceIds": [
+        "bbkb-proses"
+      ]
+    },
+    {
+      "id": "warna",
+      "title": "Memberi warna",
+      "shortTitle": "Warna",
+      "text": "Warna mengisi bagian kain yang tidak dilindungi malam. Ekstrak daun tembakau pernah diteliti sebagai pewarna katun dan menghasilkan cokelat dengan fiksator tunjung. Warna layar ini hanya ilustrasi, bukan standar hasil produksi.",
+      "observe": "Latar kain berubah warna, sementara garis malam tetap terlihat.",
+      "sourceIds": [
+        "unesa-pewarna",
+        "bbkb-proses"
+      ]
+    },
+    {
+      "id": "lorod",
+      "title": "Melorod",
+      "shortTitle": "Lorod",
+      "text": "Melorod berarti melepaskan malam dengan air panas. Setelah malam dilepas, perbedaan bidang berwarna dan bagian yang sebelumnya terlindungi menampakkan motif.",
+      "observe": "Garis terang memperlihatkan jejak bagian kain yang semula tertutup malam.",
+      "sourceIds": [
+        "bbkb-lorod"
+      ]
+    }
+  ],
+  "galeri": [
+    {
+      "id": "gunung",
+      "src": "/assets/img/dua-gunung.jpg",
+      "alt": "Dua gunung berdampingan",
+      "kredit": "Belum tersedia; perlu foto berlisensi.",
+      "status": "sementara",
+      "title": "Tanah tempat cerita tumbuh",
+      "description": "Dua gunung, kebun, dan ruang hidup menjadi pintu masuk perjalanan ini. Amati bentuk serta warnanya.",
+      "illustration": "/assets/img/landscape.svg",
+      "illustrationAlt": "Ilustrasi original dua gunung, matahari, dan kebun berundak"
+    },
+    {
+      "id": "alun",
+      "src": "/assets/img/alun-alun.jpg",
+      "alt": "Alun-alun Temanggung",
+      "kredit": "Belum tersedia; jangan gunakan render sebagai foto dokumentasi.",
+      "status": "sementara",
+      "title": "Ruang untuk saling mengenal",
+      "description": "Satu daerah menyimpan banyak titik cerita. Peta ilustratif menghubungkan alam, ruang bersama, dan karya.",
+      "illustration": "/assets/img/story-map.svg",
+      "illustrationAlt": "Peta ilustratif original dengan gunung, sungai, embung, dan kota"
+    },
+    {
+      "id": "jam",
+      "src": "/assets/img/tugu-jam.jpg",
+      "alt": "Tugu jam putih bermotif",
+      "kredit": "Belum tersedia; lokasi [PERLU DIVERIFIKASI].",
+      "status": "sementara",
+      "title": "Mulai dengan mengamati",
+      "description": "Sebuah daun dapat menjadi latihan melihat garis, lengkung, dan bidang. Ide tidak selalu berawal dari sesuatu yang jauh.",
+      "illustration": "/assets/img/leaf-study.svg",
+      "illustrationAlt": "Studi bentuk daun original dengan garis tulang dan lengkung daun"
+    },
+    {
+      "id": "cokelat",
+      "src": "/assets/img/batik-daun-cokelat.jpg",
+      "alt": "Kain motif daun cokelat dan emas",
+      "kredit": "Belum tersedia; jangan diklaim sebagai Batik Mbako.",
+      "status": "sementara",
+      "title": "Daun menjadi komposisi",
+      "description": "Pola ini dibuat khusus untuk Jejak Mbako. Pengulangan bentuk memberi irama; bukan reproduksi motif resmi Batik Mbako.",
+      "illustration": "/assets/img/cloth.svg",
+      "illustrationAlt": "Kain ilustrasi dengan pola daun original berwarna emas di atas nila"
+    },
+    {
+      "id": "biru",
+      "src": "/assets/img/batik-daun-biru.jpg",
+      "alt": "Kain motif dedaunan biru",
+      "kredit": "Belum tersedia; asal motif belum diketahui.",
+      "status": "sementara",
+      "title": "Gagasan yang bertumbuh",
+      "description": "Keterampilan, rasa ingin tahu, dan kepedulian dapat menjadi bekal pemuda untuk membawa cerita lokal ke depan.",
+      "illustration": "/assets/img/future.svg",
+      "illustrationAlt": "Ilustrasi original pertumbuhan dan gagasan menuju masa depan"
+    },
+    {
+      "id": "pembatik",
+      "src": "/assets/img/pembatik.jpg",
+      "alt": "Pembatik bekerja dengan canting",
+      "kredit": "Belum tersedia; diperlukan izin penggunaan.",
+      "status": "sementara",
+      "title": "Menghargai setiap goresan",
+      "description": "Canting mengingatkan kita bahwa sebuah karya perlu ketekunan. Kenali pembuatnya, dengarkan prosesnya, dan beri kredit.",
+      "illustration": "/assets/img/canting.svg",
+      "illustrationAlt": "Ilustrasi original canting dan goresan malam"
+    }
+  ],
+  "kuis": [
+    {
+      "id": "gunung",
+      "question": "Gunung apa yang menjadi bagian dari identitas Temanggung?",
+      "options": [
+        "Sumbing dan Sindoro",
+        "Bromo dan Semeru",
+        "Merapi dan Lawu"
+      ],
+      "answer": 0,
+      "feedback": "Sumbing dan Sindoro juga hadir pada lambang daerah Temanggung.",
+      "sourceIds": [
+        "pemkab-lambang"
+      ]
+    },
+    {
+      "id": "motif",
+      "question": "Tanaman apa yang menginspirasi motif Batik Mbako?",
+      "options": [
+        "Kelapa",
+        "Tembakau",
+        "Teh"
+      ],
+      "answer": 1,
+      "feedback": "Tanaman tembakau menjadi inspirasi motif Batik Mbako.",
+      "sourceIds": [
+        "telkom-motif"
+      ]
+    },
+    {
+      "id": "pemuda",
+      "question": "Apa bekal penting untuk memanfaatkan bonus demografi?",
+      "options": [
+        "Menunggu kesempatan datang",
+        "Mengandalkan jumlah penduduk saja",
+        "Mengembangkan kualitas dan keterampilan"
+      ],
+      "answer": 2,
+      "feedback": "Kualitas sumber daya manusia membantu peluang demografi menjadi manfaat.",
+      "sourceIds": [
+        "bappenas-pemuda"
+      ]
+    }
+  ],
+  "misi": [
+    {
+      "id": "kuis",
+      "title": "Selesaikan kuis budaya",
+      "description": "Uji pemahamanmu setelah mengenal lima bab.",
+      "kind": "quiz"
+    },
+    {
+      "id": "cerita",
+      "title": "Dengarkan satu cerita lokal",
+      "description": "Tanyakan kepada orang tua atau perajin, dengan menghargai waktu dan izin mereka.",
+      "kind": "manual"
+    },
+    {
+      "id": "bagikan",
+      "title": "Bagikan satu fakta Temanggung",
+      "description": "Ceritakan kepada teman dan sertakan sumbernya.",
+      "kind": "manual"
+    }
+  ],
+  "ideUsaha": [
+    {
+      "id": "merchandise",
+      "title": "Merchandise motif original",
+      "description": "Latih desain dan buat motifmu sendiri yang terinspirasi lingkungan.",
+      "skill": "Desain dan prototipe",
+      "firstStep": "Sketsa satu motif original dari tumbuhan sekitar, lalu coba pada kertas atau contoh kemasan."
+    },
+    {
+      "id": "konten",
+      "title": "Konten digital budaya",
+      "description": "Belajar riset dan bercerita lewat video, tulisan, atau ilustrasi.",
+      "skill": "Riset dan komunikasi",
+      "firstStep": "Susun cerita singkat dari satu fakta bersumber; minta izin bila merekam narasumber."
+    },
+    {
+      "id": "wisata",
+      "title": "Wisata edukasi",
+      "description": "Rancang pengalaman belajar bersama pelaku budaya setempat.",
+      "skill": "Kolaborasi dan perencanaan",
+      "firstStep": "Diskusikan satu kegiatan belajar bersama perajin, termasuk waktu, akses, biaya, dan pembagian peran."
+    },
+    {
+      "id": "warna",
+      "title": "Eksplorasi pewarna alami",
+      "description": "Pelajari bahan sisa pertanian bersama pembimbing dan uji kelayakannya.",
+      "skill": "Eksperimen dan pencatatan",
+      "firstStep": "Cari pendamping yang memahami proses pewarnaan; pelajari bahan, keselamatan kerja, dan pengelolaan sisa proses sebelum mencoba."
+    },
+    {
+      "id": "arsip",
+      "title": "Dokumentasi cerita perajin",
+      "description": "Kembangkan keterampilan dokumentasi dengan persetujuan narasumber.",
+      "skill": "Mendengar dan mendokumentasikan",
+      "firstStep": "Minta izin untuk satu wawancara singkat, catat nama sumber dengan persetujuan, lalu tunjukkan hasilnya sebelum dibagikan."
+    },
+    {
+      "id": "kemasan",
+      "title": "Desain kemasan lokal",
+      "description": "Bantu produk lokal mengomunikasikan ceritanya lewat desain.",
+      "skill": "Desain informasi dan empati",
+      "firstStep": "Bicarakan kebutuhan satu pelaku usaha lokal, lalu buat contoh label yang jelas dan jujur."
+    }
+  ],
+  "sumber": [
+    {
+      "id": "pemkab-lambang",
+      "title": "Profil dan makna lambang Temanggung",
+      "publisher": "Media Center Kabupaten Temanggung",
+      "url": "https://mediacenter.temanggungkab.go.id/frontend/d_profil/45",
+      "note": "Identitas Sumbing, Sindoro, kopi, dan tembakau; diperiksa 13 Oktober 2026."
+    },
+    {
+      "id": "pemkab-posong",
+      "title": "Menikmati Eksotisme Sumbing dan Sindoro di Wisata Alam Posong",
+      "publisher": "Smart City Kabupaten Temanggung, 2022",
+      "url": "https://smartcity.temanggungkab.go.id/frontend/d_informasi/214",
+      "note": "Lanskap dan perkebunan kopi serta tembakau; diperiksa 13 Oktober 2026."
+    },
+    {
+      "id": "telkom-motif",
+      "title": "Pengembangan Motif Batik Mbako untuk Busana Anak-anak",
+      "publisher": "Qarina Masudya Falabiba · Telkom University",
+      "url": "https://openlibrary.telkomuniversity.ac.id/pustaka/files/152788/abstraksi/pengembangan-motif-batik-mbako-untuk-busana-anak-anak.pdf",
+      "note": "Abstrak: asal sejak 2009, inspirasi motif, dan eksplorasi batik cap. Angka motif/paten adalah laporan penelitian, bukan validasi registri terkini."
+    },
+    {
+      "id": "pemkab-batik",
+      "title": "Batik Mbako, Perwujudan Budaya dan Identitas Masyarakat Temanggung",
+      "publisher": "Media Center Kabupaten Temanggung, 2023",
+      "url": "https://mediacenter.temanggungkab.go.id/frontend/d_berita/6085",
+      "note": "Cuplikan terindeks mengonfirmasi awal 2009; halaman langsung tidak dapat dimuat saat pemeriksaan."
+    },
+    {
+      "id": "bappenas-pemuda",
+      "title": "Peningkatan Kualitas Remaja untuk Hadapi Bonus Demografi",
+      "publisher": "Kementerian PPN/Bappenas",
+      "url": "https://www.bappenas.go.id/index.php/id/berita/peningkatan-kualitas-remaja-untuk-hadapi-bonus-demografi",
+      "note": "Dipakai untuk prinsip kualitas SDM; situs ini tidak mengutip angka atau rentang proyeksi demografi."
+    },
+    {
+      "id": "telkom-pewarna",
+      "title": "Pemanfaatan Daun Tembakau sebagai Pewarna Alam pada Produk Fesyen",
+      "publisher": "Telkom University",
+      "url": "https://openlibrary.telkomuniversity.ac.id/pustaka/files/156236/abstraksi/pemanfaatan-daun-tembakau-sebagai-pewarna-alam-pada-produk-fesyen.pdf",
+      "note": "Referensi lanjutan [PERLU DIVERIFIKASI]; dokumen tidak berhasil diakses saat pemeriksaan."
+    },
+    {
+      "id": "pemkab-alun",
+      "title": "Alun-alun sebagai ruang publik Temanggung",
+      "publisher": "Smart City Kabupaten Temanggung",
+      "url": "https://smartcity.temanggungkab.go.id/frontend/d_berita/23442",
+      "note": "Dipakai untuk fungsi alun-alun sebagai ruang publik, tanpa mengutip aturan atau kondisi fasilitas terkini."
+    },
+    {
+      "id": "pemkab-embung",
+      "title": "Menikmati Sejuknya Udara Pegunungan di Embung Kledung",
+      "publisher": "Media Center Kabupaten Temanggung, 2017",
+      "url": "https://mediacenter.temanggungkab.go.id/frontend/d_berita/16",
+      "note": "Asal fungsi embung dan lokasi Desa Kledung; tidak dipakai untuk harga tiket atau fasilitas terkini."
+    },
+    {
+      "id": "pemkab-pringapus",
+      "title": "Potensi wisata Kabupaten Temanggung",
+      "publisher": "Bapperida Kabupaten Temanggung",
+      "url": "https://bapperida.temanggungkab.go.id/frontend/d_informasi/194",
+      "note": "Menjelaskan Candi Pringapus sebagai candi Hindu di Kecamatan Ngadirejo."
+    },
+    {
+      "id": "pemkab-tuk",
+      "title": "Tuk Budaya Losari Tlogomulyo",
+      "publisher": "Kecamatan Tlogomulyo",
+      "url": "https://tlogomulyo.temanggungkab.go.id/frontend/index_wisata",
+      "note": "Daftar destinasi menyebut Tuk Budoyo sebagai mata air dari lereng Sumbing; ejaan judul sumber dipertahankan."
+    },
+    {
+      "id": "uny-motif",
+      "title": "Batik Tulis di CV. Pesona Tembakau Manding Temanggung Jawa Tengah Ditinjau dari Pengembangan Bentuk Motif dan Warna",
+      "publisher": "Berryl Raushan Fikri · Universitas Negeri Yogyakarta, 2014",
+      "url": "https://eprints.uny.ac.id/17392/",
+      "note": "Penelitian lapangan tentang stilisasi tanaman dan aktivitas petani sebagai inspirasi motif. Tidak digunakan untuk menyalin gambar motif."
+    },
+    {
+      "id": "islah-motif",
+      "title": "Kajian sejarah dan motif Batik Mbako",
+      "publisher": "ISLAH: Journal of Islamic Literature and History 5(2), 2024, hlm. 127",
+      "url": "https://ejournal.uinsalatiga.ac.id/index.php/islah/article/download/3532/530/9620",
+      "note": "Digunakan terbatas untuk penjelasan ron (daun) dan rigen (alat penjemuran anyaman bambu). Status hak paten terkini tidak diverifikasi."
+    },
+    {
+      "id": "bbkb-proses",
+      "title": "Mengenal Proses Pewarna Alami Batik dari Persiapan hingga Fiksasi Warna",
+      "publisher": "Balai Besar Kerajinan dan Batik · Kementerian Perindustrian",
+      "url": "https://bbkb.kemenperin.go.id/index.php/post/read/mengenal_proses_pewarna_alami_batik_dari_persiapan_hingga_fiksasi_warna_0",
+      "note": "Rujukan proses umum: perencanaan motif, malam sebagai perintang, pewarnaan, dan tahapan tambahan."
+    },
+    {
+      "id": "bbkb-lorod",
+      "title": "Malam Bekas, Daur Ulang Aja! Rahasia Ramah Lingkungan Para Pembatik",
+      "publisher": "Balai Besar Kerajinan dan Batik · Kementerian Perindustrian",
+      "url": "https://bbkb.kemenperin.go.id/index.php/post/read/malam_bekas__daur_ulang_aja__rahasia_ramah_lingkungan_para_pembatik_0",
+      "note": "Dipakai untuk pengertian pelorodan sebagai pelepasan malam menggunakan air panas."
+    },
+    {
+      "id": "unesa-pewarna",
+      "title": "Ketahanan Luntur Warna pada Hasil Pencelupan Kain Katun Menggunakan Pewarna Alami Daun Tembakau dengan Fiksator Tunjung",
+      "publisher": "Pramatagi Flosyandini, Hapsari Kusumawardani, Endang Prahastuti · JPBD, 2022",
+      "url": "https://journal.unesa.ac.id/index.php/jpbd/article/view/34674",
+      "note": "Penelitian eksperimen pada katun menghasilkan warna cokelat. Tidak dipakai untuk mengklaim seluruh perajin Batik Mbako menggunakan resep tersebut."
+    }
+  ]
+}

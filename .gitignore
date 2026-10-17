@@ -1,0 +1,10 @@
+node_modules/
+.npm-cache/
+.qa/
+data/visits.json
+data/visits.json.tmp
+*.log
+.env
+.env.*
+.DS_Store
+Thumbs.db
