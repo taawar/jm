@@ -1,3 +1,4 @@
+import { createChapterScene, setupCanting } from './story-scenes.js';
 import { freshProgress, validateProgress, storageKey, readStoredProgress, writeStoredProgress } from './progress-model.js';
 import { setupEngagement } from './engagement.js';
 
@@ -429,11 +430,15 @@ function observeChapters() {
   sceneObserver = new IntersectionObserver(function (entries) {
     for (const entry of entries) {
       if (entry.isIntersecting) {
-        if (entry.target.id !== 'peta') document.body.dataset.theme = entry.target.dataset.theme || 'mori';
+        document.body.dataset.theme = entry.target.dataset.theme || 'mori';
         setActiveNavigation(entry.target.id);
       }
     }
   }, { rootMargin: '-10% 0px -60% 0px', threshold: 0 });
+  for (const id of ['beranda', 'cerita', 'selanjutnya', 'galeri', 'kuis', 'beraksi', 'sumber']) {
+    const bagian = document.getElementById(id);
+    if (bagian) sceneObserver.observe(bagian);
+  }
 }
 
 function setupMotion() {
