@@ -173,6 +173,8 @@ function safeSource(url) {
 function applyPhoto(image, caption, photo, fallback, fallbackCaption) {
   const source = photo ? safeAsset(photo.src) : null;
   if (!source || photo.status !== 'siap') return;
+  image.classList.add('photo-ready');
+  image.closest('figure')?.classList.add('has-photo');
   image.addEventListener('error', function () {
     image.src = fallback;
     image.alt = fallbackCaption;
@@ -290,7 +292,16 @@ function renderChapter(chapter, index) {
   nextButton.addEventListener('click', function () { completeChapter(chapter, index); });
   end.append(status, nextButton);
   const scene = createChapterScene(chapter, story);
-  section.append(header, element('p', 'chapter-summary', chapter.summary), scene || figure, prose);
+  section.append(header, element('p', 'chapter-summary', chapter.summary));
+  if (chapter.photoLayout === 'kanan') {
+    // teks di kiri, foto di kanan; di HP disusun ke bawah
+    const isi = element('div', 'chapter-photo-right');
+    isi.append(prose, figure);
+    section.append(isi);
+  } else {
+    if (scene && chapter.photo?.status === 'siap') section.append(figure);
+    section.append(scene || figure, prose);
+  }
   if (chapter.reflection) {
     const reflection = element('aside', 'chapter-reflection');
     reflection.append(element('p', 'eyebrow', 'COBA PIKIRKAN'), element('p', '', chapter.reflection));

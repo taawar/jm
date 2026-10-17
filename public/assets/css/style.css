@@ -825,6 +825,44 @@ body[data-theme='nila'] .rail-link[aria-current='step'] .rail-number {
   color: var(--chapter-muted);
   margin-top: var(--space-3);
 }
+/* foto yg sudah tersedia tetap tampil saat slot lainnya masih kosong */
+body[data-media='kosong'] .photo-ready {
+  visibility: visible;
+  opacity: 1;
+}
+body[data-media='kosong'] .has-photo figcaption {
+  display: block;
+  visibility: visible;
+}
+.hero-figure.has-photo .landscape-wrap {
+  width: 100%;
+  margin-left: 0;
+}
+.hero-landscape.photo-ready {
+  height: auto;
+  border-radius: var(--radius);
+}
+.chapter-photo-right {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: var(--space-8);
+  align-items: start;
+}
+.chapter-photo-right .chapter-figure {
+  margin: 0;
+}
+.chapter-photo-right .chapter-image {
+  height: auto;
+  object-position: right center;
+}
+.has-photo .chapter-image {
+  height: auto;
+}
+@media (max-width: 800px) {
+  .chapter-photo-right {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
 .chapter-prose {
   max-width: 65ch;
   font-size: var(--text-reading);

@@ -21,10 +21,10 @@
     "description": "Dari lereng dua gunung, sehelai daun menjadi karya. Kenali cerita Batik Mbako dan temukan peranmu untuk masa depan budaya lokal.",
     "cta": "Mulai cerita",
     "photo": {
-      "src": "/assets/img/dua-gunung.jpg",
-      "alt": "Dua gunung berdampingan dengan pantulan di permukaan air",
-      "kredit": "Belum tersedia. Gunakan foto pribadi atau foto berlisensi yang telah diverifikasi.",
-      "status": "sementara"
+      "src": "/assets/img/alun-landscape.jpg",
+      "alt": "Tulisan Temanggung Bersenyum di kawasan Alun-alun Temanggung",
+      "kredit": "Foto dokumentasi pribadi.",
+      "status": "siap"
     },
     "illustration": "/assets/img/landscape.svg",
     "hotspots": [
@@ -109,7 +109,14 @@
       "visualTitle": "Berawal dari sehelai daun",
       "visualCaption": "Studi bentuk daun original untuk Jejak Mbako.",
       "nextLabel": "Lanjut ke Bab 3",
-      "reflection": "Pilih satu tumbuhan di sekitarmu. Bentuk atau cerita apa yang bisa menjadi awal sebuah karya original?"
+      "reflection": "Pilih satu tumbuhan di sekitarmu. Bentuk atau cerita apa yang bisa menjadi awal sebuah karya original?",
+      "photo": {
+        "src": "/assets/img/tembakau-right.jpg",
+        "alt": "Daun tembakau di kebun dengan pepohonan di belakangnya",
+        "kredit": "Foto dokumentasi pribadi.",
+        "status": "siap"
+      },
+      "photoLayout": "kanan"
     },
     {
       "id": "bab-3",
@@ -135,10 +142,10 @@
       "visualTitle": "Dari alam, menjadi ragam",
       "visualCaption": "Komposisi daun original; bukan motif resmi Batik Mbako.",
       "photo": {
-        "src": "/assets/img/batik-daun-cokelat.jpg",
-        "alt": "Kain batik bermotif daun bernuansa cokelat dan emas",
-        "kredit": "Belum tersedia; asal motif dan hak penggunaan perlu diperiksa.",
-        "status": "sementara"
+        "src": "/assets/img/batik.jpg",
+        "alt": "Kain gelap dengan motif daun berwarna terang",
+        "kredit": "Foto dokumentasi pribadi.",
+        "status": "siap"
       },
       "nextLabel": "Lanjut ke Bab 4"
     },
@@ -165,10 +172,10 @@
       "visualTitle": "Pelan, telaten, menjadi",
       "visualCaption": "Ilustrasi original canting dan alur malam.",
       "photo": {
-        "src": "/assets/img/pembatik.jpg",
-        "alt": "Pembatik menorehkan malam dengan canting di atas kain putih",
-        "kredit": "Belum tersedia; gunakan dokumentasi berizin.",
-        "status": "sementara"
+        "src": "/assets/img/pengrajin.jpg",
+        "alt": "Para perajin mengerjakan kain bermotif di meja kerja",
+        "kredit": "Foto dokumentasi pribadi.",
+        "status": "siap"
       },
       "nextLabel": "Lanjut ke Bab 5"
     },
