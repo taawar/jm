@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 560" fill="none">
-  <defs><pattern id="leaves" width="130" height="148" patternUnits="userSpaceOnUse" patternTransform="rotate(-12)"><path d="M36 121C-4 73 24 27 90 16 100 78 80 110 36 121Z" stroke="#D6A53A" stroke-width="2"/><path d="M28 135 82 30m-40 77-14-37m22 18 29-12m-19-7-12-25" stroke="#D6A53A" stroke-width="1.5"/><circle cx="109" cy="122" r="3" fill="#D6A53A"/><path d="m103 45 6-6 6 6-6 6Z" stroke="#D6A53A"/></pattern><clipPath id="cloth"><path d="M94 65 558 93 539 497 87 470Z"/></clipPath><linearGradient id="fold"><stop stop-color="#FFFDF8" stop-opacity="0"/><stop offset=".49" stop-color="#FFFDF8" stop-opacity=".08"/><stop offset=".5" stop-color="#000" stop-opacity=".2"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient></defs>
-  <rect width="640" height="560" rx="12" fill="#E8DEC9"/>
-  <ellipse cx="327" cy="493" rx="242" ry="20" fill="#1F1A15" fill-opacity=".07"/>
-  <g clip-path="url(#cloth)"><path d="M73 53H572V506H73Z" fill="#17203A"/><path d="M73 53H572V506H73Z" fill="url(#leaves)"/><path d="M73 53H572V506H73Z" fill="url(#fold)"/><path d="m100 79 443 28M98 93l443 28M94 443l443 28m-443-14 443 28" stroke="#D6A53A" stroke-width="2"/></g>
-  <path d="m97 470-1 14m13-13v14m14-14v14m13-13v14m14-13v14m13-13v14m14-13v14m13-13v14m14-13v14m13-13v14m14-13v14m13-13v14m14-13v14m13-13v14m14-13v14m13-13v14m14-13v14m13-13v14m14-13v14m13-13v14m14-13v14m13-13v14m14-13v14m13-13v14m14-13v14m13-13v14m14-13v14m13-13v14m14-13v14m13-13v14m14-13v14m13-13v14" stroke="#8E784E"/>
-</svg>
