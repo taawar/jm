@@ -23,7 +23,7 @@
     "photo": {
       "src": "/assets/img/alun-landscape.jpg",
       "alt": "Tulisan Temanggung Bersenyum di kawasan Alun-alun Temanggung",
-      "kredit": "Foto dokumentasi pribadi.",
+      "kredit": "",
       "status": "siap"
     },
     "illustration": "/assets/img/landscape.svg",
@@ -113,7 +113,7 @@
       "photo": {
         "src": "/assets/img/tembakau-right.jpg",
         "alt": "Daun tembakau di kebun dengan pepohonan di belakangnya",
-        "kredit": "Foto dokumentasi pribadi.",
+        "kredit": "",
         "status": "siap"
       },
       "photoLayout": "kanan"
@@ -128,9 +128,8 @@
       "summary": "Bentuk yang akrab di kebun menemukan kehidupan baru di atas kain.",
       "paragraphs": [
         "Penelitian Qarina Masudya Falabiba di Telkom University mencatat awal Batik Mbako sejak 2009: seorang petani mengangkat tanaman tembakau menjadi inspirasi motif. Hal yang akrab di kebun menemukan bentuk baru di atas kain.",
-        "Abstrak penelitian tersebut menyebut lebih dari 30 motif dan lima yang mendapat hak paten. Ini adalah catatan dalam penelitian, bukan inventaris terbaru. Jumlah motif dan status hukum terkini [PERLU DIVERIFIKASI].",
         "Penelitian UNY menghubungkan Ron Mbako dengan stilisasi tanaman tembakau, serta Rigen Mbako dengan aktivitas pertanian. Artikel ISLAH menjelaskan ron sebagai daun dan rigen sebagai tempat penjemuran dari anyaman bambu.",
-        "Kain interaktif di atas adalah komposisi daun yang dibuat khusus untuk Jejak Mbako. Gunakan titik-titiknya untuk membaca unsur desain, lalu bedakan ilustrasi pembelajaran ini dari motif milik perajin."
+        "Batik Mbako memperlihatkan bagaimana bentuk dan aktivitas yang dekat dengan masyarakat dapat menjadi inspirasi karya. Mengenali cerita di baliknya membantu kita menghargai proses kreatif para perajin."
       ],
       "lesson": "Coba lihat hal yang biasa di sekitarmu sebagai awal dari gagasan yang baru.",
       "sourceIds": [
@@ -144,7 +143,7 @@
       "photo": {
         "src": "/assets/img/batik.jpg",
         "alt": "Kain gelap dengan motif daun berwarna terang",
-        "kredit": "Foto dokumentasi pribadi.",
+        "kredit": "",
         "status": "siap"
       },
       "nextLabel": "Lanjut ke Bab 4"
@@ -160,7 +159,7 @@
       "paragraphs": [
         "Gagasan bentuk perlu melewati proses. Pada batik, malam atau lilin batik membatasi bagian kain yang terkena warna. Canting dipakai untuk menggambar dengan malam, sedangkan cap membantu menerapkan pola dengan alat cap.",
         "Daun tembakau juga pernah diteliti sebagai sumber pewarna tekstil. Penelitian Flosyandini dan rekan-rekan pada kain katun dengan fiksator tunjung menghasilkan warna cokelat. Hasil eksperimen itu tidak berarti semua Batik Mbako memakai bahan atau resep yang sama.",
-        "Jelajahi empat tahap ringkas di atas. Ini pengantar proses, bukan resep produksi: persiapan kain, pencelupan, dan pengikatan warna dapat melibatkan langkah tambahan. Praktik rinci pada tiap perajin perlu ditanyakan langsung."
+        "Secara ringkas, proses membatik meliputi pembuatan pola, penerapan malam dengan canting atau cap, pewarnaan, dan pelorodan untuk melepaskan malam. Persiapan kain dan pengikatan warna dapat melibatkan langkah tambahan. Praktik rinci pada tiap perajin dapat berbeda."
       ],
       "lesson": "Ide yang baik perlu dilatih, diuji, dan dikerjakan dengan tekun.",
       "sourceIds": [
@@ -174,7 +173,7 @@
       "photo": {
         "src": "/assets/img/pengrajin.jpg",
         "alt": "Para perajin mengerjakan kain bermotif di meja kerja",
-        "kredit": "Foto dokumentasi pribadi.",
+        "kredit": "",
         "status": "siap"
       },
       "nextLabel": "Lanjut ke Bab 5"

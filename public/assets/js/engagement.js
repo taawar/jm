@@ -7,24 +7,6 @@ function node(tag, className, text) {
   return element;
 }
 
-function sources(container, ids, story) {
-  const links = node('div', 'scene-sources');
-  for (const id of ids || []) {
-    const source = story.sumber.find(function (entry) { return entry.id === id; });
-    if (!source) continue;
-    let url;
-    try { url = new URL(source.url); } catch { continue; }
-    if (url.protocol !== 'https:') continue;
-    const link = node('a', '', source.publisher.split(' · ').pop() + ' ↗');
-    link.href = url.href;
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
-    link.setAttribute('aria-label', source.title + ', buka sumber di tab baru');
-    links.append(link);
-  }
-  container.append(links);
-}
-
 export function setupEngagement(story, actions) {
   const controller = new AbortController();
   const quizRoot = document.querySelector('#quiz-content');
@@ -44,11 +26,10 @@ export function setupEngagement(story, actions) {
       score.setAttribute('aria-label', result.score + ' dari ' + result.total + ' jawaban benar');
       quizRoot.append(node('p', 'eyebrow', 'KUIS SELESAI'), score, heading, node('p', '', 'Setiap jawaban adalah kesempatan belajar. Misi kuis sudah tercatat; lanjutkan dua langkah kecil di Beraksi.'));
       const review = node('details', 'quiz-review');
-      review.append(node('summary', '', 'Lihat kembali jawaban & sumber'));
+      review.append(node('summary', '', 'Lihat kembali jawaban'));
       for (const [index, question] of story.kuis.entries()) {
         const row = node('div', 'quiz-review-row');
         row.append(node('h4', '', question.question), node('p', '', 'Jawabanmu: ' + question.options[answers[index].choice]), node('p', '', 'Jawaban benar: ' + question.options[question.answer]), node('p', '', question.feedback));
-        sources(row, question.sourceIds, story);
         review.append(row);
       }
       const links = node('div', 'quiz-actions');
@@ -97,7 +78,6 @@ export function setupEngagement(story, actions) {
       feedback.setAttribute('role', 'status');
       feedback.tabIndex = -1;
       feedback.append(node('strong', '', correct ? 'Tepat, kamu menangkap ceritanya.' : 'Belum tepat. Mari kenali lagi.'), node('p', '', 'Jawaban benar: ' + question.options[question.answer] + '.'), node('p', '', question.feedback));
-      sources(feedback, question.sourceIds, story);
       const next = node('button', 'button button-primary', result.completed ? 'Lihat hasil →' : 'Soal berikutnya →');
       next.type = 'button';
       next.addEventListener('click', function () {
@@ -154,18 +134,6 @@ export function setupEngagement(story, actions) {
     checkboxes.set(mission.id, checkbox);
     missionRoot.append(row);
   }
-  const ideas = document.querySelector('#idea-list');
-  ideas.replaceChildren();
-  for (const [index, idea] of story.ideUsaha.entries()) {
-    const item = node('details', 'idea-item');
-    const summary = node('summary');
-    const plus = node('span', 'idea-plus', '+');
-    plus.setAttribute('aria-hidden', 'true');
-    summary.append(node('span', 'idea-number', String(index + 1).padStart(2, '0')), node('span', '', idea.title), plus);
-    item.append(summary, node('p', '', idea.description), node('p', 'idea-skill', 'Bekal yang dilatih: ' + idea.skill), node('p', '', 'Mulai kecil: ' + idea.firstStep));
-    ideas.append(item);
-  }
-
   function sync() {
     const progress = actions.getProgress();
     const signature = JSON.stringify(progress.quiz);

@@ -12,30 +12,6 @@ function svgNode(tag, attributes = {}) {
   return item;
 }
 
-function addSources(container, ids, story) {
-  const sources = node('div', 'scene-sources');
-  for (const id of ids || []) {
-    const source = story.sumber.find(function (item) {
-      return item.id === id;
-    });
-    if (!source) continue;
-    let url;
-    try {
-      url = new URL(source.url);
-    } catch {
-      continue;
-    }
-    if (url.protocol !== 'https:') continue;
-    const link = node('a', '', source.publisher.split(' · ').pop() + ' ↗');
-    link.href = url.href;
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
-    link.setAttribute('aria-label', source.title + ', buka sumber di tab baru');
-    sources.append(link);
-  }
-  if (sources.childElementCount) container.append(sources);
-}
-
 function makeTabs(items, prefix, label, select) {
   const list = node('div', 'scene-tabs');
   list.setAttribute('role', 'tablist');
@@ -149,7 +125,6 @@ function makeExplorer(settings, story) {
     panel.append(node('p', 'scene-description', item.text));
     if (item.note) panel.append(node('p', 'verification-note', item.note));
     if (item.prompt) panel.append(node('p', 'scene-prompt', item.prompt));
-    addSources(panel, item.sourceIds, story);
     if (announce)
       status.textContent =
         (item.name || item.label) +
@@ -338,7 +313,6 @@ function createProcess(story) {
       node('p', '', step.text),
       node('p', 'scene-prompt', step.observe),
     );
-    addSources(copy, step.sourceIds, story);
     indicator.textContent =
       'Tahap ' +
       (selected + 1) +
@@ -427,7 +401,6 @@ function createFuture(story) {
 }
 
 export function createChapterScene(chapter, story) {
-  if (chapter.id === 'bab-3') return createMotif(story);
   if (chapter.id === 'bab-4') return createProcess(story);
   if (chapter.id === 'bab-5') return createFuture(story);
   return null;
@@ -471,8 +444,6 @@ export function setupCanting() {
   const track = document.querySelector('#canting-track');
   const ink = document.querySelector('#canting-ink');
   const drop = document.querySelector('#canting-drop');
-  const future = document.querySelector('.future-scene');
-  const futurePaths = [...document.querySelectorAll('.future-thread')];
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const compact = matchMedia('(max-width: 800px), (pointer: coarse)');
   const controller = new AbortController();
@@ -498,16 +469,10 @@ export function setupCanting() {
     ink.setAttribute('d', path);
     const length = ink.getTotalLength();
     const absoluteTop = base.top + window.scrollY;
-    const futureBox = future.getBoundingClientRect();
     metrics = {
       start: absoluteTop + anchors[0],
       end: absoluteTop + anchors[anchors.length - 1],
       length,
-      futureStart: futureBox.top + window.scrollY,
-      futureEnd: futureBox.bottom + window.scrollY,
-      futureLengths: futurePaths.map(function (item) {
-        return item.getTotalLength();
-      }),
     };
     svg.dataset.motion = reduced.matches ? 'reduced' : 'full';
     svg.dataset.layout = compact.matches ? 'compact' : 'desktop';
@@ -532,17 +497,6 @@ export function setupCanting() {
     const point = ink.getPointAtLength(metrics.length * fraction);
     drop.setAttribute('cx', String(point.x));
     drop.setAttribute('cy', String(point.y));
-    const futureFraction = reduced.matches
-      ? 1
-      : readingFraction(readingLine, metrics.futureStart, metrics.futureEnd);
-    for (const [index, path] of futurePaths.entries()) {
-      const length = metrics.futureLengths[index];
-      path.setAttribute('stroke-dasharray', String(length));
-      path.setAttribute(
-        'stroke-dashoffset',
-        String(length * (1 - futureFraction)),
-      );
-    }
   }
 
   function schedule() {

@@ -1,4 +1,4 @@
-import { createChapterScene, setupCanting } from './story-scenes.js';
+import { setupCanting } from './story-scenes.js';
 import { freshProgress, validateProgress, storageKey, readStoredProgress, writeStoredProgress } from './progress-model.js';
 import { setupEngagement } from './engagement.js';
 
@@ -161,15 +161,6 @@ function safeAsset(path) {
   return url.pathname;
 }
 
-function safeSource(url) {
-  try {
-    const parsed = new URL(url);
-    return parsed.protocol === 'https:' ? parsed.href : null;
-  } catch {
-    return null;
-  }
-}
-
 function applyPhoto(image, caption, photo, fallback, fallbackCaption) {
   const source = photo ? safeAsset(photo.src) : null;
   if (!source || photo.status !== 'siap') return;
@@ -182,7 +173,8 @@ function applyPhoto(image, caption, photo, fallback, fallbackCaption) {
   }, { once: true });
   image.src = source;
   image.alt = photo.alt;
-  caption.textContent = photo.kredit;
+  caption.textContent = '';
+  caption.hidden = true;
 }
 
 function renderHero() {
@@ -232,18 +224,6 @@ function renderNavigation() {
   }
 }
 
-function sourceLink(source, label) {
-  const link = element('a', '', label || source.title);
-  const url = safeSource(source.url);
-  if (url) {
-    link.href = url;
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
-    link.setAttribute('aria-label', (label || source.title) + ', buka sumber di tab baru');
-  }
-  return link;
-}
-
 function renderChapter(chapter, index) {
   const section = element('section', 'chapter');
   section.id = chapter.id;
@@ -275,12 +255,6 @@ function renderChapter(chapter, index) {
   for (const paragraph of chapter.paragraphs) prose.append(element('p', '', paragraph));
   const lesson = element('div', 'lesson');
   lesson.append(element('p', 'eyebrow', 'BEKAL UNTUK PEMUDA'), element('p', '', chapter.lesson));
-  const sources = element('div', 'chapter-sources');
-  sources.append(element('span', '', 'Jejak sumber:'));
-  for (const id of chapter.sourceIds) {
-    const source = story.sumber.find(function (item) { return item.id === id; });
-    if (source) sources.append(sourceLink(source, source.publisher.split(' · ').pop()));
-  }
   const end = element('div', 'chapter-end');
   const status = element('span', 'chapter-completion', 'Tandai selesai dengan melanjutkan');
   status.dataset.status = chapter.id;
@@ -291,7 +265,6 @@ function renderChapter(chapter, index) {
   nextButton.append(arrow);
   nextButton.addEventListener('click', function () { completeChapter(chapter, index); });
   end.append(status, nextButton);
-  const scene = createChapterScene(chapter, story);
   section.append(header, element('p', 'chapter-summary', chapter.summary));
   if (chapter.photoLayout === 'kanan') {
     // teks di kiri, foto di kanan; di HP disusun ke bawah
@@ -299,26 +272,16 @@ function renderChapter(chapter, index) {
     isi.append(prose, figure);
     section.append(isi);
   } else {
-    if (scene && chapter.photo?.status === 'siap') section.append(figure);
-    section.append(scene || figure, prose);
+    if (chapter.id !== 'bab-5') section.append(figure);
+    section.append(prose);
   }
   if (chapter.reflection) {
     const reflection = element('aside', 'chapter-reflection');
     reflection.append(element('p', 'eyebrow', 'COBA PIKIRKAN'), element('p', '', chapter.reflection));
     section.append(reflection);
   }
-  section.append(lesson, sources, end);
+  section.append(lesson, end);
   return section;
-}
-
-function renderSources() {
-  const list = document.querySelector('#source-list');
-  list.replaceChildren();
-  for (const source of story.sumber) {
-    const row = element('div', 'source-entry');
-    row.append(sourceLink(source), element('p', '', source.publisher), element('p', '', source.note));
-    list.append(row);
-  }
 }
 
 function updateProgressUI() {
@@ -445,7 +408,7 @@ function observeChapters() {
       }
     }
   }, { rootMargin: '-10% 0px -60% 0px', threshold: 0 });
-  for (const id of ['beranda', 'cerita', 'selanjutnya', 'kuis', 'beraksi', 'sumber']) {
+  for (const id of ['beranda', 'cerita', 'selanjutnya', 'kuis', 'beraksi']) {
     const bagian = document.getElementById(id);
     if (bagian) sceneObserver.observe(bagian);
   }
@@ -523,7 +486,6 @@ async function loadStory() {
     renderNavigation();
     const fragment = document.createDocumentFragment();
     for (const [index, chapter] of story.bab.entries()) fragment.append(renderChapter(chapter, index));
-    renderSources();
     chapters.replaceChildren(fragment);
     if (engagement) engagement.destroy();
     engagement = setupEngagement(story, {
