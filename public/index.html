@@ -24,11 +24,11 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="/assets/css/style.css?v=20261018-clean" />
-    <script src="/assets/js/main.js?v=20261018-clean" type="module"></script>
+    <link rel="stylesheet" href="/assets/css/style.css?v=20261018-hero-html" />
+    <script src="/assets/js/main.js?v=20261018-hero-html" type="module"></script>
   </head>
   <body data-theme="nila" data-media="kosong">
-    <a class="skip-link" href="#cerita">Lewati ke cerita</a> 
+    <a class="skip-link" href="#cerita">Lewati ke cerita</a>
     <header class="site-header">
       <div class="header-inner">
         <a
@@ -109,12 +109,20 @@
               ><span class="hero-note"
                 >5 bab.<br />Satu cerita yang tumbuh.</span
               >
-            </div>            <a class="scroll-cue" href="#cerita"
+            </div>
+            <a class="scroll-cue" href="#cerita"
               ><span class="scroll-icon" aria-hidden="true">↓</span> Gulir untuk
               menjelajah</a
             >
-
           </div>
+          <figure class="hero-figure has-photo">
+            <div class="landscape-wrap" id="hero-art">
+              <img class="hero-landscape photo-ready" id="hero-image"
+                src="/assets/img/alun-landscape.jpg"
+                alt="Alun-alun Temanggung" width="8160" height="6054"
+                fetchpriority="high" />
+            </div>
+          </figure>
         </div>
         <div class="hero-bottom page-width">
           <span>Sebuah perjalanan budaya untuk generasi berikutnya.</span
@@ -193,7 +201,7 @@
             >
           </div>
         </section>
-<section
+        <section
           class="quiz-section"
           id="kuis"
           aria-labelledby="quiz-title"
@@ -242,10 +250,10 @@
               ></progress>
             </div>
             <ol class="mission-list" id="mission-list"></ol>
-</div>
+          </div>
         </section>
       </div>
-</main>
+    </main>
 
     <footer class="site-footer">
       <div class="page-width footer-top">
@@ -301,7 +309,8 @@
         <li>
           <strong>Kenali ceritanya</strong>
           <p>
-            Gulir atau pilih bab untuk membaca cerita Batik Mbako dan proses pembuatannya. Gunakan Tab untuk berpindah antartombol.
+            Gulir atau pilih bab untuk membaca cerita Batik Mbako dan proses
+            pembuatannya. Gunakan Tab untuk berpindah antartombol.
           </p>
         </li>
         <li>
@@ -363,9 +372,7 @@
       <div class="journey-engagement">
         <p id="journey-quiz-status">Kuis belum dimulai</p>
         <a class="text-link" href="#kuis" data-journey-link>Lanjutkan kuis ↗</a
-        ><a class="text-link" href="#beraksi" data-journey-link
-          >Lihat misi ↗</a
-        >
+        ><a class="text-link" href="#beraksi" data-journey-link>Lihat misi ↗</a>
       </div>
       <p class="privacy-note" id="storage-note">
         Nama, kuis, dan progres misi tersimpan hanya di browser ini.

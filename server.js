@@ -247,20 +247,6 @@ app.onError((err, c) => {
   );
 });
 
-// ingetin foto yg masih sementara, satu alamat cukup disebut sekali
-function cekFoto(data, sudahDicek = new Set()) {
-  if (!data || typeof data !== 'object') return;
-
-  if (data.status === 'sementara' && data.src && !sudahDicek.has(data.src)) {
-    console.warn('Foto sementara:', data.src);
-    sudahDicek.add(data.src);
-  }
-
-  for (const isi of Object.values(data)) {
-    cekFoto(isi, sudahDicek);
-  }
-}
-
 // nyalain server lokal; di Vercel cukup pakai export app
 if (
   !diVercel && process.argv[1] &&
@@ -270,8 +256,6 @@ if (
   if (!Number.isInteger(port) || port < 0 || port > 65535) {
     throw new Error('PORT tidak valid.');
   }
-
-  cekFoto(story);
 
   const server = serve(
     {

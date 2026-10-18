@@ -61,15 +61,13 @@ test('round-trip progres lengkap tetap menyimpan semua misi', function () {
   assert.equal(validateProgress({ nickname: '🌿'.repeat(30) }, story).nickname, '🌿'.repeat(24));
 });
 
-test('konten fase 3 lengkap, ilustrasi lokal ada, dan kuis memiliki sumber', async function () {
+test('kuis dan misi lengkap, jawaban kuis valid', async function () {
   assert.ok(story.meta.phase >= 3);
   assert.equal(story.kuis.length, 3);
   assert.equal(story.misi.length, 3);
-  const ids = new Set(story.sumber.map(function (source) { return source.id; }));
   for (const question of story.kuis) {
     assert.ok(Number.isInteger(question.answer) && question.answer >= 0 && question.answer < question.options.length);
     assert.ok(question.feedback);
-    for (const id of question.sourceIds) assert.ok(ids.has(id));
   }
 });
 

@@ -157,22 +157,6 @@ function safeAsset(path) {
   return url.pathname;
 }
 
-function applyPhoto(image, caption, photo, fallback, fallbackCaption) {
-  const source = photo ? safeAsset(photo.src) : null;
-  if (!source || photo.status !== 'siap') return;
-  image.classList.add('photo-ready');
-  image.closest('figure')?.classList.add('has-photo');
-  image.addEventListener('error', function () {
-    image.src = fallback;
-    image.alt = fallbackCaption;
-    caption.textContent = fallbackCaption;
-  }, { once: true });
-  image.src = source;
-  image.alt = photo.alt;
-  caption.textContent = '';
-  caption.hidden = true;
-}
-
 function renderHero() {
   document.querySelector('#hero-eyebrow').textContent = story.hero.eyebrow;
   document.querySelector('#hero-subtitle').textContent = story.hero.subtitle;
@@ -218,17 +202,19 @@ function renderChapter(chapter, index) {
   const stamp = element('span', 'chapter-stamp', String(chapter.number).padStart(2, '0'));
   stamp.setAttribute('aria-hidden', 'true');
   header.append(titleGroup, stamp);
-  const figure = element('figure', 'chapter-figure');
-  const image = element('img', 'chapter-image');
-  image.src = safeAsset(chapter.illustration) || '/assets/img/leaf-study.svg';
-  image.alt = chapter.visualTitle;
-  image.width = 640;
-  image.height = 560;
-  image.loading = 'lazy';
-  image.decoding = 'async';
-  const caption = element('figcaption', '', chapter.visualCaption);
-  figure.append(image, caption);
-  applyPhoto(image, caption, chapter.photo, chapter.illustration, chapter.visualCaption);
+  const figure = element('figure', 'chapter-figure has-photo');
+  const foto = safeAsset(chapter.photo?.src);
+  if (foto) {
+    const image = element('img', 'chapter-image photo-ready');
+    image.src = foto;
+    image.alt = chapter.photo.alt || chapter.title;
+    image.width = 640;
+    image.height = 560;
+    image.loading = 'lazy';
+    image.decoding = 'async';
+    image.addEventListener('error', () => { figure.hidden = true; }, { once: true });
+    figure.append(image);
+  }
   const prose = element('div', 'chapter-prose');
   for (const paragraph of chapter.paragraphs) prose.append(element('p', '', paragraph));
   const lesson = element('div', 'lesson');
@@ -244,13 +230,13 @@ function renderChapter(chapter, index) {
   nextButton.addEventListener('click', function () { completeChapter(chapter, index); });
   end.append(status, nextButton);
   section.append(header, element('p', 'chapter-summary', chapter.summary));
-  if (chapter.photoLayout === 'kanan') {
+  if (foto && chapter.photoLayout === 'kanan') {
     // teks di kiri, foto di kanan; di HP disusun ke bawah
     const isi = element('div', 'chapter-photo-right');
     isi.append(prose, figure);
     section.append(isi);
   } else {
-    if (chapter.id !== 'bab-5') section.append(figure);
+    if (foto) section.append(figure);
     section.append(prose);
   }
   if (chapter.reflection) {

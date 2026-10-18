@@ -52,12 +52,10 @@ test('API dan perlindungan data Jejak Mbako', async function (t) {
     assert.equal(response.headers.get('cache-control'), 'no-store');
     const story = await response.json();
     assert.equal(healthData.phase, story.meta.phase);
-    for (const key of ['meta', 'hero', 'bab', 'kuis', 'misi', 'sumber']) assert.ok(story[key], key);
+    for (const key of ['meta', 'hero', 'bab', 'kuis', 'misi']) assert.ok(story[key], key);
     assert.equal(story.bab.length, 5);
-    const sourceIds = new Set(story.sumber.map(function (source) { return source.id; }));
     for (const chapter of story.bab) {
-      for (const id of chapter.sourceIds) assert.ok(sourceIds.has(id));
-      assert.equal((await fetch(origin + chapter.illustration)).status, 200);
+      if (chapter.photo.src) assert.equal((await fetch(origin + chapter.photo.src)).status, 200);
     }
   });
 

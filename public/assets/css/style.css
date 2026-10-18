@@ -2061,15 +2061,15 @@ body[data-theme='nila'] .canting-drop {
   .hero-photo-full::after { background: rgba(12,20,39,.74); }
 }
 
-/* hero memakai background langsung, tanpa menunggu JavaScript */
-.hero-photo-full {
-  background-image: linear-gradient(90deg, rgba(12,20,39,.92), rgba(12,20,39,.55) 65%, rgba(12,20,39,.25)), url('/assets/img/alun-landscape.jpg');
-  background-size: cover;
-  background-position: center;
+/* foto hero dari elemen HTML, seperti tampilan sebelumnya */
+.hero-photo-full .hero-figure {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  align-self: stretch; margin: 0; z-index: -2;
 }
-.hero-photo-full::after { display: none; }
-@media (max-width: 800px) {
-  .hero-photo-full {
-    background-image: linear-gradient(rgba(12,20,39,.74), rgba(12,20,39,.74)), url('/assets/img/alun-landscape.jpg');
-  }
+.hero-photo-full .landscape-wrap {
+  width: 100%; height: 100%; margin: 0; border: 0; border-radius: 0;
+}
+.hero-photo-full .hero-landscape {
+  display: block; width: 100%; height: 100%; object-fit: cover;
+  object-position: center; border-radius: 0; transform: none;
 }

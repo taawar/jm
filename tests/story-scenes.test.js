@@ -27,11 +27,3 @@ test('ID bab lama tetap kompatibel dan interaksi fase 2 memiliki konten lengkap'
 
 });
 
-test('setiap rujukan konten fase 2 menunjuk sumber yang ada', function () {
-  const sourceIds = new Set(story.sumber.map(function (source) { return source.id; }));
-  assert.equal(sourceIds.size, story.sumber.length);
-  for (const item of story.bab) {
-    for (const id of item.sourceIds || []) assert.ok(sourceIds.has(id), item.id + ': ' + id);
-  }
-  for (const source of story.sumber) assert.equal(new URL(source.url).protocol, 'https:');
-});
