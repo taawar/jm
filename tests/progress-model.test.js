@@ -65,19 +65,12 @@ test('konten fase 3 lengkap, ilustrasi lokal ada, dan kuis memiliki sumber', asy
   assert.ok(story.meta.phase >= 3);
   assert.equal(story.kuis.length, 3);
   assert.equal(story.misi.length, 3);
-  assert.equal(story.ideUsaha.length, 6);
-  for (const item of story.galeri) {
-    assert.match(item.illustration, /^\/assets\//);
-    await access(new URL('../public' + item.illustration, import.meta.url));
-    assert.ok(item.title && item.description && item.illustrationAlt);
-  }
   const ids = new Set(story.sumber.map(function (source) { return source.id; }));
   for (const question of story.kuis) {
     assert.ok(Number.isInteger(question.answer) && question.answer >= 0 && question.answer < question.options.length);
     assert.ok(question.feedback);
     for (const id of question.sourceIds) assert.ok(ids.has(id));
   }
-  for (const idea of story.ideUsaha) assert.ok(idea.skill && idea.firstStep);
 });
 
 test('storage diblokir tetap mengembalikan progres sesi tanpa melempar error', function () {

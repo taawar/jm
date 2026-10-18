@@ -99,10 +99,6 @@ function setupDialogs() {
       if (lastDialogTrigger) lastDialogTrigger.focus({ preventScroll: true });
     });
   }
-  document.querySelector('#hotspot-continue').addEventListener('click', function () {
-    closeDialog(document.querySelector('#hotspot-dialog'));
-    setTimeout(function () { focusChapter('bab-1'); }, 0);
-  });
   for (const link of document.querySelectorAll('[data-journey-link]')) {
     link.addEventListener('click', function () {
       closeDialog(document.querySelector('#journey-dialog'));
@@ -181,25 +177,7 @@ function renderHero() {
   document.querySelector('#hero-eyebrow').textContent = story.hero.eyebrow;
   document.querySelector('#hero-subtitle').textContent = story.hero.subtitle;
   document.querySelector('#hero-description').textContent = story.hero.description;
-  const hotspots = document.querySelector('#hero-hotspots');
-  hotspots.replaceChildren();
-  for (const hotspot of story.hero.hotspots) {
-    if (!['gunung', 'kebun', 'kota'].includes(hotspot.id)) continue;
-    const button = element('button', 'hotspot hotspot-' + hotspot.id);
-    button.type = 'button';
-    button.setAttribute('aria-label', 'Kenali ' + hotspot.label);
-    button.setAttribute('aria-haspopup', 'dialog');
-    const dot = element('span', 'hotspot-dot', '+');
-    dot.setAttribute('aria-hidden', 'true');
-    button.append(dot, element('span', 'hotspot-label', hotspot.label));
-    button.addEventListener('click', function () {
-      document.querySelector('#hotspot-title').textContent = hotspot.title;
-      document.querySelector('#hotspot-text').textContent = hotspot.text;
-      openDialog('hotspot-dialog', button);
-    });
-    hotspots.append(button);
-  }
-  applyPhoto(document.querySelector('#hero-image'), document.querySelector('#hero-caption'), story.hero.photo, story.hero.illustration, 'Ilustrasi original bentang alam Temanggung.');
+
 }
 
 function renderNavigation() {
@@ -414,23 +392,6 @@ function observeChapters() {
   }
 }
 
-function setupMotion() {
-  const art = document.querySelector('#hero-art');
-  const allowed = matchMedia('(min-width: 801px) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
-  let scheduled = false;
-  art.addEventListener('pointermove', function (event) {
-    if (!allowed.matches || scheduled) return;
-    scheduled = true;
-    requestAnimationFrame(function () {
-      const bounds = art.getBoundingClientRect();
-      art.dataset.drift = event.clientX < bounds.left + bounds.width / 2 ? 'left' : 'right';
-      scheduled = false;
-    });
-  }, { passive: true });
-  art.addEventListener('pointerleave', function () { delete art.dataset.drift; });
-  allowed.addEventListener('change', function () { delete art.dataset.drift; });
-}
-
 function setupProgressActions() {
   document.querySelector('#nickname-form').addEventListener('submit', function (event) {
     event.preventDefault();
@@ -525,7 +486,6 @@ async function loadStory() {
 
 setupDialogs();
 setupMenu();
-setupMotion();
 setupProgressActions();
 window.addEventListener('hashchange', function () { setActiveNavigation(window.location.hash.slice(1)); });
 document.querySelector('#retry-story').addEventListener('click', loadStory);

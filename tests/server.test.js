@@ -10,7 +10,7 @@ test('API dan perlindungan data Jejak Mbako', async function (t) {
   const directory = await mkdtemp(join(tmpdir(), 'jejak-mbako-test-'));
   const visitFile = join(directory, 'visits.json');
   process.env.VISITS_FILE = visitFile;
-  const { app } = await import('../s.js');
+  const { app } = await import('../server.js');
   const server = serve({ fetch: app.fetch, hostname: '127.0.0.1', port: 0 });
   if (!server.listening) await new Promise(function (resolve) { server.once('listening', resolve); });
   const origin = 'http://127.0.0.1:' + server.address().port;
@@ -29,7 +29,7 @@ test('API dan perlindungan data Jejak Mbako', async function (t) {
   }
 
   await t.test('halaman, font, dan SVG dapat diakses dengan header keamanan', async function () {
-    for (const path of ['/', '/assets/css/style.css', '/assets/js/main.js', '/assets/js/story-scenes.js', '/assets/js/progress-model.js', '/assets/js/engagement.js', '/assets/img/landscape.svg', '/assets/img/story-map.svg', '/assets/fonts/fraunces-600.woff2', '/assets/fonts/plus-jakarta-sans-400.woff2', '/assets/fonts/plus-jakarta-sans-500.woff2', '/assets/fonts/plus-jakarta-sans-700.woff2']) {
+    for (const path of ['/', '/assets/css/style.css', '/assets/js/main.js', '/assets/js/story-scenes.js', '/assets/js/progress-model.js', '/assets/js/engagement.js', '/assets/img/landscape.svg', '/assets/fonts/fraunces-600.woff2', '/assets/fonts/plus-jakarta-sans-400.woff2', '/assets/fonts/plus-jakarta-sans-500.woff2', '/assets/fonts/plus-jakarta-sans-700.woff2']) {
       const response = await fetch(origin + path);
       assert.equal(response.status, 200, path);
       assert.equal(response.headers.get('x-frame-options'), 'DENY');
@@ -52,7 +52,7 @@ test('API dan perlindungan data Jejak Mbako', async function (t) {
     assert.equal(response.headers.get('cache-control'), 'no-store');
     const story = await response.json();
     assert.equal(healthData.phase, story.meta.phase);
-    for (const key of ['meta', 'hero', 'bab', 'peta', 'motifHotspot', 'proses', 'galeri', 'kuis', 'misi', 'ideUsaha', 'sumber']) assert.ok(story[key], key);
+    for (const key of ['meta', 'hero', 'bab', 'kuis', 'misi', 'sumber']) assert.ok(story[key], key);
     assert.equal(story.bab.length, 5);
     const sourceIds = new Set(story.sumber.map(function (source) { return source.id; }));
     for (const chapter of story.bab) {

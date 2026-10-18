@@ -65,7 +65,7 @@ test('canting menghormati reduced motion, layout compact, dan satu render per fr
   reduced.dispatchEvent(new Event('change'));
   flush();
   assert.equal(nodes.get('#canting-thread').dataset.motion, 'reduced');
-  for (const path of [nodes.get('#canting-ink'), ...futurePaths]) assert.equal(path.attributes.get('stroke-dashoffset'), '0');
+  for (const path of [nodes.get('#canting-ink')]) assert.equal(path.attributes.get('stroke-dashoffset'), '0');
   fakeWindow.dispatchEvent(new Event('scroll'));
   assert.equal(frames.size, 0);
 

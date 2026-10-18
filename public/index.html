@@ -24,8 +24,8 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="/assets/css/style.css" />
-    <script src="/assets/js/main.js" type="module"></script>
+    <link rel="stylesheet" href="/assets/css/style.css?v=20261018-clean" />
+    <script src="/assets/js/main.js?v=20261018-clean" type="module"></script>
   </head>
   <body data-theme="nila" data-media="kosong">
     <a class="skip-link" href="#cerita">Lewati ke cerita</a> 
@@ -39,7 +39,7 @@
         >
         <nav class="main-nav" aria-label="Navigasi utama" id="main-nav">
           <a href="#cerita" class="nav-current">Cerita</a>
-          ><a href="#kuis">Kuis</a
+          <a href="#kuis">Kuis</a
           ><a href="#beraksi">Beraksi <span aria-hidden="true">↗</span></a>
         </nav>
         <div class="header-actions">
@@ -115,27 +115,6 @@
             >
 
           </div>
-          <figure class="hero-figure">
-            <div class="landscape-wrap" id="hero-art">
-              <img
-                class="hero-landscape"
-                id="hero-image"
-                src="/assets/img/alun-landscape.jpg"
-                width="920"
-                height="740"
-                alt="Tulisan Temanggung Bersenyum di kawasan Alun-alun Temanggung"
-                fetchpriority="high"
-              />
-              <div id="hero-hotspots" class="hero-hotspots"></div>
-              <span class="art-coordinate" aria-hidden="true"
-                >TANAH · MANUSIA · KARYA</span
-              >
-            </div>
-            <figcaption id="hero-caption">
-              <span class="caption-line"></span> Ilustrasi original. Sebuah
-              tafsir atas tanah Temanggung.
-            </figcaption>
-          </figure>
         </div>
         <div class="hero-bottom page-width">
           <span>Sebuah perjalanan budaya untuk generasi berikutnya.</span
@@ -271,7 +250,7 @@
     <footer class="site-footer">
       <div class="page-width footer-top">
         <a class="brand" href="#beranda"
-          ><img src="/assets/img/mark.svg" width="40" height="40" alt="" /><span
+          ><span
             >jejak<span class="brand-emphasis">mbako</span
             ><span class="brand-dot">.</span></span
           ></a
@@ -322,9 +301,7 @@
         <li>
           <strong>Kenali ceritanya</strong>
           <p>
-            Gulir atau pilih bab. Kenali cerita Batik Mbako, lalu ikuti
-            empat tahap membatik. Gunakan Tab untuk berpindah kontrol dan tombol
-            panah untuk memilih dalam daftar.
+            Gulir atau pilih bab untuk membaca cerita Batik Mbako dan proses pembuatannya. Gunakan Tab untuk berpindah antartombol.
           </p>
         </li>
         <li>
@@ -412,24 +389,6 @@
       </div>
     </dialog>
 
-    <dialog id="hotspot-dialog" aria-labelledby="hotspot-title">
-      <div class="dialog-top">
-        <p class="eyebrow">SEBUAH JEJAK TEMANGGUNG</p>
-        <button
-          class="close-button"
-          type="button"
-          data-close
-          aria-label="Tutup cerita singkat"
-        >
-          ×
-        </button>
-      </div>
-      <h2 id="hotspot-title"></h2>
-      <p id="hotspot-text" class="dialog-description"></p>
-      <a class="text-link" href="#bab-1" id="hotspot-continue"
-        >Kenali lewat cerita <span aria-hidden="true">↗</span></a
-      >
-    </dialog>
     <noscript
       ><div class="noscript-note">
         Aktifkan JavaScript untuk memuat bab dan menyimpan progres. Jejak Mbako

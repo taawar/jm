@@ -24,28 +24,14 @@ test('pengukuran kosong atau tidak valid tidak menghasilkan NaN', function () {
 test('ID bab lama tetap kompatibel dan interaksi fase 2 memiliki konten lengkap', function () {
   assert.ok(story.meta.phase >= 2);
   assert.deepEqual(story.bab.map(function (chapter) { return chapter.id; }), ['bab-1', 'bab-2', 'bab-3', 'bab-4', 'bab-5']);
-  assert.equal(story.peta.points.length, 6);
-  assert.match(story.peta.caption, /bukan peta akurat/);
-  assert.deepEqual(story.proses.map(function (step) { return step.id; }), ['pola', 'malam', 'warna', 'lorod']);
-  for (const items of [story.peta.points, story.motifHotspot, story.proses]) {
-    assert.equal(new Set(items.map(function (item) { return item.id; })).size, items.length);
-    for (const item of items) {
-      assert.ok(item.text.length > 30, item.id);
-      if (item.x !== undefined) {
-        assert.ok(Number.isFinite(item.x) && item.x >= 5 && item.x <= 95);
-        assert.ok(Number.isFinite(item.y) && item.y >= 5 && item.y <= 95);
-      }
-    }
-  }
+
 });
 
 test('setiap rujukan konten fase 2 menunjuk sumber yang ada', function () {
   const sourceIds = new Set(story.sumber.map(function (source) { return source.id; }));
   assert.equal(sourceIds.size, story.sumber.length);
-  for (const item of [...story.bab, ...story.peta.points, ...story.motifHotspot, ...story.proses]) {
+  for (const item of story.bab) {
     for (const id of item.sourceIds || []) assert.ok(sourceIds.has(id), item.id + ': ' + id);
   }
   for (const source of story.sumber) assert.equal(new URL(source.url).protocol, 'https:');
-  const workshop = story.peta.points.find(function (point) { return point.id === 'batik'; });
-  assert.match(workshop.note, /PERLU DIVERIFIKASI/);
 });
