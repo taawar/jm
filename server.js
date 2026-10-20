@@ -87,7 +87,7 @@ app.use('/api/*', async (c, next) => {
   await next();
 });
 
-// cek server masih bisa merespons
+// cek serverr aja si
 app.get('/api/health', (c) => {
   return c.json({
     status: 'ok',
@@ -96,10 +96,10 @@ app.get('/api/health', (c) => {
   });
 });
 
-// kirim isi cerita utk ditampilin browser
+// kirim api story yekan
 app.get('/api/story', (c) => c.json(story));
 
-// baca kiriman sedikit-sedikit, berhenti kalau ukurannya lewat batas
+// baca sizeBodyDataa
 async function bacaDataKecil(req) {
   const sizesender = Number(req.headers.get('content-length') || 0);
 
@@ -264,7 +264,6 @@ if (
       port: port,
     },
     (info) => {
-      console.log('Jejak Mbako — fase ' + story.meta.phase);
       console.log('Local: http://localhost:' + info.port);
     },
   );
