@@ -7,22 +7,31 @@ import { resolve, dirname } from 'node:path';
 import { tmpdir } from 'node:os';
 
 const path = dirname(fileURLToPath(import.meta.url));
-const story = JSON.parse(
+const paragrafBab = JSON.parse(
   await readFile(resolve(path, 'data/story.json'), 'utf-8'),
 );
+const infoCerita = JSON.parse(
+  await readFile(resolve(path, 'data/story-info.json'), 'utf-8'),
+);
+const story = {
+  ...infoCerita,
+  bab: infoCerita.bab.map((bab) => ({
+    ...bab,
+    paragraphs:
+      paragrafBab.bab.find((isiBab) => isiBab.id === bab.id)?.paragraphs || [],
+  })),
+};
 const idBAB = new Set(story.bab.map((bab) => bab.id));
 const diVercel = process.env.VERCEL === '1';
-// di Vercel hitungan ini cuma sementara, bisa hilang saat server diganti
-const fileYgMwDibuka = diVercel
-  ? resolve(tmpdir(), 'jejak-mbako-visits.json')
-  : resolve(path, process.env.VISITS_FILE || 'data/visits.json');
+// sementara
+const fileYgMwDibuka = "data/visits.json";
 const limits = new Map();
 const bodyLimit = 1024;
 let queue = Promise.resolve();
 
 export const app = new Hono();
 
-// batasin sumber kode sama akses fitur browser yg ga dipakai
+// security 
 app.use('*', async (c, next) => {
   c.header(
     'Content-Security-Policy',
@@ -168,6 +177,7 @@ async function addVisit(id) {
   await writeFile(tempFile, isiTerbaru, 'utf-8');
   await rename(tempFile, fileYgMwDibuka);
 }
+
 
 // cek asal request dan ID bab, lalu antrekan penyimpanan kunjungannya
 app.post('/api/visit', async (c) => {

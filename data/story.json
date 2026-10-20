@@ -1,164 +1,40 @@
 {
-  "hero": {
-    "eyebrow": "TEMANGGUNG, JAWA TENGAH",
-    "subtitle": "Setiap daun punya cerita.",
-    "description": "Dari lereng dua gunung, sehelai daun menjadi karya. Kenali cerita Batik Mbako dan temukan peranmu untuk masa depan budaya lokal.",
-    "cta": "Mulai cerita"
-  },
   "bab": [
     {
       "id": "bab-1",
-      "number": 1,
-      "title": "Di Antara Dua Gunung",
-      "shortTitle": "Tanah & cerita",
-      "theme": "kabut",
-      "eyebrow": "MENGENAL AKAR",
-      "summary": "Sebelum mengenal sehelai kain, mari mengenal tanah tempat ceritanya bermula.",
       "paragraphs": [
         "Temanggung berada di antara Gunung Sumbing dan Gunung Sindoro. Bentang alam ini menjadi bagian dari identitas daerah dan sering kita lihat dalam cerita maupun lambangnya.",
         "Di Temanggung, pemandangan alam bertemu dengan kebun, lahan pertanian, dan ruang bersama seperti alun-alun. Dari tempat-tempat inilah kita mulai mengenal lingkungan yang membentuk kehidupan masyarakat."
-      ],
-      "lesson": "Mengenal tempat asal adalah langkah pertama untuk menemukan potensi yang bisa kamu kembangkan.",
-      "photo": {
-        "src": "/assets/img/gunung-temanggung.jpg",
-        "alt": "Pemandangan gunung di Temanggung dengan jalan dan skuter biru"
-      },
-      "nextLabel": "Lanjut ke Bab 2"
+      ]
     },
     {
       "id": "bab-2",
-      "number": 2,
-      "title": "Daun yang Menghidupi",
-      "shortTitle": "Tanah & tangan",
-      "theme": "lereng",
-      "eyebrow": "MENGHARGAI MANUSIA",
-      "summary": "Di balik setiap daun, ada tangan yang merawat dan pengetahuan yang tumbuh.",
       "paragraphs": [
         "Tembakau dikenal sebagai salah satu hasil perkebunan Temanggung. Kopi juga tumbuh di daerah ini. Data BPS Kabupaten Temanggung mencatat keduanya dalam produksi perkebunan daerah.",
         "Di balik hasil bumi ada orang-orang yang merawat tanaman dan mengolah hasil panen. Karena itu, cerita tentang tembakau juga bisa menjadi kesempatan untuk mengenal pekerjaan dan pengetahuan masyarakat dengan lebih dekat."
-      ],
-      "lesson": "Kreativitas tumbuh saat kamu mau mengamati, mendengarkan, dan menghargai kerja orang lain.",
-      "nextLabel": "Lanjut ke Bab 3",
-      "reflection": "Pilih satu tumbuhan di sekitarmu. Bentuk atau cerita apa yang bisa menjadi awal sebuah karya original?",
-      "photo": {
-        "src": "/assets/img/tembakau-right.jpg",
-        "alt": "Daun tembakau di kebun dengan pepohonan di belakangnya"
-      },
-      "photoLayout": "kanan"
+      ]
     },
     {
       "id": "bab-3",
-      "number": 3,
-      "title": "Lahirnya Batik Mbako",
-      "shortTitle": "Daun jadi karya",
-      "theme": "mori",
-      "eyebrow": "MENEMUKAN KREATIVITAS",
-      "summary": "Bentuk yang akrab di kebun menemukan kehidupan baru di atas kain.",
       "paragraphs": [
         "Salah satu laporan Media Center Kabupaten Temanggung mencatat Batik Mbako mulai dibuat pada 2009. Motif tanaman tembakau dipilih untuk mengangkat hasil pertanian yang lekat dengan Temanggung.",
         "Batik Mbako kemudian berkembang dengan motif yang terinspirasi dari berbagai hasil bumi, termasuk daun tembakau dan kopi. Kain ini menunjukkan bagaimana sesuatu yang dekat dengan kehidupan daerah dapat diolah menjadi karya."
-      ],
-      "lesson": "Coba lihat hal yang biasa di sekitarmu sebagai awal dari gagasan yang baru.",
-      "photo": {
-        "src": "/assets/img/batik.jpg",
-        "alt": "Kain gelap dengan motif daun berwarna terang"
-      },
-      "nextLabel": "Lanjut ke Bab 4"
+      ]
     },
     {
       "id": "bab-4",
-      "number": 4,
-      "title": "Dari Daun ke Kain",
-      "shortTitle": "Proses & ketekunan",
-      "theme": "daun",
-      "eyebrow": "MENGHARGAI PROSES",
-      "summary": "Sebuah gagasan perlu keterampilan dan ketekunan untuk menjadi karya.",
       "paragraphs": [
         "Batik Mbako dikenal melalui motifnya yang terinspirasi dari tanaman dan hasil bumi Temanggung. Dalam proses membatik, perajin menggunakan teknik seperti batik tulis atau batik cap dengan malam sebagai perintang warna.",
         "Daun tembakau juga pernah diteliti sebagai bahan pewarna alami untuk kain. Penelitian tersebut merupakan uji coba, jadi tidak berarti semua Batik Mbako dibuat dengan pewarna dari tembakau."
-      ],
-      "lesson": "Ide yang baik perlu dilatih, diuji, dan dikerjakan dengan tekun.",
-      "photo": {
-        "src": "/assets/img/pengrajin.jpg",
-        "alt": "Para perajin mengerjakan kain bermotif di meja kerja"
-      },
-      "nextLabel": "Lanjut ke Bab 5"
+      ]
     },
     {
       "id": "bab-5",
-      "number": 5,
-      "title": "Giliran Pemuda",
-      "shortTitle": "Cerita berikutnya",
-      "theme": "nila",
-      "eyebrow": "MEMBAWA CERITA KE DEPAN",
-      "summary": "Warisan bukan hanya sesuatu yang dijaga. Ia juga bisa menjadi awal karya berikutnya.",
       "paragraphs": [
         "Cerita lima bab ini berangkat dari mengenal daerah, menghargai pekerjaan masyarakat, menemukan inspirasi, lalu memahami proses sebuah karya. Perjalanan itu menunjukkan bahwa belajar bisa dimulai dari hal-hal yang dekat dengan kita.",
         "Bonus demografi memberi peluang ketika penduduk usia produktif memiliki kemampuan dan kesempatan untuk berkembang. Pemuda dapat ikut mengambil peran dengan belajar, berkarya, dan mengenalkan budaya lokal secara bertanggung jawab.",
         "Kita tidak harus melakukan semuanya sekaligus. Mendengarkan cerita perajin, mengamati lingkungan, atau membagikan informasi yang sudah diperiksa bisa menjadi langkah kecil untuk meneruskan cerita daerah."
-      ],
-      "lesson": "Budaya lokal bisa menjadi bekal berkarya. Cerita berikutnya dapat dimulai dari kamu.",
-      "nextLabel": "Selesaikan perjalanan",
-      "reflection": "Peran mana yang ingin kamu coba: pendengar cerita, pembuat karya, atau penghubung budaya dengan teman sebaya?",
-      "photo": {
-        "src": "",
-        "alt": ""
-      }
-    }
-  ],
-  "kuis": [
-    {
-      "id": "gunung",
-      "question": "Gunung apa yang menjadi bagian dari identitas Temanggung?",
-      "options": [
-        "Sumbing dan Sindoro",
-        "Bromo dan Semeru",
-        "Merapi dan Lawu"
-      ],
-      "answer": 0,
-      "feedback": "Sumbing dan Sindoro juga hadir pada lambang daerah Temanggung."
-    },
-    {
-      "id": "motif",
-      "question": "Tanaman apa yang menginspirasi motif Batik Mbako?",
-      "options": [
-        "Kelapa",
-        "Tembakau",
-        "Teh"
-      ],
-      "answer": 1,
-      "feedback": "Tanaman tembakau menjadi inspirasi motif Batik Mbako."
-    },
-    {
-      "id": "pemuda",
-      "question": "Apa bekal penting untuk memanfaatkan bonus demografi?",
-      "options": [
-        "Menunggu kesempatan datang",
-        "Mengandalkan jumlah penduduk saja",
-        "Mengembangkan kualitas dan keterampilan"
-      ],
-      "answer": 2,
-      "feedback": "Kualitas sumber daya manusia membantu peluang demografi menjadi manfaat."
-    }
-  ],
-  "misi": [
-    {
-      "id": "kuis",
-      "title": "Selesaikan kuis budaya",
-      "description": "Uji pemahamanmu setelah mengenal lima bab.",
-      "kind": "quiz"
-    },
-    {
-      "id": "cerita",
-      "title": "Dengarkan satu cerita lokal",
-      "description": "Tanyakan kepada orang tua atau perajin, dengan menghargai waktu dan izin mereka.",
-      "kind": "manual"
-    },
-    {
-      "id": "bagikan",
-      "title": "Bagikan satu fakta Temanggung",
-      "description": "Ceritakan kepada teman dan sertakan sumbernya.",
-      "kind": "manual"
+      ]
     }
   ]
 }

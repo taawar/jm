@@ -1304,6 +1304,9 @@ input {
   }
 }
 @media (max-width: 580px) {
+  .canting-thread {
+    display: none;  
+  }
   .hero-inner {
     grid-template-columns: 1fr;
     padding-top: var(--space-8);
@@ -2013,9 +2016,7 @@ body[data-theme='nila'] .canting-drop {
   }
 }
 @media (max-width: 580px) {
-  :root {
 
-  }
   .engagement-intro,
   .quiz-section,
   .action-section {

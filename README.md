@@ -65,3 +65,7 @@ Saya berharap pengguna bisa melihat bahwa mengenal budaya lokal dapat menjadi aw
 ## Keterbatasan dan rencana ke depan
 
 Website ini masih sedikit dan rencananya saya ingin mengembangkan lebih lanjut dengan menambahkan lebih banyak cerita improve UI/UX dll.
+
+## Menjalankan
+
+Untuk menjalankan harus install nodejs v22 keatas lalu di terminal ketik npm install lalu npm run dev

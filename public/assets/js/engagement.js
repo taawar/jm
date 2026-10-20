@@ -6,7 +6,12 @@ function node(tag, className, text) {
   if (text !== undefined) element.textContent = text;
   return element;
 }
-
+function node(tag, className, text) {
+  const elemen = document.createElement(tag);
+  if (className) element.className = className;
+  if (text) element.textContent = text;
+  return element;
+}
 export function setupEngagement(story, actions) {
   const controller = new AbortController();
   const quizRoot = document.querySelector('#quiz-content');
