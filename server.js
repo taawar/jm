@@ -7,20 +7,9 @@ import { resolve, dirname } from 'node:path';
 import { tmpdir } from 'node:os';
 
 const path = dirname(fileURLToPath(import.meta.url));
-const paragrafBab = JSON.parse(
+const story = JSON.parse(
   await readFile(resolve(path, 'data/story.json'), 'utf-8'),
 );
-const infoCerita = JSON.parse(
-  await readFile(resolve(path, 'data/story-info.json'), 'utf-8'),
-);
-const story = {
-  ...infoCerita,
-  bab: infoCerita.bab.map((bab) => ({
-    ...bab,
-    paragraphs:
-      paragrafBab.bab.find((isiBab) => isiBab.id === bab.id)?.paragraphs || [],
-  })),
-};
 const idBAB = new Set(story.bab.map((bab) => bab.id));
 const diVercel = process.env.VERCEL === '1';
 // sementara

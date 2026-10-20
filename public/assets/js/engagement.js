@@ -1,15 +1,54 @@
 import { gradeQuiz } from './progress-model.js';
+//jngn diliat lewat inspect weh
+export const kuis = [
+  {
+    id: 'gunung',
+    question: 'Gunung apa yang menjadi bagian dari identitas Temanggung?',
+    options: ['Sumbing dan Sindoro', 'Bromo dan Semeru', 'Merapi dan Lawu'],
+    answer: 0,
+    feedback: 'Sumbing dan Sindoro juga hadir pada lambang daerah Temanggung.',
+  },
+  {
+    id: 'motif',
+    question: 'Tanaman apa yang menginspirasi motif Batik Mbako?',
+    options: ['Kelapa', 'Tembakau', 'Teh'],
+    answer: 1,
+    feedback: 'Tanaman tembakau menjadi inspirasi motif Batik Mbako.',
+  },
+  {
+    id: 'pemuda',
+    question: 'Apa bekal penting untuk memanfaatkan bonus demografi?',
+    options: ['Menunggu kesempatan datang', 'Mengandalkan jumlah penduduk saja', 'Mengembangkan kualitas dan keterampilan'],
+    answer: 2,
+    feedback: 'Kualitas sumber daya manusia membantu peluang demografi menjadi manfaat.',
+  },
+];
+
+export const misi = [
+  {
+    id: 'kuis',
+    title: 'Selesaikan kuis budaya',
+    description: 'Uji pemahamanmu setelah mengenal lima bab.',
+    kind: 'quiz',
+  },
+  {
+    id: 'cerita',
+    title: 'Dengarkan satu cerita lokal',
+    description: 'Tanyakan kepada orang tua atau perajin, dengan menghargai waktu dan izin mereka.',
+    kind: 'manual',
+  },
+  {
+    id: 'bagikan',
+    title: 'Bagikan satu fakta Temanggung',
+    description: 'Ceritakan kepada teman dan sertakan sumbernya.',
+    kind: 'manual',
+  },
+];
 
 function node(tag, className, text) {
   const element = document.createElement(tag);
   if (className) element.className = className;
   if (text !== undefined) element.textContent = text;
-  return element;
-}
-function node(tag, className, text) {
-  const elemen = document.createElement(tag);
-  if (className) element.className = className;
-  if (text) element.textContent = text;
   return element;
 }
 export function setupEngagement(story, actions) {

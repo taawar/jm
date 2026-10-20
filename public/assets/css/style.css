@@ -290,6 +290,7 @@ body[data-media='kosong'] .chapter-figure{
 }
 .brand-emphasis {
   font-weight: 700;
+  color: var(--emas)
 }
 .main-nav {
   display: flex;
@@ -482,24 +483,6 @@ body[data-media='kosong'] .chapter-figure{
   height: var(--stroke);
   background: var(--emas);
   flex-shrink: 0;
-}
-.hero-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--space-6);
-  padding-block: var(--space-6);
-  border-top: var(--stroke) solid var(--border-light);
-  font-size: var(--text-label);
-  color: var(--lembut-gelap);
-}
-.hero-bottom > span:last-child {
-  letter-spacing: 0.08em;
-  font-size: var(--text-label);
-}
-.hero-bottom > span:last-child span {
-  margin-inline: var(--space-3);
-  color: var(--emas);
 }
 .journey-intro {
   background: var(--mori);
@@ -1234,16 +1217,6 @@ input {
   .caption-line {
     display: none;
   }
-  .hero-bottom {
-    align-items: start;
-  }
-  .hero-bottom > span {
-    max-width: 28ch;
-  }
-  .hero-bottom > span:last-child {
-    max-width: 30ch;
-    text-align: right;
-  }
   .intro-heading {
     align-items: start;
     flex-direction: column;
@@ -1343,16 +1316,7 @@ input {
   .scroll-cue {
     display: none;
   }
-  .hero-bottom {
-    padding-block: var(--space-5);
-  }
-  .hero-bottom > span:first-child {
-    font-size: var(--text-label);
-    max-width: 26ch;
-  }
-  .hero-bottom > span:last-child {
-    display: none;
-  }
+  
   .journey-intro {
     padding-block: var(--space-16);
   }
@@ -2062,7 +2026,7 @@ body[data-theme='nila'] .canting-drop {
   content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background: linear-gradient(90deg, rgba(12,20,39,.92), rgba(12,20,39,.55) 65%, rgba(12,20,39,.25));
 }
-.hero-photo-full .hero-bottom { position: relative; z-index: 2; }
+.hero-photo-full { position: relative; z-index: 2; }
 .hero-photo-full .hero-description { color: var(--krem-gelap); }
 @media (max-width: 800px) {
   .hero-photo-full .hero-inner { min-height: 75svh; }

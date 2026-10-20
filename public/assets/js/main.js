@@ -1,6 +1,6 @@
 import { setupCanting } from './story-scenes.js';
 import { freshProgress, validateProgress, storageKey, readStoredProgress, writeStoredProgress } from './progress-model.js';
-import { setupEngagement } from './engagement.js';
+import { setupEngagement, kuis, misi } from './engagement.js';
 
 const themes = new Set(['nila', 'kabut', 'lereng', 'mori', 'daun']);
 let story;
@@ -66,7 +66,7 @@ function setupDialogs() {
   });
   document.querySelector('#journey-open').addEventListener('click', function (event) {
     if (!story) {
-      showToast('Cerita belum termuat. Coba muat ulang melalui bagian cerita.');
+      showToast('Cerita belum termuat, coba refresh halaman ini');
       return;
     }
     document.querySelector('#nickname').value = progress.nickname;
@@ -157,13 +157,6 @@ function safeAsset(path) {
   return url.pathname;
 }
 
-function renderHero() {
-  document.querySelector('#hero-eyebrow').textContent = story.hero.eyebrow;
-  document.querySelector('#hero-subtitle').textContent = story.hero.subtitle;
-  document.querySelector('#hero-description').textContent = story.hero.description;
-
-}
-
 function renderNavigation() {
   const overview = document.querySelector('#chapter-overview');
   const rail = document.querySelector('#chapter-rail');
@@ -186,75 +179,38 @@ function renderNavigation() {
   }
 }
 
-function renderChapter(chapter, index) {
-  const section = element('section', 'chapter');
-  section.id = chapter.id;
-  section.dataset.theme = themes.has(chapter.theme) ? chapter.theme : 'mori';
-  section.setAttribute('aria-labelledby', chapter.id + '-title');
-  const header = element('div', 'chapter-header');
-  const titleGroup = element('div');
-  const label = 'BAB ' + String(chapter.number).padStart(2, '0') + ' / ' + chapter.eyebrow;
-  titleGroup.append(element('p', 'eyebrow', label));
-  const title = element('h2', '', chapter.title);
-  title.id = chapter.id + '-title';
-  title.tabIndex = -1;
-  titleGroup.append(title);
-  const stamp = element('span', 'chapter-stamp', String(chapter.number).padStart(2, '0'));
-  stamp.setAttribute('aria-hidden', 'true');
-  header.append(titleGroup, stamp);
-  const isiBab = element('div', 'chapter-content');
-  const pesanKunci = element(
-    'p',
-    'field-note chapter-lock-note',
-    'Selesaikan Bab ' + index + ' dulu untuk membuka bab ini.',
-  );
-  pesanKunci.hidden = true;
-  pesanKunci.setAttribute('role', 'status');
-  const figure = element('figure', 'chapter-figure has-photo');
-  const foto = safeAsset(chapter.photo?.src);
-  if (foto) {
-    const image = element('img', 'chapter-image photo-ready');
-    image.src = foto;
-    image.alt = chapter.photo.alt || chapter.title;
-    image.width = 640;
-    image.height = 560;
-    image.loading = 'lazy';
-    image.decoding = 'async';
-    image.addEventListener('error', () => { figure.hidden = true; }, { once: true });
-    figure.append(image);
-  }
-  const prose = element('div', 'chapter-prose');
-  for (const paragraph of chapter.paragraphs) prose.append(element('p', '', paragraph));
-  const lesson = element('div', 'lesson');
-  lesson.append(element('p', 'eyebrow', 'BEKAL UNTUK PEMUDA'), element('p', '', chapter.lesson));
-  const end = element('div', 'chapter-end');
-  const status = element('span', 'chapter-completion', 'Tandai selesai dengan melanjutkan');
-  status.dataset.status = chapter.id;
-  const nextButton = element('button', 'button button-primary', chapter.nextLabel);
-  nextButton.type = 'button';
-  const arrow = element('span', '', '→');
-  arrow.setAttribute('aria-hidden', 'true');
-  nextButton.append(arrow);
-  nextButton.addEventListener('click', function () { completeChapter(chapter, index); });
-  end.append(status, nextButton);
-  isiBab.append(element('p', 'chapter-summary', chapter.summary));
-  if (foto && chapter.photoLayout === 'kanan') {
-    // teks di kiri, foto di kanan; di HP disusun ke bawah
-    const isi = element('div', 'chapter-photo-right');
-    isi.append(prose, figure);
-    isiBab.append(isi);
-  } else {
-    if (foto) isiBab.append(figure);
-    isiBab.append(prose);
-  }
-  if (chapter.reflection) {
-    const reflection = element('aside', 'chapter-reflection');
-    reflection.append(element('p', 'eyebrow', 'COBA PIKIRKAN'), element('p', '', chapter.reflection));
-    isiBab.append(reflection);
-  }
-  isiBab.append(lesson, end);
-  section.append(header, pesanKunci, isiBab);
-  return section;
+function ambilBabDariHalaman(naskah) {
+  return [...document.querySelectorAll('#chapters > .chapter')].map(function (bagian, index) {
+    const id = bagian.id;
+    const judul = bagian.querySelector('h2');
+    const label = bagian.querySelector('.chapter-header .eyebrow').textContent;
+    const foto = bagian.querySelector('.chapter-image');
+    if (foto) foto.addEventListener('error', function () { foto.closest('figure').hidden = true; }, { once: true });
+    const paragraf = naskah.bab.find(function (bab) { return bab.id === id; })?.paragraphs;
+    if (!Array.isArray(paragraf)) throw new Error('chapter-paragraphs-missing');
+
+    const isi = bagian.querySelector('.chapter-prose');
+    isi.replaceChildren(...paragraf.map(function (teks) { return element('p', '', teks); }));
+    const tombol = bagian.querySelector('.chapter-end button');
+    const bab = {
+      id,
+      number: Number(bagian.dataset.number),
+      title: judul.textContent,
+      shortTitle: bagian.dataset.shortTitle,
+      theme: bagian.dataset.theme,
+      eyebrow: label.split('/').slice(1).join('/').trim(),
+      summary: bagian.querySelector('.chapter-summary').textContent,
+      paragraphs: paragraf,
+      lesson: bagian.querySelector('.lesson > p:last-child').textContent,
+      photo: foto ? { src: safeAsset(foto.getAttribute('src')), alt: foto.alt } : { src: '', alt: '' },
+      photoLayout: bagian.querySelector('.chapter-photo-right') ? 'kanan' : '',
+      reflection: bagian.querySelector('.chapter-reflection > p:last-child')?.textContent || '',
+      nextLabel: tombol.firstChild.textContent.trim(),
+    };
+    tombol.addEventListener('click', function () { completeChapter(bab, index); });
+    bagian.hidden = false;
+    return bab;
+  });
 }
 
 // Bab berikutnya terbuka setelah bab sebelumnya selesai.
@@ -320,7 +276,7 @@ function updateProgressUI() {
   const start = document.querySelector('#start-story');
   const lastChapter = progress.lastChapter || story.bab[0].id;
   start.href = '#' + lastChapter;
-  start.replaceChildren(document.createTextNode(progress.lastChapter ? 'Lanjutkan cerita ' : story.hero.cta + ' '));
+  start.replaceChildren(document.createTextNode(progress.lastChapter ? 'Lanjutkan cerita ' : 'Mulai cerita '));
   const arrow = element('span', '', '↗');
   arrow.setAttribute('aria-hidden', 'true');
   start.append(arrow);
@@ -343,7 +299,7 @@ function focusChapter(id) {
 
 function completeChapter(chapter, index) {
   if (!babBolehDibuka(chapter.id)) {
-    showToast('Selesaikan bab sebelumnya dulu ya.');
+    showToast('Selesaikan bab sebelumnya dulu yaa');
     return;
   }
   if (!progress.completedChapters.includes(chapter.id)) progress.completedChapters.push(chapter.id);
@@ -458,21 +414,18 @@ async function loadStory() {
   loading = true;
   const retry = document.querySelector('#retry-story');
   const chapters = document.querySelector('#chapters');
-  const loadState = document.querySelector('#load-state');
   retry.hidden = true;
   chapters.setAttribute('aria-busy', 'true');
   document.querySelector('#load-message').textContent = 'Menyiapkan perjalananmu…';
   try {
     const response = await fetch('/api/story', { signal: AbortSignal.timeout(10000) });
     if (!response.ok) throw new Error('story-unavailable');
-    story = await response.json();
-    if (!Array.isArray(story.bab) || story.bab.length === 0) throw new Error('story-invalid');
+    const naskah = await response.json();
+    if (!Array.isArray(naskah.bab) || naskah.bab.length === 0) throw new Error('story-invalid');
+    story = { bab: ambilBabDariHalaman(naskah), kuis, misi };
     progress = loadProgress();
-    renderHero();
     renderNavigation();
-    const fragment = document.createDocumentFragment();
-    for (const [index, chapter] of story.bab.entries()) fragment.append(renderChapter(chapter, index));
-    chapters.replaceChildren(fragment);
+    document.querySelector('#load-state').hidden = true;
     if (engagement) engagement.destroy();
     engagement = setupEngagement(story, {
       getProgress: function () { return progress; },
@@ -505,7 +458,8 @@ async function loadStory() {
     if (engagement) { engagement.destroy(); engagement = null; }
     document.querySelector('#engagement-sections').hidden = true;
     story = null;
-    chapters.replaceChildren(loadState);
+    for (const bab of chapters.querySelectorAll('.chapter')) bab.hidden = true;
+    document.querySelector('#load-state').hidden = false;
     document.querySelector('#load-message').textContent = 'Cerita belum dapat dimuat. Pastikan server lokal berjalan, lalu coba lagi.';
     retry.hidden = false;
   } finally {
