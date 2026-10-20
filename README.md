@@ -68,4 +68,11 @@ Website ini masih sedikit dan rencananya saya ingin mengembangkan lebih lanjut d
 
 ## Menjalankan
 
-Untuk menjalankan harus install nodejs v22 keatas lalu di terminal ketik npm install lalu npm run dev
+Untuk menjalankan website di komputer sendiri, pastikan **Node.js versi 22 atau lebih baru** sudah terpasang. Setelah itu, buka terminal di folder project dan jalankan:
+
+```bash
+npm install
+npm run dev
+```
+
+Kalau server sudah aktif, buka **http://localhost:3000** di browser. Untuk menghentikan server, tekan **Ctrl + C** di terminal.
