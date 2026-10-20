@@ -119,6 +119,9 @@ export function setupEngagement(story, actions) {
     const note = node('p', '', mission.description);
     note.id = 'mission-note-' + mission.id;
     row.append(label, note);
+    const pesanKunci = node('p', 'field-note', 'Selesaikan misi sebelumnya dulu.');
+    pesanKunci.hidden = true;
+    row.append(pesanKunci);
     if (mission.kind === 'quiz') {
       const link = node('a', 'text-link', 'Buka kuis ↗');
       link.href = '#kuis';
@@ -131,16 +134,25 @@ export function setupEngagement(story, actions) {
         });
       });
     }
-    checkboxes.set(mission.id, checkbox);
+    checkboxes.set(mission.id, { checkbox, pesanKunci });
     missionRoot.append(row);
   }
   function sync() {
     const progress = actions.getProgress();
     const signature = JSON.stringify(progress.quiz);
     if (signature !== quizSignature) { quizSignature = signature; renderQuiz(); }
-    for (const [id, checkbox] of checkboxes) {
-      checkbox.checked = progress.completedMissions.includes(id);
+    for (const [index, mission] of story.misi.entries()) {
+      const { checkbox, pesanKunci } = checkboxes.get(mission.id);
+      const sebelumnyaSelesai = story.misi
+        .slice(0, index)
+        .every(function (item) { return progress.completedMissions.includes(item.id); });
+
+      checkbox.checked = progress.completedMissions.includes(mission.id);
+      checkbox.disabled = mission.kind === 'quiz' || !sebelumnyaSelesai;
       checkbox.closest('li').classList.toggle('is-complete', checkbox.checked);
+      const terkunci = mission.kind !== 'quiz' && !sebelumnyaSelesai;
+      pesanKunci.textContent = 'Selesaikan misi ' + index + ' dulu untuk membuka misi ini.';
+      pesanKunci.hidden = !terkunci;
     }
     const count = progress.completedMissions.length;
     document.querySelector('#mission-count').textContent = count + ' dari ' + story.misi.length + ' misi selesai';

@@ -92,7 +92,6 @@ app.get('/api/health', (c) => {
   return c.json({
     status: 'ok',
     app: 'Jejak Mbako',
-    phase: story.meta.phase,
   });
 });
 

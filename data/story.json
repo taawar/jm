@@ -1,7 +1,4 @@
 {
-  "meta": {
-    "phase": 4
-  },
   "hero": {
     "eyebrow": "TEMANGGUNG, JAWA TENGAH",
     "subtitle": "Setiap daun punya cerita.",
@@ -18,12 +15,13 @@
       "eyebrow": "MENGENAL AKAR",
       "summary": "Sebelum mengenal sehelai kain, mari mengenal tanah tempat ceritanya bermula.",
       "paragraphs": [
-      ""
+        "Temanggung berada di antara Gunung Sumbing dan Gunung Sindoro. Bentang alam ini menjadi bagian dari identitas daerah dan sering kita lihat dalam cerita maupun lambangnya.",
+        "Di Temanggung, pemandangan alam bertemu dengan kebun, lahan pertanian, dan ruang bersama seperti alun-alun. Dari tempat-tempat inilah kita mulai mengenal lingkungan yang membentuk kehidupan masyarakat."
       ],
       "lesson": "Mengenal tempat asal adalah langkah pertama untuk menemukan potensi yang bisa kamu kembangkan.",
       "photo": {
-        "src": "",
-        "alt": ""
+        "src": "/assets/img/gunung-temanggung.jpg",
+        "alt": "Pemandangan gunung di Temanggung dengan jalan dan skuter biru"
       },
       "nextLabel": "Lanjut ke Bab 2"
     },
@@ -36,7 +34,8 @@
       "eyebrow": "MENGHARGAI MANUSIA",
       "summary": "Di balik setiap daun, ada tangan yang merawat dan pengetahuan yang tumbuh.",
       "paragraphs": [
-        ""
+        "Tembakau dikenal sebagai salah satu hasil perkebunan Temanggung. Kopi juga tumbuh di daerah ini. Data BPS Kabupaten Temanggung mencatat keduanya dalam produksi perkebunan daerah.",
+        "Di balik hasil bumi ada orang-orang yang merawat tanaman dan mengolah hasil panen. Karena itu, cerita tentang tembakau juga bisa menjadi kesempatan untuk mengenal pekerjaan dan pengetahuan masyarakat dengan lebih dekat."
       ],
       "lesson": "Kreativitas tumbuh saat kamu mau mengamati, mendengarkan, dan menghargai kerja orang lain.",
       "nextLabel": "Lanjut ke Bab 3",
@@ -56,7 +55,8 @@
       "eyebrow": "MENEMUKAN KREATIVITAS",
       "summary": "Bentuk yang akrab di kebun menemukan kehidupan baru di atas kain.",
       "paragraphs": [
-        ""
+        "Salah satu laporan Media Center Kabupaten Temanggung mencatat Batik Mbako mulai dibuat pada 2009. Motif tanaman tembakau dipilih untuk mengangkat hasil pertanian yang lekat dengan Temanggung.",
+        "Batik Mbako kemudian berkembang dengan motif yang terinspirasi dari berbagai hasil bumi, termasuk daun tembakau dan kopi. Kain ini menunjukkan bagaimana sesuatu yang dekat dengan kehidupan daerah dapat diolah menjadi karya."
       ],
       "lesson": "Coba lihat hal yang biasa di sekitarmu sebagai awal dari gagasan yang baru.",
       "photo": {
@@ -74,7 +74,8 @@
       "eyebrow": "MENGHARGAI PROSES",
       "summary": "Sebuah gagasan perlu keterampilan dan ketekunan untuk menjadi karya.",
       "paragraphs": [
-        ""
+        "Batik Mbako dikenal melalui motifnya yang terinspirasi dari tanaman dan hasil bumi Temanggung. Dalam proses membatik, perajin menggunakan teknik seperti batik tulis atau batik cap dengan malam sebagai perintang warna.",
+        "Daun tembakau juga pernah diteliti sebagai bahan pewarna alami untuk kain. Penelitian tersebut merupakan uji coba, jadi tidak berarti semua Batik Mbako dibuat dengan pewarna dari tembakau."
       ],
       "lesson": "Ide yang baik perlu dilatih, diuji, dan dikerjakan dengan tekun.",
       "photo": {
@@ -92,7 +93,9 @@
       "eyebrow": "MEMBAWA CERITA KE DEPAN",
       "summary": "Warisan bukan hanya sesuatu yang dijaga. Ia juga bisa menjadi awal karya berikutnya.",
       "paragraphs": [
-        ""
+        "Cerita lima bab ini berangkat dari mengenal daerah, menghargai pekerjaan masyarakat, menemukan inspirasi, lalu memahami proses sebuah karya. Perjalanan itu menunjukkan bahwa belajar bisa dimulai dari hal-hal yang dekat dengan kita.",
+        "Bonus demografi memberi peluang ketika penduduk usia produktif memiliki kemampuan dan kesempatan untuk berkembang. Pemuda dapat ikut mengambil peran dengan belajar, berkarya, dan mengenalkan budaya lokal secara bertanggung jawab.",
+        "Kita tidak harus melakukan semuanya sekaligus. Mendengarkan cerita perajin, mengamati lingkungan, atau membagikan informasi yang sudah diperiksa bisa menjadi langkah kecil untuk meneruskan cerita daerah."
       ],
       "lesson": "Budaya lokal bisa menjadi bekal berkarya. Cerita berikutnya dapat dimulai dari kamu.",
       "nextLabel": "Selesaikan perjalanan",

@@ -544,6 +544,10 @@ body[data-media='kosong'] .chapter-figure{
 .overview-link:hover {
   background: var(--putih);
 }
+.is-locked {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
 .overview-number {
   font-family: var(--font-title);
   font-size: var(--text-h3);
@@ -1039,6 +1043,9 @@ input {
   font-size: var(--text-label);
   color: var(--tinta-lembut);
   margin-top: var(--space-2);
+}
+.chapter-lock-note {
+  margin-top: var(--space-5);
 }
 .journey-chapters {
   list-style: none;

@@ -81,7 +81,6 @@ try {
     JSON.stringify(
       {
         checkedAt: new Date().toISOString(),
-        phase: JSON.parse(storyBytes).meta.phase,
         localFiles: files.length,
         totalBytes,
         sizes,

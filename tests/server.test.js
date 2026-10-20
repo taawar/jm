@@ -51,8 +51,8 @@ test('API dan perlindungan data Jejak Mbako', async function (t) {
     const response = await fetch(origin + '/api/story');
     assert.equal(response.headers.get('cache-control'), 'no-store');
     const story = await response.json();
-    assert.equal(healthData.phase, story.meta.phase);
-    for (const key of ['meta', 'hero', 'bab', 'kuis', 'misi']) assert.ok(story[key], key);
+    assert.equal(healthData.app, 'Jejak Mbako');
+    for (const key of ['hero', 'bab', 'kuis', 'misi']) assert.ok(story[key], key);
     assert.equal(story.bab.length, 5);
     for (const chapter of story.bab) {
       if (chapter.photo.src) assert.equal((await fetch(origin + chapter.photo.src)).status, 200);

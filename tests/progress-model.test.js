@@ -62,7 +62,7 @@ test('round-trip progres lengkap tetap menyimpan semua misi', function () {
 });
 
 test('kuis dan misi lengkap, jawaban kuis valid', async function () {
-  assert.ok(story.meta.phase >= 3);
+  assert.equal(story.bab.length, 5);
   assert.equal(story.kuis.length, 3);
   assert.equal(story.misi.length, 3);
   for (const question of story.kuis) {

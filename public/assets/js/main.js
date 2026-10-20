@@ -202,6 +202,14 @@ function renderChapter(chapter, index) {
   const stamp = element('span', 'chapter-stamp', String(chapter.number).padStart(2, '0'));
   stamp.setAttribute('aria-hidden', 'true');
   header.append(titleGroup, stamp);
+  const isiBab = element('div', 'chapter-content');
+  const pesanKunci = element(
+    'p',
+    'field-note chapter-lock-note',
+    'Selesaikan Bab ' + index + ' dulu untuk membuka bab ini.',
+  );
+  pesanKunci.hidden = true;
+  pesanKunci.setAttribute('role', 'status');
   const figure = element('figure', 'chapter-figure has-photo');
   const foto = safeAsset(chapter.photo?.src);
   if (foto) {
@@ -229,23 +237,49 @@ function renderChapter(chapter, index) {
   nextButton.append(arrow);
   nextButton.addEventListener('click', function () { completeChapter(chapter, index); });
   end.append(status, nextButton);
-  section.append(header, element('p', 'chapter-summary', chapter.summary));
+  isiBab.append(element('p', 'chapter-summary', chapter.summary));
   if (foto && chapter.photoLayout === 'kanan') {
     // teks di kiri, foto di kanan; di HP disusun ke bawah
     const isi = element('div', 'chapter-photo-right');
     isi.append(prose, figure);
-    section.append(isi);
+    isiBab.append(isi);
   } else {
-    if (foto) section.append(figure);
-    section.append(prose);
+    if (foto) isiBab.append(figure);
+    isiBab.append(prose);
   }
   if (chapter.reflection) {
     const reflection = element('aside', 'chapter-reflection');
     reflection.append(element('p', 'eyebrow', 'COBA PIKIRKAN'), element('p', '', chapter.reflection));
-    section.append(reflection);
+    isiBab.append(reflection);
   }
-  section.append(lesson, end);
+  isiBab.append(lesson, end);
+  section.append(header, pesanKunci, isiBab);
   return section;
+}
+
+// Bab berikutnya terbuka setelah bab sebelumnya selesai.
+function babBolehDibuka(id) {
+  const posisi = story.bab.findIndex(function (bab) { return bab.id === id; });
+  return posisi >= 0 && posisi <= progress.completedChapters.length;
+}
+
+function aturKunciBab() {
+  for (const bab of story.bab) {
+    const bagian = document.getElementById(bab.id);
+    if (!bagian) continue;
+
+    const terkunci = !babBolehDibuka(bab.id);
+    bagian.querySelector('.chapter-content').hidden = terkunci;
+    bagian.querySelector('.chapter-lock-note').hidden = !terkunci;
+  }
+
+  for (const tautan of document.querySelectorAll('a[href^="#bab-"]')) {
+    const terkunci = !babBolehDibuka(tautan.hash.slice(1));
+    tautan.setAttribute('aria-disabled', String(terkunci));
+    tautan.classList.toggle('is-locked', terkunci);
+    if (terkunci) tautan.title = 'Selesaikan bab sebelumnya dulu';
+    else tautan.removeAttribute('title');
+  }
 }
 
 function updateProgressUI() {
@@ -290,6 +324,7 @@ function updateProgressUI() {
   const arrow = element('span', '', '↗');
   arrow.setAttribute('aria-hidden', 'true');
   start.append(arrow);
+  aturKunciBab();
   updateStorageNote();
   const quizStatus = document.querySelector('#journey-quiz-status');
   quizStatus.textContent = progress.quiz?.completed ? 'Kuis selesai · ' + progress.quiz.score + ' dari ' + progress.quiz.total + ' benar' : progress.quiz?.answers.length ? 'Kuis · ' + progress.quiz.answers.length + ' soal dijawab' : 'Kuis belum dimulai';
@@ -307,6 +342,10 @@ function focusChapter(id) {
 }
 
 function completeChapter(chapter, index) {
+  if (!babBolehDibuka(chapter.id)) {
+    showToast('Selesaikan bab sebelumnya dulu ya.');
+    return;
+  }
   if (!progress.completedChapters.includes(chapter.id)) progress.completedChapters.push(chapter.id);
   const next = story.bab[index + 1];
   if (next) progress.lastChapter = next.id;
@@ -325,7 +364,7 @@ function completeChapter(chapter, index) {
 
 function markActiveChapter(chapterId) {
   const chapter = story.bab.find(function (item) { return item.id === chapterId; });
-  if (!chapter) return;
+  if (!chapter || !babBolehDibuka(chapterId)) return;
   document.body.dataset.theme = themes.has(chapter.theme) ? chapter.theme : 'mori';
   setActiveNavigation(chapterId);
   for (const link of document.querySelectorAll('.rail-link')) {
@@ -450,7 +489,12 @@ async function loadStory() {
     if (stopCanting) stopCanting();
     stopCanting = setupCanting();
     if (window.location.hash) {
-      const target = document.getElementById(window.location.hash.slice(1));
+      let target = document.getElementById(window.location.hash.slice(1));
+      if (target?.classList.contains('chapter') && !babBolehDibuka(target.id)) {
+        target = document.getElementById(story.bab[progress.completedChapters.length].id);
+        window.location.hash = target.id;
+        showToast('Selesaikan bab sebelumnya dulu ya.');
+      }
       if (target) target.scrollIntoView({ behavior: 'instant', block: 'start' });
     }
     setActiveNavigation(window.location.hash.slice(1));
@@ -473,6 +517,22 @@ async function loadStory() {
 setupDialogs();
 setupMenu();
 setupProgressActions();
-window.addEventListener('hashchange', function () { setActiveNavigation(window.location.hash.slice(1)); });
+document.addEventListener('click', function (event) {
+  const tautan = event.target.closest('a[href^="#bab-"]');
+  if (!tautan || !story || babBolehDibuka(tautan.hash.slice(1))) return;
+  event.preventDefault();
+  event.stopImmediatePropagation();
+  showToast('Selesaikan bab sebelumnya dulu ya.');
+}, true);
+window.addEventListener('hashchange', function () {
+  const id = window.location.hash.slice(1);
+  if (story && id.startsWith('bab-') && !babBolehDibuka(id)) {
+    const babTerbuka = story.bab[progress.completedChapters.length];
+    if (babTerbuka) window.location.hash = babTerbuka.id;
+    showToast('Selesaikan bab sebelumnya dulu ya.');
+    return;
+  }
+  setActiveNavigation(id);
+});
 document.querySelector('#retry-story').addEventListener('click', loadStory);
 loadStory();

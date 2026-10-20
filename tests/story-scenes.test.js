@@ -22,7 +22,7 @@ test('pengukuran kosong atau tidak valid tidak menghasilkan NaN', function () {
 });
 
 test('ID bab lama tetap kompatibel dan interaksi fase 2 memiliki konten lengkap', function () {
-  assert.ok(story.meta.phase >= 2);
+  assert.ok(story.bab.every(function (chapter) { return chapter.paragraphs.length > 0; }));
   assert.deepEqual(story.bab.map(function (chapter) { return chapter.id; }), ['bab-1', 'bab-2', 'bab-3', 'bab-4', 'bab-5']);
 
 });
